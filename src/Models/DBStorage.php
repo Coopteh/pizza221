@@ -5,7 +5,7 @@ use PDO;
 
 class DBStorage 
 {
-    const DNS = 'mysql:dbname=burgerkrig;host=localhost';
+    const DNS = 'mysql:dbname=mydb1;host=localhost';
     const USER = 'root';
     const PASSWORD = '';
 

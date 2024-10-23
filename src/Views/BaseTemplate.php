@@ -23,7 +23,7 @@ class BaseTemplate {
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
-                    </div>
+                    </div>               
                 </div>
                 </div>
             </nav>
@@ -37,6 +37,17 @@ class BaseTemplate {
         END;
         return $template;
     }
+/*
+                    <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/login">Вход</a>
+                    </div>
+                    <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/users">Список пользователей</a>
+                    </div>
+                    <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/add_user">Добавить пользователя</a>
+                    </div>
+*/
 
     // Добавим flash сообщение
     public static function getSimpleFlash(string $str): string 
