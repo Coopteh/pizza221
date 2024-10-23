@@ -1,0 +1,14 @@
+{
+    "name": "coopteh/web",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Coop Teh",
+            "email": "noname@coopteh.ru"
+        }
+    ]
+}
