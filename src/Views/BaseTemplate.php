@@ -18,7 +18,7 @@ class BaseTemplate
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="/../../assets/images/logo.png" alt="Логотип компании" width="64" height="64">
+                        <img src="./assets/images/logo.png" alt="Логотип компании" width="64" height="64">
                         ПИЦЦЕРИЯ ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@ class BaseTemplate
         
             %s
 
-            <footer class="mt-5">
+            <footer class="mt-3 p-3">
                 © 2025 «Кемеровский кооперативный техникум»
             <footer>
         </body>
