@@ -1,8 +1,8 @@
 <?php 
 require_once("./vendor/autoload.php");
 
-use App\Views\BaseTemplate;
+use App\Views\HomeTemplate;
 
-$template = BaseTemplate::getTemplate();
-$resultTemplate = sprintf($template, "Основная страница", "Просто текст");
-echo $resultTemplate;
+$template = HomeTemplate::getTemplate();
+
+echo $template;
