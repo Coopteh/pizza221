@@ -1,0 +1,21 @@
+.carousel-item img {
+    margin: 0 auto; 
+    max-width: 80%; 
+    height: auto;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: black;
+    width: 40px; 
+    height: 40px;
+    top: 50%;
+}
+
+.carousel-control-prev {
+    left: 10%;
+}
+
+.carousel-control-next {
+    right: 10%;
+}
