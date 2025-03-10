@@ -1,8 +1,7 @@
-<?php 
+<?php
+
 require_once("./vendor/autoload.php");
+use App\Controllers\HomeController; 
 
-use App\Views\BaseTemplate;
-
-$template = BaseTemplate::getTemplate();
-$resultTemplate = sprintf($template, "Основная страница", "Просто текст");
-echo $resultTemplate;
+$controller = new HomeController();
+echo $controller->get();
