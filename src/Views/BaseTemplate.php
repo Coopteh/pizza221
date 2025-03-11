@@ -1,5 +1,6 @@
 <?php 
 namespace App\Views;
+
 class BaseTemplate 
 {
     public static function getTemplate(): string {
@@ -27,7 +28,10 @@ class BaseTemplate
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                        <a class="nav-link active" aria-current="page" href="http://localhost/pizza221/">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/pizza221/about">О нас</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
@@ -41,8 +45,8 @@ class BaseTemplate
             %s
 
             <footer class="mt-5">
-                © 2025 «Кемеровский кооперативный техникум»
-            <footer>
+                &copy; 2025 «Кемеровский кооперативный техникум»
+            </footer>
         </body>
         </html>
         LINE;
@@ -50,3 +54,4 @@ class BaseTemplate
         return $template;
     }
 }
+
