@@ -3,23 +3,23 @@ namespace App\Views;
 class BaseTemplate 
 {
     public static function getTemplate(): string {
-        $template = <<<LINE
+        $template = <<<HTML
         <!DOCTYPE html>
         <html lang="ru">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
-            <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-            <script src="../../assets/css/bootstrap.bundle.js"></script>
+            <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
+            <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
         </head>
         <body>
             <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="/../../assets/images/logo.png" alt="Логотип компании" width="64" height="64">
-                        ПИЦЦЕРИЯ ИС-221
+                        <img src="https://cdn1.flamp.ru/a68cf10eaf78dd7932b20da75a10381d.jpg" alt="Логотип компании" width="64" height="64">
+                        Обвуной магазин ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -45,7 +45,7 @@ class BaseTemplate
             <footer>
         </body>
         </html>
-        LINE;
+        HTML;
 
         return $template;
     }

@@ -1,8 +1,13 @@
-<?php 
-require_once("./vendor/autoload.php");
+<?php
+namespace App\Controllers;
 
-use App\Views\BaseTemplate;
+require_once __DIR__ . '/vendor/autoload.php';
 
-$template = BaseTemplate::getTemplate();
-$resultTemplate = sprintf($template, "Основная страница", "Просто текст");
-echo $resultTemplate;
+use App\Router\Router;
+use App\Controllers\HomeController;
+
+$router = new Router();
+$controller = new HomeController();
+$url = $_SERVER['REQUEST_URI']; 
+echo $router->route($url);
+echo $controller->get();
