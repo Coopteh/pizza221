@@ -18,7 +18,7 @@ class BaseTemplate
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="https://cdn1.flamp.ru/a68cf10eaf78dd7932b20da75a10381d.jpg" alt="Логотип компании" width="64" height="64">
+                        <img src="/pizza221/assets/images/logotip.png" alt="Логотип компании" width="64" height="64">
                         Обвуной магазин ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

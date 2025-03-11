@@ -6,11 +6,11 @@ use App\Controllers\AboutController;
 use App\Controllers\HomeController;
 
 class Router {
-    public function route(string $url): ?string {
-        $path = parse_url($url, PHP_URL_PATH);  // Получаем путь из URL
-        $pieces = explode("/", $path);  // Разбиваем путь на части
-        $resource = $pieces[2] ?? null; // Получаем название ресурса (если оно есть)
-
+    public function route(string $url):?string 
+    {
+        $path = parse_url($url, PHP_URL_PATH);  // /about
+        $pieces = explode("/", $path);  // [0]- пусто, [1]- pizza221, [2]- about
+        $resource = $pieces[2];
         switch ($resource) {
             case "about":
                 $about = new AboutController();
