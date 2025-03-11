@@ -12,13 +12,13 @@ class HomeTemplate extends BaseTemplate {
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-            <img src="https://localhost/AutoParts/assets/images/Auto1.jpg" class="d-block w-100px" alt="...">
+            <img src="https://localhost/AutoParts/assets/images/Auto1.jpg" class="d-block w-100vh" alt="...">
             </div>
             <div class="carousel-item">
-            <img src="https://localhost/AutoParts/assets/images/Auto2.jpg" class="d-block w-100px" alt="...">
+            <img src="https://localhost/AutoParts/assets/images/Auto2.jpg" class="d-block w-100vh" alt="...">
             </div>
             <div class="carousel-item">
-            <img src="https://localhost/AutoParts/assets/images/Auto3.jpg" class="d-block w-100px" alt="...">
+            <img src="https://localhost/AutoParts/assets/images/Auto3.jpg" class="d-block w-100vh" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
