@@ -1,0 +1,19 @@
+{
+    "name": "kkt/pizza221",
+    "description": "Пиццерия на PHP с использованием MVC",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000"
+    },
+    "require-dev": {
+        "phpmetrics/phpmetrics": "^2.8"
+    }
+}
