@@ -9,16 +9,18 @@ class HomeTemplate extends BaseTemplate {
         $template = parent::getTemplate(); 
         $title = 'Главная страница'; 
         $content = <<<Corusel
+        <section> 
+        <div class="h-50 w-50 mx-auto">
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-            <img src="https://localhost/AutoParts/assets/images/Auto1.jpg" class="d-block w-100vh" alt="...">
+            <img src="https://localhost/AutoParts/assets/images/Auto1.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-            <img src="https://localhost/AutoParts/assets/images/Auto2.jpg" class="d-block w-100vh" alt="...">
+            <img src="https://localhost/AutoParts/assets/images/Auto2.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-            <img src="https://localhost/AutoParts/assets/images/Auto3.jpg" class="d-block w-100vh" alt="...">
+            <img src="https://localhost/AutoParts/assets/images/Auto3.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -30,6 +32,8 @@ class HomeTemplate extends BaseTemplate {
             <span class="visually-hidden">Next</span>
         </button>
         </div>
+        </div>
+        </section> 
         <div>
         <p>Здесь можно заказать пиццу с доставкой по городу Кемерово.</p>
         <p>Широкий ассортимент, низкие цены, быстрая доставка!</p>

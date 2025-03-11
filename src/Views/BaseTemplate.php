@@ -28,10 +28,10 @@ Class BaseTemplate {
                             <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                                <a class="nav-link active" aria-current="page" href="http://localhost/AutoParts/">Главная</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
+                                <a class="nav-link" href="http://localhost/AutoParts/about">О нас</a>
                                 </li>
                             </ul>
                             </div>
