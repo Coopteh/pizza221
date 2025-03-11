@@ -18,7 +18,7 @@ class AboutTemplate extends BaseTemplate
         <h3><br> Подготовку будущих квалифицированных специалистов осуществляет высокопрофессиональный коллектив преподавателей техникума. </br></h3>
         <h4>Мы на карте.</br></h4>
 
-        <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <br><div style="display: flex; gap:60px; align-items: flex-start;">
 
         <div style="flex: 1;">
             <div style="position:relative;overflow:hidden;">
@@ -31,12 +31,12 @@ class AboutTemplate extends BaseTemplate
 
         <div style="flex: 1;">
             <div style="width:100%;height:400px;overflow:hidden;position:relative;">
-                <iframe style="width:100%;height:100%;border:1px solid #e6e6e6;border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/1018378103?comments"></iframe>
+                <iframe style="width:100%;height:100%;border:1px solidrgb(0, 0, 0);border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/1018378103?comments"></iframe>
                 <a href="https://yandex.ru/maps/org/kemerovskiy_kooperativny_tekhnikum/1018378103/" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">Кемеровский кооперативный техникум на карте Кемерова — Яндекс Карты</a>
             </div>
         </div>
 
-        </div>
+                </br></div>
 HTML;
 
         $resultTemplate = sprintf($template, $title, $content);
