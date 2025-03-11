@@ -13,7 +13,7 @@ class HomeTemplate extends BaseTemplate {
                         <img src="http://localhost/Pizza221/assets/images/img1.jpg" class="d-block w-50" alt="Первый слайд">
                     </div>
                     <div class="carousel-item">
-                        <img src="http://localhost/Pizza221/assets/images/img2.jpg" class="d-block w-50" alt="Второй слайд">
+                        <img src="http://localhost/Pizza221/assets/images/img2.jpg" class="d-block w-65" alt="Второй слайд">
                     </div>
                     <div class="carousel-item">
                         <img src="http://localhost/Pizza221/assets/images/img3.jpg" class="d-block w-50" alt="Третий слайд">
