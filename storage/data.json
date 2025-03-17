@@ -2,14 +2,14 @@
     {
       "id": 1,
       "name": "Пицца Европа",
-      "image": "/assets/images/puma.png",
+      "image": "pizza221/assets/images/puma.png",
       "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы)",
       "price": 550
     },
     {
       "id": 2,
       "name": "Пицца Пипперони",
-      "image": "/assets/images/fila.png",
+      "image": "pizza221/assets/images/fila.png",
       "description": "Это знаменитая пицца с колбасой и сыром",
       "price": 450
     }

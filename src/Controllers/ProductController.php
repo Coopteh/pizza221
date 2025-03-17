@@ -13,7 +13,7 @@ class ProductController
         $data = $model->loadData();
         if ($id) {
             $data = $data[$id - 1]; // Индексы массива начинаются с 0
-        }
-        return ProductTemplate::getTemplate($data);
+        } 
+        return ProductTemplate::getCardTemplate($data);
     }
 }
