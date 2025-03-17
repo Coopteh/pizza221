@@ -3,6 +3,7 @@ namespace App\Router;
 
 use App\Controllers\AboutController;
 use App\Controllers\HomeController;
+use App\Controllers\ProductController;
 
 class Router {
     public function route(string $url): string {
@@ -14,6 +15,10 @@ class Router {
             case "about":
                 $about = new AboutController();
                 return $about->get();
+            case "products":
+                $productController = new ProductController();
+                $id = ($pieces[3]) ? intval($pieces[3]) : 0;
+                return $productController->get($id);                
             default:
                 $home = new HomeController();
                 return $home->get();
