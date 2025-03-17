@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "{Холодильник двухкамерный}" ,
+    "image": "./../assets/images/t3.png",
+    "description": "",
+    "price": 25000
+  },
+  {
+    "id": 2,
+    "name": "приколл",
+    "image": "./../assets/images/t2.png",
+    "description": "",
+    "price": 35000
+  }
+]
