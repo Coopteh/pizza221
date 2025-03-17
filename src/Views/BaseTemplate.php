@@ -20,9 +20,9 @@ class BaseTemplate
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="pngwing.com.png" alt="Логотип компании" width="64" height="64">
-                    ПИЦЦЕРИЯ ИС-221®
+                <a class="navbar-brand" href="">
+                    <img src="logo.png" alt="Логотип компании" width="64" height="64">
+                    Cerberus
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,13 +30,17 @@ class BaseTemplate
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">Главная</a>
+                    <a class="nav-link active" aria-current="page" href="http://localhost/">Главная</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">В разработке...</a>
+                    <a class="nav-link" href="http://localhost/about">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/product/2">Каталог</a>
                     </li>
                 </ul>
                 </div>
+                
             </div>
         </nav>
      </header>

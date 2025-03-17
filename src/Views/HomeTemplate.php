@@ -18,10 +18,10 @@ class HomeTemplate extends BaseTemplate
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/assets/image/1.png" class="d-block w-35" alt="Первый слайд">
+                    <img src="/assets/image/k1.jpg" class="d-block w-35" alt="Первый слайд">
                 </div>
                 <div class="carousel-item">
-                    <img src="/assets/image/2.png" class="d-block w-35" alt="Второй слайд">
+                    <img src="/assets/image/k2.jpg" class="d-block w-35" alt="Второй слайд">
                 </div>
                 <div class="carousel-item">
                     <img src="/assets/image/3.png" class="d-block w-35" alt="Третий слайд">
@@ -38,7 +38,7 @@ class HomeTemplate extends BaseTemplate
             </button>
         </div>
 
-        <h1><b><strong><u><i>Крутая пицца</i></u></strong></b></h1>
+        
 HTML;
 
         $resultTemplate = sprintf($template, $title, $content);

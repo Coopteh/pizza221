@@ -1,0 +1,16 @@
+[
+    {
+      "id": 1,
+      "name": "xud-cerber",
+      "image": "/assets/image/xud.jpg",
+      "description": "крутой худи",
+      "price": 10000
+    },
+    {
+      "id": 2,
+      "name": "gucci-cerber",
+      "image": "/assets/image/gucci.jpg",
+      "description": "крутая рубашка",
+      "price": 15000 
+    }
+  ]
