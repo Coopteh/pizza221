@@ -48,7 +48,9 @@ class BaseTemplate
                 </nav>
             </header>
         
-            %s
+            <div class="container mt-5 mb-5">
+                %s
+            </div>
 
             <footer class="mt-5">
                 &copy; 2025 «Кемеровский кооперативный техникум»
@@ -60,4 +62,3 @@ class BaseTemplate
         return $template;
     }
 }
-

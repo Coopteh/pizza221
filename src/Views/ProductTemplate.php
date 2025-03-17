@@ -21,7 +21,7 @@ class ProductTemplate extends BaseTemplate
                   <div class="card-body">
                     <h5 class="card-title">' . $data['name'] . '</h5>
                     <p class="card-text">' . $data['description'] . '</p>
-                    <p class="card-text"><small class="text-muted">Цена: ' . $data['price'] . ' руб.</small></p>
+                    <p class="card-text"><small class="text-muted">Цена: ' . $data['price'] . ' руб.<strong></p>
                   </div>
                 </div>
               </div>
