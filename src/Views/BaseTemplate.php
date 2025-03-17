@@ -10,15 +10,15 @@ class BaseTemplate
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
-            <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
-            <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
+            <link rel="stylesheet" href="https://localhost/strax/assets/css/bootstrap.min.css">
+            <script src="https://localhost/strax/assets/js/bootstrap.bundle.js"></script>
         </head>
         <body>
             <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="./assets/images/logo.png" alt="Логотип компании" width="64" height="64">
+                        <img src="./../assets/images/logo.png" alt="Логотип компании" width="64" height="64">
                         Страхование
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

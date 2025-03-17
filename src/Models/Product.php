@@ -1,18 +1,26 @@
-<?php 
+<?php
+
 namespace App\Models;
 
 use App\Configs\Config;
 
 class Product {
     public function loadData(): ?array {
-        $nameFile= Config::FILE_PRODUCTS;
-        
-        $handle = fopen($nameFile, "r");
-        $data = fread($handle, filesize($nameFile)); 
-        fclose($handle);
+        // Открываем файл в режиме чтения
+        if ($file = fopen(Config::FILE_PRODUCTS, 'r')) {
+            // Считываем всё содержимое файла в переменную $data
+            $data = fread($file, filesize(Config::FILE_PRODUCTS));
+            // Закрываем файл
+            fclose($file);
+            
+            // Декодируем строку JSON в ассоциативный массив
+            $arr = json_decode($data, true);
 
-        $arr = json_decode($data, true); 
+            // Возвращаем полученный массив
+            return $arr;
+        }
         
-        return $arr; 
+        // Если открыть файл не удалось, возвращаем null
+        return null;
     }
 }
