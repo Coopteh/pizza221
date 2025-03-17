@@ -13,10 +13,10 @@ class HomeTemplate extends BaseTemplate {
 <div class="carousel-inner">
 <!-- Слайды -->
 <div class="carousel-item active">
-    <img src="/pizza221/assets/images/puma.png" class="d-block w-100" alt="/////">
+    <img src="/pizza221/assets/images/puma.png" class="d-block w-100" alt="///">
 </div>
 <div class="carousel-item">
-    <img src="/pizza221/assets/images/fila.png" class="d-block w-100" alt="////">
+    <img src="/pizza221/assets/images/fila.png" class="d-block w-100" alt="///">
 </div>
 <div class="carousel-item">
     <img src="/pizza221/assets/images/demix.png" class="d-block w-100" alt="///">  
@@ -33,7 +33,7 @@ class HomeTemplate extends BaseTemplate {
 </div>
 </section>
 <main>
-Здесь можно заказать пиццу доставкой по городу Кемерово.<br>
+Здесь можно заказать обвуь доставкой по городу Кемерово.<br>
 Широкий ассортимент, низкие цены, быстрая доставка!<br><br>
 (*) Сайт разработан в рамках обучения в "Кузбасском кооперативном техникуме" по специальности "Специалист по информационным технологиям"
 </main>
