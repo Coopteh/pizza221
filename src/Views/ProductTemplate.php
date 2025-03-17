@@ -11,6 +11,7 @@ class ProductTemplate extends BaseTemplate
         $title = ' Каталог';
         $content = <<<HTML
 
+
         
 
 

@@ -19,12 +19,12 @@ class Router{
             default:
                 $home = new HomeController();
                 return $home->get();
-            case "product":
-                $products = new ProductController();
-                $id =($pieces[2]) ? intval($pieces[2]) : 0;
-                return $products->get( $id);
-            }
 
+            case "product":
+                $product = new ProductController();
+                $id = ($pieces[2]) ? intval($pieces[2]) : 0;
+                return $product->get($id);
+            }
         
     }
 }
