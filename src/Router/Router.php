@@ -8,7 +8,7 @@ class Router {
     public function route(string $url): string {
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", $path);
-        //var_dump($pieces);
+      
         $resource = $pieces[2];
         switch ($resource) {
             case "about":

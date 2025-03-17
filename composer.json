@@ -1,6 +1,6 @@
 {
-    "name": "kkt/pizza221",
-    "description": "Пиццерия на PHP с использованием MVC",
+    "name": "kkt/Straxovanie",
+    "description": "Страхование на PHP с использованием MVC",
     "type": "project",
     "require": {
         "php": ">=7.4"
