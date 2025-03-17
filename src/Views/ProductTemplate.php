@@ -8,6 +8,8 @@ class ProductTemplate extends BaseTemplate
 {
     public static function getCardTemplate($data): string
     {
+        $template = parent::getTemplate();
+        $title = $data['name'];
         $html = '<div class="card mb-3" style="max-width: 540px;">
                   <div class="row g-0">
                     <div class="col-md-4">
@@ -22,6 +24,8 @@ class ProductTemplate extends BaseTemplate
                     </div>
                   </div>
                 </div>';
-        return $html;
+        $resultTemplate = sprintf($template, $title, $html);
+        return $resultTemplate;
+
     }
 }
