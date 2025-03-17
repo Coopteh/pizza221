@@ -34,7 +34,10 @@ class BaseTemplate
                         <a class="nav-link" href="http://localhost/pizza221/about">О нас</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/pizza221/product/1">Меню</a>
+                        <a class="nav-link" href="http://localhost/pizza221/product/1">Завтрак</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/pizza221/product/2">Обед</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
