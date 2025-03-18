@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "name": "Проверка машини",
+      "image": "https://localhost/avtoservis1/assets/images/proverka.png",
+      "description": "Проверяем вашу машину на проблемы",
+      "price": 6999
+    },
+    {
+      "id": 2,
+      "name": "Замена масла",
+      "image": "https://localhost/avtoservis1/assets/images/oil.png",
+      "description": "Заменяем масло",
+      "price": 6000
+    },
+    {"id": 3,
+      "name": "Ремонт",
+      "image": "https://localhost/avtoservis1/assets/images/remont.png",
+      "description": "Ремонтируем вашу машину ",
+      "price": 4000
+    }
+  ]
