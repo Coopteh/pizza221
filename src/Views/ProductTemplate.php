@@ -46,24 +46,21 @@ class ProductTemplate extends BaseTemplate {
       // Для каждого товара
       foreach ($arr as $key => $item) {
           $element_template = <<<HTML
-          <div class="row mb-5">
-              <div class="col-6">
-                  <img src="{$item['image']}" class="w-100">
-              </div>
-              <div class="col-6">
-                  <div class="block mt-3">
-                      <a href="/pizza221/products/{$item['id']}"><h2>{$item['name']}</h2></a>
-                      <p>{$item['description']}</p>
-                      <h3>{$item['price']} ₽</h3>
-                  </div>
-              </div>
-              <hr>
+                  <div class="col-6 col-md-4 mb-4"> <!-- Изменено на col-6 для мобильных и col-md-4 для средних экранов -->
+            <div class="card">
+                <img src="{$item['image']}" class="card-img-top" alt="{$item['name']}">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="/pizza221/products/{$item['id']}">{$item['name']}</a></h5>
+                    <p class="card-text">{$item['description']}</p>
+                    <h6 class="card-price">{$item['price']} ₽</h6>
+                </div>
+            </div>
           </div>
           HTML;
 
           $str .= $element_template;
       }
-      $str .= "</div>";
+      $str .= "</div></div>";
       $resultTemplate = sprintf($template, 'Каталог продукции', $str);
       return $resultTemplate;
   }
