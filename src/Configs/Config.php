@@ -1,6 +1,8 @@
-<?php 
+<?php
+
 namespace App\Configs;
 
-class Config {
-    const FILE_PRODUCTS=".\storage\data.json";
+class Config
+{
+    const FILE_PRODUCTS = "./storage/data.json";
 }
