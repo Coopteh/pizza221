@@ -27,11 +27,12 @@ class BaseTemplate
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                        <a class="nav-link active" aria-current="page" href="/pizza221/">Главная</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="/pizza221/products/">Товары</a>
                         </li>
+                         <a class="nav-link" href="/pizza221/about/">Каталог</a>
                     </ul>
                     </div>
                 </div>
