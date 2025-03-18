@@ -6,7 +6,7 @@ use App\Views\AboutTemplate;
 
 class BasketController {
     public function add():void {
-        sеssion_start();
+        session_start();
         
         if (isset($_POST['id'])) {
             $product_id = $_POST['id'];
@@ -22,8 +22,8 @@ class BasketController {
                     'quantity' => 1
                 ];
             }
-        //var_dump($_SESSION);
-        //exit();
+        var_dump($_SESSION);
+        exit();
             #$_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
     }
@@ -31,7 +31,7 @@ class BasketController {
     Очистка корзины
     */
     public function clear():void {
-        sеssion_start();
+        session_start();
         $_SESSION['basket'] = [];
     }
 }
