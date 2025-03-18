@@ -54,7 +54,7 @@ HTML;
                 </div>
                 <div class="col-6">
                     <div class="block mt-3" >
-                        <a href="http://localhost/products/{$item['id']}"><h2>{$item['name']}</h2></a>
+                        <a href="http://localhost/product/{$item['id']}"><h2>{$item['name']}</h2></a>
                         <p>{$item['description']}</p>
                         <h3>{$item['price']} ₽</h3>
                         <button>Добавить в корзину</button>
