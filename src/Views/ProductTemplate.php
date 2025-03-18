@@ -20,6 +20,10 @@ class ProductTemplate extends BaseTemplate {
                             <h5 class="card-title">{$data['name']}</h5>
                             <p class="card-text">{$data['description']}</p>
                             <p class="card-text"><strong class="text-body-primary">{$data['price']} руб.</strong></p>
+                            <form class="mt-4" action="/pizza221/basket" method="POST">
+                                <input type="hidden" name="id" value="{$data['id']}">
+                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                            </form>
                         </div>
                         <div>
                         </div>
@@ -53,6 +57,10 @@ class ProductTemplate extends BaseTemplate {
                     <h5 class="card-title"><a href="/pizza221/products/{$item['id']}">{$item['name']}</a></h5>
                     <p class="card-text">{$item['description']}</p>
                     <h6 class="card-price">{$item['price']} ₽</h6>
+                    <form class="mt-4" action="/pizza221/basket" method="POST">
+                            <input type="hidden" name="id" value="{$item['id']}">
+                            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                        </form>
                 </div>
             </div>
           </div>
