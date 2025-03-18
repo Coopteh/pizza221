@@ -16,7 +16,7 @@ class HomeTemplate extends BaseTemplate
 
     
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="max-width: 540px;">
                 <div class="carousel-item active">
                     <img src="/assets/image/k1.jpg" class="d-block w-35" alt="Первый слайд">
                 </div>

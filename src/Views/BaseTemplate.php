@@ -20,8 +20,10 @@ class BaseTemplate
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">
-                    <img src="./../assets/image/logo.png" alt="Логотип компании" width="64" height="64">
+                <a class="navbar-brand" href="" >
+                    
+                    <img src="./../assets/image/logo.png" alt="Логотип компании" width="64" height="64"  class="logo">
+                  
                     Cerberus
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +38,7 @@ class BaseTemplate
                     <a class="nav-link" href="http://localhost/about">О нас</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/product/2">Каталог</a>
+                    <a class="nav-link" href="http://localhost/product/">Каталог</a>
                     </li>
                 </ul>
                 </div>

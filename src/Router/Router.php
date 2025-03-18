@@ -22,9 +22,10 @@ class Router{
 
             case "product":
                 $product = new ProductController();
-                $id = ($pieces[2]) ? intval($pieces[2]) : 0;
+                $id = isset ($pieces[3]) ? intval($pieces[3]) : null;
                 return $product->get($id);
             }
         
     }
+    
 }
