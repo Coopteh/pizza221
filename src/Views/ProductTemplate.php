@@ -43,7 +43,7 @@ HTML;
 <div class="card" style="width: 18rem; margin: 30px;">
     <img src="{$item['image']}" class="card-img-top" alt="{$item['name']}">
     <div class="card-body">
-        <a href="http://localhost/product/{$item['id']}"><h5 class="card-title">{$item['name']}</h5></a>
+        <a href="http://localhost/products/{$item['id']}"><h5 class="card-title">{$item['name']}</h5></a>
         <p class="card-text">{$item['description']}</p>
         <h5 class="card-title"><strong>Цена: </strong>{$item['price']} руб.</h5>
         <a href="#" class="btn btn-primary">В корзину</a>

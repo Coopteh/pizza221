@@ -10,8 +10,13 @@ class ProductController{
 {
     $model = new Product();
     $data = $model->loadData();
-    if (!isset($id))
-    $data = $data;
+
+    if (isset($data[$id-1])){
+        $data = $data[$id-1];
+    } else {
         return ProductTemplate::getAllTemplate($data);
+    }
+    
+        return ProductTemplate::getCardTemplate($data);
 }
 }
