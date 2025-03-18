@@ -7,15 +7,20 @@ use App\Views\ProductTemplate;
 
 class ProductController
 {
-    public function get($id): string
-    {
-        $model = new Product();
-        $data = $model->loadData();
-        if ($id) {
-            $data = $data[$id - 1]; 
+    public function get(?int $id = null): string
+{
+    $model = new Product();
+    $data = $model->loadData();
+    if (!isset($id)) {
+        return ProductTemplate::getAllTemplate($data);
+    } else {
+        $productIndex = $id - 1; 
+        if (isset($data[$productIndex])) {
+            return ProductTemplate::getCardTemplate($data[$productIndex]);
         } else {
             return "Продукт не найден";
         }
-        return ProductTemplate::getCardTemplate($data);
     }
+}
+
 }

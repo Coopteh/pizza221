@@ -18,9 +18,9 @@ class BaseTemplate
             <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="http://localhost/pizza221/">
                         <img src="http://localhost/Pizza221/assets/images/img5.jpeg" alt="Логотип компании" width="64" height="64">
-                        Гостиница ИС-221
+                        ГОСТИНИЦА ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,10 +34,7 @@ class BaseTemplate
                         <a class="nav-link" href="http://localhost/pizza221/about">О нас</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/pizza221/product/1">Завтрак</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/pizza221/product/2">Обед</a>
+                        <a class="nav-link" href="http://localhost/pizza221/products">Каталог</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
