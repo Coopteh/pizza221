@@ -7,7 +7,7 @@ class ProductTemplate extends BaseTemplate
 {
     public static function getCardTemplate(array $data) {
         $template = parent::getTemplate();
-        $title = 'Главная страница';
+        $title = 'Каталог';
         $content = <<<HTML
     
         <div class="card mb-3" style="max-width: 540px;">
@@ -28,6 +28,33 @@ class ProductTemplate extends BaseTemplate
 HTML;
 
         $resultTemplate = sprintf($template, $title, $content);
+        return $resultTemplate;
+    }
+
+    public static function getAllTemplate(array $arr): string 
+    {
+        $template = parent::getTemplate();
+        $str= '<div class="row">';;
+
+        // для каждого товара
+        foreach( $arr as $key => $item ) {
+
+          $element_template = <<<HTML
+<div class="card" style="width: 18rem; margin: 30px;">
+    <img src="{$item['image']}" class="card-img-top" alt="{$item['name']}">
+    <div class="card-body">
+        <a href="http://localhost/product/{$item['id']}"><h5 class="card-title">{$item['name']}</h5></a>
+        <p class="card-text">{$item['description']}</p>
+        <h5 class="card-title"><strong>Цена: </strong>{$item['price']} руб.</h5>
+        <a href="#" class="btn btn-primary">В корзину</a>
+    </div>
+</div>
+HTML;
+
+            $str.= $element_template;
+        }
+        $str.= "</div>";
+        $resultTemplate = sprintf($template, 'Каталог продукции', $str);
         return $resultTemplate;
     }
 }

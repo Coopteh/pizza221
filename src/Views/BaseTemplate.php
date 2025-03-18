@@ -35,6 +35,9 @@ class BaseTemplate
                     <li class="nav-item">
                     <a class="nav-link" href="http://localhost/about">О нас</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/products">Каталог</a>
+                    </li>
                 </ul>
                 </div>
             </div>

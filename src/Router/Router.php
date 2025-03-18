@@ -15,15 +15,15 @@ class Router{
             case "about":
                 $about = new AboutController();
                 return $about->get();
-
+            case "products":
+                $product = new ProductController();
+                $id = isset($pieces[2]) ? intval($pieces[2]) : null;
+                return $product->get($id);
             default:
                 $home = new HomeController();
                 return $home->get();
 
-            case "product":
-                $product = new ProductController();
-                $id = ($pieces[2]) ? intval($pieces[2]) : 0;
-                return $product->get($id);
+                
             }
         
     }
