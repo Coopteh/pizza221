@@ -19,7 +19,7 @@ class Router
                 $about = new AboutController();
                 return $about->get();
 
-            case "product":
+            case "products":
                 $product = new ProductController();
                 $id = (isset($pieces[3]) && $pieces[3]) ? intval($pieces[3]) : null;
                 return $product->get($id);
