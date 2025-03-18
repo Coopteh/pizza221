@@ -18,7 +18,7 @@ class BaseTemplate
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="./../assets/images/logo.png" alt="Логотип компании" width="64" height="64">
+                        <img src="https://localhost/pizza221/assets/images/logo.png" alt="Логотип компании" width="64" height="64">
                         ПИЦЦЕРИЯ ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,10 +27,13 @@ class BaseTemplate
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                        <a class="nav-link active" aria-current="page" href="/pizza221/">Главная</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="/pizza221/products">Каталог</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/pizza221/about">О нас</a>
                         </li>
                     </ul>
                     </div>
