@@ -3,8 +3,8 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Router\Router;
-//use App\Views\BaseTemplate; 
-//use App\Controllers\HomeController;
+use App\Views\BaseTemplate; 
+use App\Controllers\HomeController;
 
 $router = new Router();
 //$controller = new HomeController();

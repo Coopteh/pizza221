@@ -29,3 +29,4 @@ HTML;
         return $resultTemplate;
     }
 }
+?>
