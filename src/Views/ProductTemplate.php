@@ -20,6 +20,10 @@ class ProductTemplate extends BaseTemplate
                         <h5 class="card-title">' . $data['name'] . '</h5>
                         <p class="card-text">' . $data['description'] . '</p>
                         <p class="card-text"><small class="text-muted">Цена: ' . $data['price'] . ' руб.</small></p>
+                        /*  <form class="mt-4" action="/pizza221/basket" method="POST">
+                            <input type="hidden" name="id" value="{$rec['id']}">
+                        */      <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                        </form>
                       </div>
                     </div>
                   </div>
