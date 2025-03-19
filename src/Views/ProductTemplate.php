@@ -27,7 +27,7 @@ class ProductTemplate extends BaseTemplate
         $resultTemplate = sprintf($template, $title, $html);
         return $resultTemplate;
 
-    }
+    } 
     public static function getAllTemplate(array $arr): string {
         $template = parent::getTemplate();
         $str= '<div class="container">';
@@ -45,6 +45,10 @@ class ProductTemplate extends BaseTemplate
                         <a href="/pizza221/products/{$item['id']}"><h2>{$item['name']}</h2></a>
                         <p>{$item['description']}</p>
                         <h3>{$item['price']} ₽</h3>
+                    <form class="mt-4" action="/pizza221/basket" method="POST">
+                          <input type="hidden" name="id" value="{$item['id']}">
+                          <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                    </form>
                     </div>
                 </div>
                 <hr>
