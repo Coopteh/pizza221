@@ -17,11 +17,17 @@ class Router {
                 return $about->get();
             case "products":
                 $productController = new ProductController();
-                $id = ($pieces[3]) ? intval($pieces[3]) : 0;
+                $id = (isset($pieces[3]) ) ? intval($pieces[3]) : null;
                 return $productController->get($id);                
             default:
                 $home = new HomeController();
                 return $home->get();
+                case "basket":
+                    $basketController = new BasketController();
+                    $basketController->add();
+                    $prevUrl = $_SERVER['HTTP_REFERER'];
+                    header("Location: {$prevUrl}");
         }
     }
 }
+
