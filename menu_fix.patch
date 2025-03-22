@@ -1,0 +1,13 @@
+diff --git a/src/Views/BaseTemplate.php b/src/Views/BaseTemplate.php
+index fe49fe6..215bccf 100644
+--- a/src/Views/BaseTemplate.php
++++ b/src/Views/BaseTemplate.php
+@@ -33,7 +33,7 @@ class BaseTemplate
+                     <a class="nav-link active" aria-current="page" href="http://localhost/">Главная</a>
+                     </li>
+                     <li class="nav-item">
+-                    <a class="nav-link" href="http://localhost/about">О нас</a>
++                    <a class="nav-link" href="http://localhost/about">О компании</a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link" href="http://localhost/products">Каталог</a>
