@@ -27,7 +27,7 @@ class HomeTemplate extends BaseTemplate
                     <img src="/assets/image/3.png" class="d-block w-35" alt="Третий слайд">
                 </div>
             </div>
-      
+      <p>Бесплатная доставка при заказе от 500 рублей</p>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
