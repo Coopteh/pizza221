@@ -45,7 +45,10 @@ class BaseTemplate
             </header>
 HTML;
 // Добавим flash сообщение
-        session_start();
+if(!isset($_SESSION))
+{
+    session_start();
+}
         if (isset($_SESSION['flash'])) {
             $template .= <<<HTML
                 <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">

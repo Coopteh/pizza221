@@ -6,6 +6,8 @@ use App\Views\BaseTemplate;
 
 class OrderTemplate extends BaseTemplate{
     public static function getOrderTemplate(array $arr): string {
+        $template = parent::getTemplate();
+        $title = 'Создать заказ';
         $content = '<h1 class="mb-5">Создание заказа</h1><h3>Корзина</h3>';
         $all_sum = 0;
 
@@ -52,7 +54,7 @@ class OrderTemplate extends BaseTemplate{
             </div>
             HTML;
         }
-        // Возвращаем сгенерированный контент
-        return $content; // Убедитесь, что здесь есть return
+        $resultTemplate = sprintf($template, $title, $content);
+        return $resultTemplate;
     }
 }
