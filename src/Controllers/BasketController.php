@@ -22,8 +22,6 @@ class BasketController {
                     'quantity' => 1
                 ];
             }
-        var_dump($_SESSION);
-        exit();
             $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
     }

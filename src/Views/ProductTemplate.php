@@ -20,7 +20,7 @@ class ProductTemplate extends BaseTemplate
         <h5 class="card-title">{$data['name']}</h5>
         <p class="card-text">{$data['description']}</p>
         <h5 class="card-title"><strong>Цена: </strong>{$data['price']} руб.</h5>
-        <form class="mt-4" action="/basket" method="POST">
+        <form class="mt-4" action="/strax/basket" method="POST">
           <input type="hidden" name="id" value="{$data['id']}">
           <button type="submit" class="btn btn-primary">Добавить в корзину</button>
         </form>
@@ -50,7 +50,7 @@ HTML;
         <a href="http://localhost/products/{$item['id']}"><h5 class="card-title">{$item['name']}</h5></a>
         <p class="card-text">{$item['description']}</p>
         <h5 class="card-title"><strong>Цена: </strong>{$item['price']} руб.</h5>
-        <form class="mt-4" action="/basket" method="POST">
+        <form class="mt-4" action="/strax/basket" method="POST">
           <input type="hidden" name="id" value="{$item['id']}">
           <button type="submit" class="btn btn-primary">Добавить в корзину</button>
         </form>
