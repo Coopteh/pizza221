@@ -35,7 +35,7 @@ class BaseTemplate
                         </li>
                          </li>
                         <li class="nav-item">
-                         <a class="nav-link active" aria-current="page" href="/pizza221/OrderTemplate">Заказ</a>
+                         <a class="nav-link active" aria-current="page" href="/pizza221/order">Заказ</a>
                         </li>
                         <li class="nav-item">
                          <a class="nav-link active" aria-current="page" href="/pizza221/HomeTemplate">О компании</a>
