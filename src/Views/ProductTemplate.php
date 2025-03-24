@@ -13,13 +13,17 @@ class ProductTemplate extends BaseTemplate {
                <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4 mt-3">
-                        <img src="{$data['image']}" class="img-fluid rounded-start" alt="Изображение">
+                        <img src="{$data['image']}" class="img-fluid rounded-start" alt="Изображение пиццы">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{$data['name']}</h5>
                             <p class="card-text">{$data['description']}</p>
                             <p class="card-text"><strong class="text-body-primary">{$data['price']} руб.</strong></p>
+                            <form class="mt-4" action="/avtoservis/basket" method="POST">
+                                <input type="hidden" name="id" value="{$data['id']}">
+                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                            </form>
                         </div>
                         <div>
                         </div>
@@ -50,9 +54,13 @@ class ProductTemplate extends BaseTemplate {
             <div class="card">
                 <img src="{$item['image']}" class="card-img-top" alt="{$item['name']}">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="/avtoservis1/products/{$item['id']}">{$item['name']}</a></h5>
+                    <h5 class="card-title"><a href="/avtoservis/products/{$item['id']}">{$item['name']}</a></h5>
                     <p class="card-text">{$item['description']}</p>
                     <h6 class="card-price">{$item['price']} ₽</h6>
+                    <form class="mt-4" action="/avtoservis/basket" method="POST">
+                            <input type="hidden" name="id" value="{$item['id']}">
+                            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                        </form>
                 </div>
             </div>
           </div>
@@ -65,4 +73,3 @@ class ProductTemplate extends BaseTemplate {
       return $resultTemplate;
   }
 }
-

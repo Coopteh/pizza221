@@ -3,6 +3,7 @@ namespace App\Views;
 class BaseTemplate 
 {
     public static function getTemplate(): string {
+        $template = '';
         $template = <<<HTML
         <!DOCTYPE html>
         <html lang="ru">
@@ -40,7 +41,22 @@ class BaseTemplate
                 </div>
                 </nav>
             </header>
+HTML;
+// Добавим flash сообщение
+        session_start();
+        if (isset($_SESSION['flash'])) {
+            $template .= <<<HTML
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            HTML;
+            unset($_SESSION['flash']);
+        }
         
+$template .=  <<<HTML
+
             %s
 
             <footer class="mt-5">
