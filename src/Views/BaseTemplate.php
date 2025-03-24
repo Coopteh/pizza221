@@ -37,6 +37,9 @@ class BaseTemplate
                             <li class="nav-item">
                             <a class="nav-link" href="http://localhost/products">Каталог</a>
                             </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/order">Заказ</a>
+                            </li>
                         </ul>
                         </div>
                     </div>
@@ -45,7 +48,10 @@ class BaseTemplate
         HTML;
 
         // Добавим flash сообщение
-        session_start();
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
         
         if (isset($_SESSION['flash'])) {
             $template .= <<<END
