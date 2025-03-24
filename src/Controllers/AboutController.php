@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Views\AboutTemplate;
@@ -8,4 +9,3 @@ class AboutController {
         return AboutTemplate::getTemplate();
     }
 }
-?>

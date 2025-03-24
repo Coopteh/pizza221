@@ -4,7 +4,8 @@ namespace App\Models;
 
 use App\Configs\Config;
 
-class Product {
+class Product
+{
     public function loadData(): ?array {
         // Открываем файл в режиме чтения
         if ($file = fopen(Config::FILE_PRODUCTS, 'r')) {

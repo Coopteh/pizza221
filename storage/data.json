@@ -1,16 +1,23 @@
 [
   {
     "id": 1,
-    "name": "Пицца Европа",
-    "image": "./../assets/images/image1.png",
-    "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы)",
-    "price": 550
+    "name": "Страхование автотранспорта",
+    "image": "assets/images/image4.png",
+    "description": "Страхование от 5000 рублей",
+    "price": 5000
   },
   {
     "id": 2,
-    "name": "Пицца Пипперони",
-    "image": "./../assets/images/image2.png",
-    "description": "Это знаменитая пицца с колбасой и сыром",
-    "price": 450
+    "name": "Страхование домов",
+    "image": "assets/images/image5.png",
+    "description": "Страхование от 20000 рублей",
+    "price": 20000
+  },
+  {
+    "id": 3,
+    "name": "Страхование жизни",
+    "image": "assets/images/image6.png",
+    "description": "Страхование от 2000 рублей",
+    "price": 2000
   }
 ]
