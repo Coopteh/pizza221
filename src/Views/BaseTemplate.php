@@ -6,7 +6,7 @@ class BaseTemplate
 {
     public static function getTemplate()
     {
-        return <<<HTML
+        $template=<<<HTML
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -43,15 +43,33 @@ class BaseTemplate
             </div>
         </nav>
      </header>
+     
     <main class="container mt-4">
-        %s
-
-        <footer class="mt-5">
-                © 2025 «Кемеровский кооперативный техникум»
-        <footer>
-    </main>
-</body>
-</html>
 HTML;
+
+     // Добавим flash сообщение
+        session_start();
+        if (isset($_SESSION['flash'])) {
+            $template .= <<<END
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            END;
+            unset($_SESSION['flash']);
+        }
+
+        $template.= <<<LINE
+        %s
+                <footer class="mt-5">
+                        © 2025 «Кемеровский кооперативный техникум»
+                <footer>
+            </main>
+        </body>
+        </html>
+        LINE;
+
+return $template;
     }
 }
