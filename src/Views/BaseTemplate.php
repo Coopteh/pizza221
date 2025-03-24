@@ -34,6 +34,8 @@ class BaseTemplate
                         <a class="nav-link" href="/pizza221/products">Каталог</a>
                         </li>
                         <li class="nav-item">
+                        <a class="nav-link" href="/pizza221/order">Заказ</a>
+                        <li class="nav-item">
                         <a class="nav-link" href="/pizza221/about">О нас</a>
                         </li>
                     </ul>

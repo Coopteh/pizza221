@@ -6,6 +6,7 @@ use App\Controllers\AboutController;
 use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 use App\Controllers\BasketController;
+use App\Controllers\OrderController;
 
 class Router {
     public function route(string $url): string {
@@ -27,6 +28,15 @@ class Router {
                 $prevUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: {$prevUrl}");
                 return "";
+            case 'order':
+                $controller = new OrderController();
+                return $controller->get();
+            case "basket_clear":
+                $basketController = new BasketController();
+                $basketController->clear(); // Очищаем корзину
+                $prevUrl = $_SERVER['HTTP_REFERER']; // Возвращаемся на предыдущую страницу
+                header("Location: {$prevUrl}");
+                return ""; // Возвращаем пустую строку
             default:
                 $home = new HomeController();
                 return $home->get();
