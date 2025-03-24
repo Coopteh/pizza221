@@ -21,7 +21,7 @@ class BasketController {
             }
             //var_dump($_SESSION);
             //exit();
-            $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
+             $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
     }
     /* 
