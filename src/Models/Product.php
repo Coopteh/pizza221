@@ -39,5 +39,5 @@ class Product
         return $basketProducts;
     }
 
-    // Другие методы класса Product...
+
 }

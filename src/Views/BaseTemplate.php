@@ -48,20 +48,23 @@ class BaseTemplate
                 </div>
                 </nav>
             </header>
+        LINE;
 
-
-            <?php 
-                session_start();
-                if (isset($_SESSION[flash'])): ?>
-                    <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
-                        <div><?php echo $_SESSION['flash']; ?></div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                        onclick="this.parentNode.style.display='none';"></button>
-                    </div>
-                <?php 
-                    unset($_SESSION['flash']); 
-                endif; 
-            ?>
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
+        if (isset($_SESSION["flash"])) {
+            $template.=<<<LINE
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            LINE;
+            unset($_SESSION['flash']); 
+        }
+        $template.=<<<LINE
         
             <div class="container mt-5 mb-5">
                 %s
