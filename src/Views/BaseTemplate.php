@@ -15,22 +15,10 @@ class BaseTemplate
         </head>
         <body>
             <header>
-               // Добавим flash сообщение
-        sеssion_start();
-        if (isset($_SESSION['flash'])) {
-            $template .= <<<END
-                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
-                    <div>{$_SESSION['flash']}</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                    onclick="this.parentNode.style.display='none';"></button>
-                </div>
-            END;
-            unset($_SESSION['flash']);
-        }
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                            <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="./../assets/images/logo.png"  width="64" height="64">
+                        <img src="./assets/images/logo.png"  width="64" height="64">
                         Cуши и ролы
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +42,21 @@ class BaseTemplate
                 </div>
                 </nav>
             </header>
-        
+        LINE;
+               // Добавим flash сообщение
+        session_start();
+        if (isset($_SESSION['flash'])) {
+            $template .= <<<END
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            END;
+            unset($_SESSION['flash']);
+        }
+        $template.=<<<LINE
+       
             %s
 
             <footer class="mt-3 p-3">
