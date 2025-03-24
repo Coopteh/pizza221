@@ -35,6 +35,9 @@ class BaseTemplate
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/about">О нас</a>
                         </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/pizza221/order">Заказ</a>
+                        </li>                        
                     </ul>
                     </div>
                 </div>
@@ -43,7 +46,10 @@ class BaseTemplate
         LINE;
 
         // Добавим flash сообщение
-        session_start();
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
         if (isset($_SESSION['flash'])) {
             $template .= <<<END
                 <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">

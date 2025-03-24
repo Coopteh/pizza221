@@ -30,5 +30,7 @@ class BasketController {
     public function clear():void {
         session_start();
         $_SESSION['basket'] = [];
+
+        $_SESSION['flash'] = "Корзина успешно очищена.";
     }
 }
