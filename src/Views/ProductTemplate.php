@@ -42,7 +42,7 @@ class ProductTemplate extends BaseTemplate
         $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
     }
-}
+
 public static function getAllTemplate(array $arr): string 
     {
         $template = parent::getTemplate();

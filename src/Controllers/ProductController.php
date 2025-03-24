@@ -5,7 +5,7 @@ use App\Models\Product;
 use App\Views\ProductTemplate;
 
 class ProductController {
-    public function get(int $id): string {
+    public function get(?int $id): string {
         $model= new Product();
         $data = $model->loadData();
         if (!isset($id))
