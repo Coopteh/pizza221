@@ -12,10 +12,12 @@ class BasketController {
         
             if (!isset($_SESSION['basket'])) {
                 $_SESSION['basket'] = [];
+                $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
             }
         
             if (isset($_SESSION['basket'][$product_id])) {
                 $_SESSION['basket'][$product_id]['quantity']++;
+                $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
             } else {
                 $_SESSION['basket'][$product_id] = [
                     'quantity' => 1
@@ -32,6 +34,7 @@ class BasketController {
     public function clear():void {
         sеssion_start();
         $_SESSION['basket'] = [];
+        $_SESSION['flash'] = "Корзина успешно очищена.";
     }
-
 }
+

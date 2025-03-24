@@ -15,6 +15,18 @@ class BaseTemplate
         </head>
         <body>
             <header>
+               // Добавим flash сообщение
+        sеssion_start();
+        if (isset($_SESSION['flash'])) {
+            $template .= <<<END
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            END;
+            unset($_SESSION['flash']);
+        }
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
@@ -35,7 +47,7 @@ class BaseTemplate
                         </li>
                          </li>
                         <li class="nav-item">
-                         <a class="nav-link active" aria-current="page" href="#">О нас</a>
+                         <a class="nav-link active" aria-current="page" href="#">О компании</a>
                         </li>
                     </ul>
                     </div>

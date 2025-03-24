@@ -27,6 +27,14 @@ class Router {
                     $basketController->add();
                     $prevUrl = $_SERVER['HTTP_REFERER'];
                     header("Location: {$prevUrl}");
+                    switch ($route) {
+                        case 'some_case':
+                            header("Location: {$prevUrl}");
+                            return "";
+                            $prevUrl = $_SERVER['HTTP_REFERER'];
+                hеader("Location: {$prevUrl}");                    
+                return "";
+                    }
         }
     }
 }
