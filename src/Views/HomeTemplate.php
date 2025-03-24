@@ -32,7 +32,7 @@ class HomeTemplate extends BaseTemplate {
                     </button>
                     </div>
             </div>
-        </section>
+        </section> 
         <main class="row">
             <div class="p-5">
                 <p>Здесь можно заказать шаурму и шашлык с доставкой по городу Кемерово.</p>
