@@ -26,6 +26,7 @@ class Router {
                 $basketController->add();
                 $prevUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: {$prevUrl}");
+                return "";
             default:
                 $home = new HomeController();
                 return $home->get();

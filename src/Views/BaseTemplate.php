@@ -2,7 +2,8 @@
 namespace App\Views;
 class BaseTemplate 
 {
-    public static function getTemplate(): string {
+    public static function getTemplate(): string { 
+        $template = '';
         $template = <<<HTML
         <!DOCTYPE html>
         <html lang="ru">
@@ -19,7 +20,7 @@ class BaseTemplate
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="/pizza221/assets/images/logotip.png" alt="Логотип компании" width="64" height="64">
-                        Обвуной магазин ИС-221
+                        Обувной магазин ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,9 +41,24 @@ class BaseTemplate
                 </div>
                 </nav>
             </header>
-        
-            %s
+HTML;
+// Добавим flash сообщение
+session_start();
+if (isset($_SESSION['flash'])) {
+    $template .= <<<HTML
+        <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+            <div>{$_SESSION['flash']}</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            onclick="this.parentNode.style.display='none';"></button>
+        </div>
+    HTML;
+    unset($_SESSION['flash']);
+}
 
+$template .=  <<<HTML
+
+            %s
+            
             <footer class="mt-5">
                 © 2025 «Кемеровский кооперативный техникум»
             <footer>
