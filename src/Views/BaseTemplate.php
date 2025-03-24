@@ -33,6 +33,8 @@ class BaseTemplate
                         <li class="nav-item">
                         <a class="nav-link" href="/avtoservis/products">Каталог</a>
                         </li>
+                        <a class="nav-link" href="/avtoservis/order">Заказ</a>
+                        </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/avtoservis/about">О нас</a>
                         </li>

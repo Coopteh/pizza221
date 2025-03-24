@@ -1,5 +1,6 @@
 <?php
 namespace App\Views;
+
 use App\Views\BaseTemplate;
 
 class ProductTemplate extends BaseTemplate {
@@ -13,7 +14,7 @@ class ProductTemplate extends BaseTemplate {
                <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4 mt-3">
-                        <img src="{$data['image']}" class="img-fluid rounded-start" alt="Изображение пиццы">
+                        <img src="{$data['image']}" class="img-fluid rounded-start" alt="Изображение обуви">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
