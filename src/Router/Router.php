@@ -24,7 +24,8 @@ class Router {
                 $basketController = new BasketController();
                 $basketController->add();
                 $prevUrl = $_SERVER['HTTP_REFERER'];
-                header("Location: {$prevUrl}");    
+                header("Location: {$prevUrl}"); 
+                return "";   
             default:
                 $home = new HomeController();
                 return $home->get();
