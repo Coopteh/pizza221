@@ -1,17 +1,33 @@
-<?php
-
+<?php 
 namespace App\Models;
 
-class Product
-{
+use App\Configs\Config;
+
+class Product {
+    public function loadData(): ?array {
+        $nameFile= Config::FILE_PRODUCTS;
+        
+        $handle = fopen($nameFile, "r");
+        $data = fread($handle, filesize($nameFile)); 
+        fclose($handle);
+
+        $arr = json_decode($data, true); 
+        
+        return $arr; 
+    }
+
     public function getBasketData(): array {
-        session_start();
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
+
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
         $products = $this->loadData();
         $basketProducts= [];
-
+//var_dump($_SESSION['basket']);
         foreach ($products as $product) {
             $id = $product['id'];
 
@@ -36,8 +52,7 @@ class Product
                 );
             }
         }
+
         return $basketProducts;
     }
-
-
 }
