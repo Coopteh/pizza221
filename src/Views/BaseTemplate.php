@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Views;
 
 class BaseTemplate 
@@ -37,6 +38,9 @@ class BaseTemplate
                         <a class="nav-link" href="http://localhost/pizza221/products">Каталог</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/pizza221/order">Заказ</a>
+                        </li>
+                        <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
                         </li>
                     </ul>
@@ -44,10 +48,26 @@ class BaseTemplate
                 </div>
                 </nav>
             </header>
+
+
+            <?php 
+                session_start();
+                if (isset($_SESSION[flash'])): ?>
+                    <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                        <div><?php echo $_SESSION['flash']; ?></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                        onclick="this.parentNode.style.display='none';"></button>
+                    </div>
+                <?php 
+                    unset($_SESSION['flash']); 
+                endif; 
+            ?>
         
             <div class="container mt-5 mb-5">
                 %s
             </div>
+
+            
 
             <footer class="mt-5">
                 &copy; 2025 «Кемеровский кооперативный техникум»
