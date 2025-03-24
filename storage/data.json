@@ -1,16 +1,16 @@
 [
     {
         "id": 1,
-        "name": "Пицца Маргарита",
-        "image": "./../assets/images/image1.png",
-        "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы), декорирована веточкой петрушки!",
-        "price": 550
+        "name": "Рембо",
+        "image": "https://localhost/trenazherka/assets/images/rembo.png",
+        "description": "Абонимент на 1 месяц(30 дней)",
+        "price": 3200
     },
     {
         "id": 2,
-        "name": "Пицца Пипперони",
-        "image": "./../assets/images/image2.png",
-        "description": "Это знаменитая пицца с колбасой и сыром",
-        "price": 650
+        "name": "Терминатор",
+        "image": "https://localhost/trenazherka/assets/images/term.png",
+        "description": "Абонимент на 3 месяца(90 дней)",
+        "price": 6000
     }
 ]
