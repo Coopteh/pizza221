@@ -1,5 +1,6 @@
 <?php
 namespace App\Views;
+
 use App\Views\BaseTemplate;
 
 class ProductTemplate extends BaseTemplate {

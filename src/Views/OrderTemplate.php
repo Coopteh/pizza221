@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Views;
 
-class OrderTemplate {
+use App\Views\BaseTemplate;
+
+class OrderTemplate extends BaseTemplate{
     public static function getOrderTemplate(array $arr): string {
         $content = '<h1 class="mb-5">Создание заказа</h1><h3>Корзина</h3>';
         $all_sum = 0;
@@ -42,7 +45,7 @@ class OrderTemplate {
             <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6 float-end">
-                    <form action="/basket_clear" method="POST">
+                    <form action="/pizza221/basket_clear" method="POST">
                         <button type="submit" class="btn btn-secondary mt-3">Очистить корзину</button>
                     </form>
                 </div>
