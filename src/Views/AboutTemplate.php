@@ -1,21 +1,30 @@
-<?php 
+<?php
 namespace App\Views;
-
 use App\Views\BaseTemplate;
 
-class AboutTemplate extends BaseTemplate
-{
+class AboutTemplate extends BaseTemplate {
     public static function getTemplate(): string {
         $template = parent::getTemplate();
-        $title= 'О нас';
-        $content = <<<CORUSEL
-        <main class="row p-5">
-            <h1>О нас</h1>
-            <p>Сайт для страхования авто</p>
-        </main>        
-        CORUSEL;
-        
-        $resultTemplate =  sprintf($template, $title, $content);
+        $title = 'О нас';
+        $content = <<<HTML
+        <h1>О нашем техникуме</h1>
+        <p>Кемеровский кооперативный техникум — это учебное заведение, которое готовит специалистов в области экономики, управления и сервиса. Мы предлагаем качественное образование, которое сочетает теорию и практику, а также возможность получения дополнительных навыков.</p>
+        <p>Наши студенты участвуют в различных конкурсах и мероприятиях, что позволяет им развивать свои способности и получать ценный опыт.</p>
+        <h2>Наши преимущества:</h2>
+        <ul>
+            <li>Квалифицированные преподаватели</li>
+            <li>Современные учебные программы</li>
+            <li>Практическая направленность обучения</li>
+            <li>Участие в конкурсах и проектах</li>
+        </ul>
+        <h5>Наш адрес</h5>
+        <ul>
+            <li>ул. Тухачевского, 32, Кемерово</li>
+        </ul>
+(*) Сайт разработан в рамках обучения в "Кузбасском кооперативном техникуме" по специальности "Специалист по информационным технологиям"
+HTML;
+        $resultTemplate = sprintf($template, $title, $content);
         return $resultTemplate;
     }
 }
+?>

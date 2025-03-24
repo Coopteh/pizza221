@@ -1,47 +1,49 @@
-<?php
-
+<?php 
 namespace App\Views;
+
 use App\Views\BaseTemplate;
 
 class HomeTemplate extends BaseTemplate
 {
-    public static function getTemplate() {
+    public static function getTemplate(): string {
         $template = parent::getTemplate();
-        $title = 'Главная страница';
-        $content = <<<HTML
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="assets/images/image1.png" class="d-block w-35" alt="Первый слайд">
-                </div>
-                <div class="carousel-item">
-                    <img src="assets/images/image2.png" class="d-block w-35" alt="Второй слайд">
-                </div>
-                <div class="carousel-item">
-                    <img src="assets/images/image3.png" class="d-block w-35" alt="Третий слайд">
-                </div>
+        $title= 'Главная страница';
+        $content = <<<CORUSEL
+        <section>        
+            <div class="h-50 w-50 mx-auto">        
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" style="height:65vh;">
+                        <div class="carousel-item active">
+                        <img src="./assets/images/image1.png" class="d-block w-100 h-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                        <img src="./assets/images/image2.png" class="d-block w-100 h-100 " alt="...">
+                        </div>
+                        <div class="carousel-item">
+                        <img src="./assets/images/image3.png" class="d-block w-100 h-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    </div>
             </div>
-      
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-
-        <h1><b><strong><u><i>Страхование</i></u></strong></b></h1>
-HTML;
-
-        $resultTemplate = sprintf($template, $title, $content);
+        </section>
+        <main class="row">
+            <div class="p-5">
+                <p>Здесь вы можете оформить абонимент.</p>
+                <p>Разные виды спорт-комплекса от зала до бассейна!<br><br></p>
+                <p> (*) Сайт разработан в рамках обучения в "Кемеровском кооперативном техникуме" по специальности "Специалист по информационным технологиям".</p>
+            </div>
+        </main>        
+        CORUSEL;
+        
+        $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
     }
 }
