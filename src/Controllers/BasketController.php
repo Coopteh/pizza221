@@ -21,7 +21,7 @@ class BasketController {
             }
             //var_dump($_SESSION);
             //exit();
-             $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
+            $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
     }
     /* 
@@ -30,5 +30,7 @@ class BasketController {
     public function clear():void {
         session_start();
         $_SESSION['basket'] = [];
+
+        $_SESSION['flash'] = "Корзина успешно очищена.";
     }
 }
