@@ -1,0 +1,101 @@
+[
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "payment_method": "cash",
+        "created_at": "25-03-2025 05:22:02",
+        "products": [
+            {
+                "id": 9,
+                "name": "Креветки",
+                "quantity": 1,
+                "price": 199,
+                "sum": 199
+            }
+        ],
+        "all_sum": 199
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "payment_method": "cash",
+        "created_at": "25-03-2025 05:22:10",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            }
+        ],
+        "all_sum": 529
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "payment_method": "yandex_pay",
+        "created_at": "25-03-2025 05:26:36",
+        "products": [
+            {
+                "id": 1,
+                "name": "Мясная с аджикой",
+                "quantity": 1,
+                "price": 469,
+                "sum": 469
+            }
+        ],
+        "all_sum": 469
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "payment_method": "cash",
+        "created_at": "25-03-2025 05:31:32",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            },
+            {
+                "id": 7,
+                "name": "Ветчина и сыр",
+                "quantity": 1,
+                "price": 549,
+                "sum": 549
+            },
+            {
+                "id": 9,
+                "name": "Креветки",
+                "quantity": 1,
+                "price": 199,
+                "sum": 199
+            }
+        ],
+        "all_sum": 1277
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "payment_method": "cash",
+        "created_at": "25-03-2025 05:36:36",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            }
+        ],
+        "all_sum": 529
+    }
+]

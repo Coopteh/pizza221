@@ -26,16 +26,16 @@ class Router {
                 $basketController->add();
                 $prevUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: {$prevUrl}"); 
-                return ""; 
-                case 'order':
-                    $controller = new OrderController();
-                    return $controller->get(); 
-                case "basket_clear":
-                    $basketController = new BasketController();
-                    $basketController->clear(); 
-                    $prevUrl = $_SERVER['HTTP_REFERER']; 
-                    header("Location: {$prevUrl}");
-                    return ""; 
+                return "";  
+            case 'order':
+                $order = new OrderController();
+                return $order->get();
+            case "basket_clear":
+                $basketController = new BasketController();
+                $basketController->clear(); // Очищаем корзину
+                $prevUrl = $_SERVER['HTTP_REFERER']; // Возвращаемся на предыдущую страницу
+                header("Location: {$prevUrl}");
+                return ""; // Возвращаем пустую строку   
             default:
                 $home = new HomeController();
                 return $home->get();
