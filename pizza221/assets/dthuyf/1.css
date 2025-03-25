@@ -1,0 +1,53 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.card__image {
+  width: 100%;
+  height: auto;
+}
+
+.card__title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card__description {
+  font-size: 14px;
+  color: #666;
+}
+
+.card__price {
+  font-size: 16px;
+  color: green;
+}
+
+.card--sold-out {
+  opacity: 0.5;
+}
+
+.card__price--sold-out {
+  color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+      grid-template-columns: 1fr;
+  }
+}

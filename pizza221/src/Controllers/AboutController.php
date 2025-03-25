@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Views\AboutTemplate;
 
-Class AboutController {
+class AboutController {
     public function get(): string {
         return AboutTemplate::getTemplate();
     }
