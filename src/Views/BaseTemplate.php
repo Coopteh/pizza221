@@ -38,7 +38,7 @@ class BaseTemplate
                          <a class="nav-link active" aria-current="page" href="/pizza221/order">Заказ</a>
                         </li>
                         <li class="nav-item">
-                         <a class="nav-link active" aria-current="page" href="/pizza221/HomeTemplate">О компании</a>
+                         <a class="nav-link active" aria-current="page" href="/pizza221/about">О нас</a>
                         </li>
                     </ul>
                     </div>
@@ -46,8 +46,11 @@ class BaseTemplate
                 </nav>
             </header>
         LINE;
-               // Добавим flash сообщение
-        session_start();
+        // Добавим flash сообщение
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
         if (isset($_SESSION['flash'])) {
             $template .= <<<END
                 <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
@@ -58,10 +61,9 @@ class BaseTemplate
             END;
             unset($_SESSION['flash']);
         }
-        $template.=<<<LINE
-       
-            %s
 
+        $template.= <<<LINE
+            %s
             <footer class="mt-3 p-3">
                 © 2025 «Кемеровский кооперативный техникум»
             <footer>
@@ -70,5 +72,5 @@ class BaseTemplate
         LINE;
 
         return $template;
-    }
-}
+        }
+        }

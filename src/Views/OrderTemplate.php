@@ -59,18 +59,36 @@ class OrderTemplate extends BaseTemplate
                     <div class="col-2">
                         <strong>{$all_sum} ₽</strong>
                     </div>
-                </div>    
+                            </div>    
 
-                <div class="row">
-                    <div class="col-8">
-                        &nbsp;
-                    </div>
-                    <div class="col-2 float-end">
-                        <form action="/pizza221/basket_clear" method="POST">
-                            <button type="submit" class="btn btn-secondary mt-3">Очистить корзину
+                            <div class="row">
+                                <div class="col-8">
+                                    &nbsp;
+                                </div>
+                                <div class="col-2 float-end">
+                                     <form action="/pizza221/basket_clear" method="POST">
+                                        <button type="submit" class="btn btn-secondary mt-3">Очистить корзину </button>
+                                    </form>
+                                </div>
+                            </div> 
+
+                       <form action="/pizza221/order" method="POST">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">ФИО</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                            </div> 
+                            <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Имейл адрес</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1">
+                            </div>
+                            <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Телефон</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1">
+                            </div> 
+                            <div class="mb-3">
+                            <button type="submit" class="btn btn-secondary mt-3">Создать заказ</button>
                         </form>
-                    </div>
-                </div>    
+                </div>
 
             LINE;
         }
@@ -79,5 +97,7 @@ class OrderTemplate extends BaseTemplate
 
         $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
+        
     }
+
 }

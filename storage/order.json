@@ -1,0 +1,41 @@
+[
+    {
+        "fio": "",
+        "address": "",
+        "phone": null,
+        "created_at": "25-03-2025 07:03:11",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 2,
+                "price": 249,
+                "sum": 498
+            }
+        ],
+        "all_sum": 498
+    },
+    {
+        "fio": "",
+        "address": "",
+        "phone": null,
+        "created_at": "25-03-2025 07:03:40",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 1,
+                "price": 249,
+                "sum": 249
+            },
+            {
+                "id": 2,
+                "name": "Макидзуси",
+                "quantity": 2,
+                "price": 218,
+                "sum": 436
+            }
+        ],
+        "all_sum": 685
+    }
+]
