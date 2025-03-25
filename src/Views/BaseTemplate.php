@@ -12,15 +12,15 @@ class BaseTemplate
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
-            <link rel="stylesheet" href="http://localhost/Pizza221/assets/css/bootstrap.min.css">
-            <script src="http://localhost/Pizza221/assets/js/bootstrap.bundle.js"></script>
+            <link rel="stylesheet" href="http://localhost/pizza221/assets/css/bootstrap.min.css">
+            <script src="http://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
         </head>
         <body>
             <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="http://localhost/pizza221/">
-                        <img src="http://localhost/Pizza221/assets/images/img5.jpeg" alt="Логотип компании" width="64" height="64">
+                        <img src="http://localhost/pizza221/assets/images/img5.jpeg" alt="Логотип компании" width="64" height="64">
                         ГОСТИНИЦА ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
