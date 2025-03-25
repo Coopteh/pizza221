@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Configs\Config;
+use Exception;
 
 class Product
 {
@@ -52,5 +53,19 @@ public function getBasketData(): ?array {
         }
     }
     return $basketProducts;
+}
+public function saveData($arr) {
+    $nameFile = Config::FILE_ORDERS; // Путь к файлу из конфигурации
+
+    // Кодируем данные в JSON
+    $json = json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        throw new Exception("Ошибка кодирования JSON: " . json_last_error_msg());
+    }
+
+    // Открываем файл для добавления данных
+    if (file_put_contents($nameFile, $json . PHP_EOL, FILE_APPEND | LOCK_EX) === false) {
+        throw new Exception("Не удалось записать в файл: $nameFile");
+    }
 }
 }

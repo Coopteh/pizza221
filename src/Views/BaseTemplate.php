@@ -45,17 +45,20 @@ class BaseTemplate
             </header>
 HTML;
 // Добавим flash сообщение
-session_start();
-if (isset($_SESSION['flash'])) {
-    $template .= <<<HTML
-        <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
-            <div>{$_SESSION['flash']}</div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-            onclick="this.parentNode.style.display='none';"></button>
-        </div>
-    HTML;
-    unset($_SESSION['flash']);
+if(!isset($_SESSION))
+{
+    session_start();
 }
+        if (isset($_SESSION['flash'])) {
+            $template .= <<<HTML
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            HTML;
+            unset($_SESSION['flash']);
+        }
 
 $template .=  <<<HTML
 
