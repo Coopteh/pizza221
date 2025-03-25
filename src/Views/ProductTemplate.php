@@ -17,29 +17,35 @@ class ProductTemplate extends BaseTemplate
             'sauce' => [],
         ];
 
+        // Массив соответствия ключей категорий и их русскоязычных названий
+        $categoryNames = [
+            'pizza' => 'Пицца',
+            'snack' => 'Закуски',
+            'drink' => 'Напитки',
+            'sauce' => 'Соусы',
+        ];
+
         foreach ($arr as $item) {
             if (isset($categories[$item['category']])) {
                 $categories[$item['category']][] = $item;
             }
         }
 
-        // Меню категорий с фиксацией на экране и центрированием
+        // Генерация меню категорий с использованием русскоязычных названий
+        $menuItems = '';
+        foreach ($categoryNames as $key => $name) {
+            $menuItems .= <<<HTML
+            <li class="nav-item">
+                <a class="nav-link" href="#$key">$name</a>
+            </li>
+HTML;
+        }
+
         $menu = <<<HTML
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4" style="position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <ul class="navbar-nav justify-content-center w-100">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pizza">Пицца</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#snack">Закуска</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#drink">Напиток</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#sauce">Соусы</a>
-                    </li>
+                    $menuItems
                 </ul>
             </div>
         </nav>
@@ -66,8 +72,10 @@ HTML;
         // Добавление меню
         $content .= $menu;
 
+        // Генерация разделов для каждой категории
         foreach ($categories as $category => $items) {
-            $categoryName = ucfirst($category); // Название категории
+            $categoryName = $categoryNames[$category] ?? ucfirst($category); // Русское название или дефолтное
+
             $content .= <<<HTML
             <section id="$category" class="mb-5">
                 <h2 class="text-center mb-4">$categoryName</h2>
