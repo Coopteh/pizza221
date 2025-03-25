@@ -7,10 +7,11 @@ use App\Views\BaseTemplate;
 class OrderTemplate extends BaseTemplate{
     public static function getOrderTemplate(array $arr): string {
         $template = parent::getTemplate();
-        $title = 'Создать заказ';
+        $title = 'Создание заказа';
         $content = '<h1 class="mb-5">Создание заказа</h1><h3>Корзина</h3>';
+    
         $all_sum = 0;
-
+    
         if (empty($arr)) {
             $content .= <<<HTML
             <div class="row">
@@ -26,7 +27,7 @@ class OrderTemplate extends BaseTemplate{
                 $quantity = $product['quantity'];
                 $sum = $product['sum'];
                 $all_sum += $sum;
-
+    
                 $content .= <<<HTML
                 <div class="row">
                     <div class="col-6">{$name}</div>
@@ -36,7 +37,7 @@ class OrderTemplate extends BaseTemplate{
                 HTML;
             }
         }
-
+    
         // Итоговая сумма
         if ($all_sum > 0) {
             $content .= <<<HTML
@@ -52,10 +53,24 @@ class OrderTemplate extends BaseTemplate{
                     </form>
                 </div>
             </div>
+            <form action="/strax/order" method="POST" class="mt-4">
+                <div class="mb-3">
+                    <label for="fio" class="form-label">Ваше ФИО:</label>
+                    <input type="text" class="form-control" id="fio" name="fio" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Адрес доставки:</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Телефон:</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Создать заказ</button>
+            </form>
             HTML;
         }
-
-
+        // Возвращаем сгенерированный контент
         $resultTemplate = sprintf($template, $title, $content);
         return $resultTemplate;
     }

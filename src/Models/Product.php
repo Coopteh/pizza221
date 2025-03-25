@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Configs\Config;
+use Exception;
 
 class Product
 {
@@ -52,5 +53,26 @@ public function getBasketData(): ?array {
         }
     }
     return $basketProducts;
+}
+
+
+public function saveData($arr) {
+    $nameFile= Config::FILE_ORDERS;
+
+    $handle = fopen($nameFile, "r");
+    if (filesize($nameFile) > 0){ 
+        $data = fread($handle, filesize($nameFile)); 
+        $allRecords = json_decode($data, true); 
+    } else {
+        $allRecords = [];
+    }
+    fclose($handle);
+    
+    $allRecords[]= $arr;
+    $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+    $handle = fopen($nameFile, "w");
+    fwrite($handle, $json);
+    fclose($handle);
 }
 }

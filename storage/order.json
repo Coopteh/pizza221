@@ -1,0 +1,34 @@
+[
+    {
+        "fio": "xdsda",
+        "address": "dasdad",
+        "phone": "3838843444",
+        "created_at": "25-03-2025 06:39:27",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 2,
+                "price": 5000,
+                "sum": 10000
+            }
+        ],
+        "all_sum": 10000
+    },
+    {
+        "fio": "xdsda",
+        "address": "dasdad",
+        "phone": "3838843444",
+        "created_at": "25-03-2025 06:44:03",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 1,
+                "price": 5000,
+                "sum": 5000
+            }
+        ],
+        "all_sum": 5000
+    }
+]

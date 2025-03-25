@@ -28,10 +28,10 @@ class BaseTemplate
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/trenazherka/">Главная</a>
+                        <a class="nav-link active" aria-current="page" href="/strax/">Главная</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/strax/product">Каталог</a>
+                        <a class="nav-link" href="/strax/products">Каталог</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/strax/order">Заказ</a>
