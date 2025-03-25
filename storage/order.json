@@ -1,0 +1,50 @@
+[
+    {
+        "fio": "gf",
+        "address": "78",
+        "phone": "31245890",
+        "created_at": "25-03-2025 06:20:54",
+        "products": [
+            {
+                "id": 1,
+                "name": "Проверка машини",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    },
+    {
+        "fio": "gf",
+        "address": "78",
+        "phone": "31245890",
+        "created_at": "25-03-2025 06:21:28",
+        "products": [
+            {
+                "id": 1,
+                "name": "Проверка машини",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    },
+    {
+        "fio": "gf",
+        "address": "78",
+        "phone": "31245890",
+        "created_at": "25-03-2025 06:25:11",
+        "products": [
+            {
+                "id": 1,
+                "name": "Проверка машини",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    }
+]
