@@ -12,5 +12,12 @@
         "image": "https://localhost/trenazherka/assets/images/term.png",
         "description": "Абонимент на 3 месяца(90 дней)",
         "price": 6000
+    },
+    {
+        "id": 3,
+        "name": "Отлет",
+        "image": "https://localhost/trenazherka/assets/images/otlet.png",
+        "description": "Абонимент на 6 месяцев(180 дней)",
+        "price": 10000
     }
 ]
