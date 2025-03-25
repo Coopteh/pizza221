@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Controllers;
 
-class BasketController
-{
-    public function add(): void {
+class BasketController {
+    public function add():void {
         session_start();
         
         if (isset($_POST['id'])) {
@@ -21,20 +19,18 @@ class BasketController
                     'quantity' => 1
                 ];
             }
-        
+            //var_dump($_SESSION);
+            //exit();
             $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
-        
-        // Перенаправление обратно на предыдущую страницу
-        $prevUrl = $_SERVER['HTTP_REFERER'];
-        header("Location: {$prevUrl}");
-        exit();
     }
-
-    public function clear(): void {
+    /* 
+    Очистка корзины
+    */
+    public function clear():void {
         session_start();
         $_SESSION['basket'] = [];
+
         $_SESSION['flash'] = "Корзина успешно очищена.";
     }
-    
 }
