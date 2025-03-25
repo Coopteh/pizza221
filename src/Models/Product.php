@@ -54,18 +54,26 @@ public function getBasketData(): ?array {
     }
     return $basketProducts;
 }
+
+
 public function saveData($arr) {
-    $nameFile = Config::FILE_ORDERS; // Путь к файлу из конфигурации
+    $nameFile= Config::FILE_ORDERS;
 
-    // Кодируем данные в JSON
-    $json = json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        throw new Exception("Ошибка кодирования JSON: " . json_last_error_msg());
+    $handle = fopen($nameFile, "r");
+    if (filesize($nameFile) > 0){ 
+        $data = fread($handle, filesize($nameFile)); 
+        $allRecords = json_decode($data, true); 
+    } else {
+        $allRecords = [];
     }
+    fclose($handle);
+    
+    $allRecords[]= $arr;
+    $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-    // Открываем файл для добавления данных
-    if (file_put_contents($nameFile, $json . PHP_EOL, FILE_APPEND | LOCK_EX) === false) {
-        throw new Exception("Не удалось записать в файл: $nameFile");
-    }
+    $handle = fopen($nameFile, "w");
+    fwrite($handle, $json);
+    fclose($handle);
 }
 }
+

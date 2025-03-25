@@ -53,7 +53,7 @@ class OrderTemplate extends BaseTemplate{
                     </form>
                 </div>
             </div>
-            <form action="/order" method="POST" class="mt-4">
+            <form action="/pizza221/order" method="POST" class="mt-4">
                 <div class="mb-3">
                     <label for="fio" class="form-label">Ваше ФИО:</label>
                     <input type="text" class="form-control" id="fio" name="fio" required>

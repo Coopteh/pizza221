@@ -1,0 +1,41 @@
+[
+    {
+        "fio": "dsfsdfdsf",
+        "address": "asdfasf12314",
+        "phone": "89049988551",
+        "created_at": "25-03-2025 06:06:42",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "created_at": "25-03-2025 06:07:24",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            },
+            {
+                "id": 2,
+                "name": "Кроссовки мужские FILA Escape CL",
+                "quantity": 1,
+                "price": 6000,
+                "sum": 6000
+            }
+        ],
+        "all_sum": 12999
+    }
+]
