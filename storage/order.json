@@ -1,0 +1,114 @@
+[
+    {
+        "fio": "123",
+        "address": "123",
+        "phone": "123",
+        "created_at": "25-03-2025 06:48:18",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 3,
+                "price": 550,
+                "sum": 1650
+            }
+        ],
+        "all_sum": 1650
+    },
+    {
+        "fio": "123",
+        "address": "123",
+        "phone": "123",
+        "created_at": "25-03-2025 06:48:24",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 3,
+                "price": 550,
+                "sum": 1650
+            }
+        ],
+        "all_sum": 1650
+    },
+    {
+        "fio": "123",
+        "address": "123",
+        "phone": "123",
+        "created_at": "25-03-2025 06:49:59",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 3,
+                "price": 550,
+                "sum": 1650
+            }
+        ],
+        "all_sum": 1650
+    },
+    {
+        "fio": "123",
+        "address": "123",
+        "phone": "123",
+        "created_at": "25-03-2025 06:50:02",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 3,
+                "price": 550,
+                "sum": 1650
+            }
+        ],
+        "all_sum": 1650
+    },
+    {
+        "fio": "123",
+        "address": "123",
+        "phone": "123",
+        "created_at": "25-03-2025 06:51:00",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 3,
+                "price": 550,
+                "sum": 1650
+            }
+        ],
+        "all_sum": 1650
+    },
+    {
+        "fio": "123",
+        "address": "123",
+        "phone": "123",
+        "created_at": "25-03-2025 06:51:09",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 4,
+                "price": 550,
+                "sum": 2200
+            }
+        ],
+        "all_sum": 2200
+    },
+    {
+        "fio": "123",
+        "address": "213",
+        "phone": "123",
+        "created_at": "25-03-2025 06:52:06",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 5,
+                "price": 550,
+                "sum": 2750
+            }
+        ],
+        "all_sum": 2750
+    }
+]
