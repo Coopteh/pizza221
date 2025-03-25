@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
-class BasketController{
+use App\Views\AboutTemplate;
+
+class BasketController {
     public function add():void {
         session_start();
         
@@ -19,10 +21,10 @@ class BasketController{
                 $_SESSION['basket'][$product_id] = [
                     'quantity' => 1
                 ];
-            }
+            }   
         //var_dump($_SESSION);
+            $_SESSION['flash'] = "Товар успешно добавлен в корзину!"; 
         //exit();
-            $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
     }
     /* 
@@ -30,7 +32,7 @@ class BasketController{
     */
     public function clear():void {
         session_start();
-        $_SESSION['basket'] = [];
-        $_SESSION['flash'] = "Корзина успешно очищена.";
+        $_SESSION['basket'] = []; // Очищаем корзину
+        $_SESSION['flash'] = "Корзина успешно очищена."; // Уведомление пользователю
     }
 }

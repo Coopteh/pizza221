@@ -17,7 +17,6 @@ class Router {
             case "about":
                 $about = new AboutController();
                 return $about->get();
-                
             case "products":
                 $products = new ProductController();
                 $id = isset($pieces[3]) ? intval($pieces[3]) : null; // Изменено на null
