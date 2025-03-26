@@ -76,7 +76,7 @@ class OrderTemplate extends BaseTemplate
         if ($all_sum > 0) {
             $content .= <<<FORM
             <h3 class="mt-5">Форма для создания заказа</h3>
-            <form action="/order" method="POST">
+            <form action="/pizza221" method="POST">
                 <div class="form-group">
                     <label for="fio">Ваше ФИО:</label>
                     <input type="text" class="form-control" id="fio" name="fio" required>

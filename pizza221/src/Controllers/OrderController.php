@@ -54,7 +54,7 @@ class OrderController {
             $_SESSION['basket'] = [];
             $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
 
-            header("Location: /pizza221/");
+            header("Location: /pizza221");
             return '';
         } catch (\Exception $e) {
             if (session_status() !== PHP_SESSION_ACTIVE) {
