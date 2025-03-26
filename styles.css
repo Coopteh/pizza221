@@ -1,0 +1,35 @@
+body {font-family: "Arial", sans-serif;
+    background-color: #f0f0f0;
+    color:#333}
+
+h1 {color: #2c3e50;
+    text-align: center;}
+
+h2 {color: #34495e}
+
+section {background-color: #fff;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)} 
+
+aside {background-color: #fff;
+align-self: right;
+margin:20px}
+
+article{background-color: #fff;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)} 
+
+img {display: block;
+    margin: 10px auto;
+    border-radius: 5px;}
+
+a {color: #2980b9;}
+a:hover{ color: #e74c3c
+}
+footer {text-align: center;
+    background: color #2c3e50;
+    color: #fff}

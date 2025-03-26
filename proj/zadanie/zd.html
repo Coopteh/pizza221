@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>...</title>
+    <link rel="stylesheet" href="s.css">
+</head>
+<body>
+    <h1>...</h1>
+    
+    <form action="/submit" method="POST">
+        <!-- Поле для имени -->
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+        <br><br>
+        
+        <!-- Поле для пароля -->
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" placeholder="Введите ваш пароль" required>
+        <br><br>
+        
+        <!-- Поле для email -->
+        <label for="email">Ваш email:</label>
+        <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+        <br><br>
+        
+        <!-- Выпадающий список -->
+        <label for="newsletter">Ваш пол:</label>
+        <input type="radio" id="yes" name="newsletter" value="yes">
+        <label for="yes">Женский</label>
+        <input type="radio" id="no" name="newsletter" value="no">
+        <label for="no">Мужской</label>
+        <br><br>
+
+          <!-- Чекбоксы -->
+          <label for="subscribe">Подписаться на рассылку:</label>
+          <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+          <br><br
+        
+          <!-- Многострочное поле для сообщения --> 
+        <label for="message">Сообщение:</label>
+        <textarea id="message" name="message" rows="4" cols="50" placeholder="Введите ваше сообщение" required></textarea>
+        <br><br>
+        
+        <label for="gender">Выберите страну:</label> 
+        <select id="gender" name="gender">
+            <option value="male">Россия</option>
+            <option value="female">США</option>
+            <option value="other">Германия</option>
+        </select>
+        <br><br> 
+
+        <!-- Кнопка отправки -->
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>

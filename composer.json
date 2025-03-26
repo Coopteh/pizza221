@@ -10,5 +10,9 @@
             "name": "Coop Teh",
             "email": "noname@coopteh.ru"
         }
-    ]
+    ],
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.11",
+        "phpmetrics/phpmetrics": "^2.8"
+    }
 }

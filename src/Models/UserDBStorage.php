@@ -5,13 +5,6 @@ use PDO;
 
 class UserDBStorage extends DBStorage
 {
-    public function getUser($login, $password) {
-        $sql = "SELECT * FROM users WHERE login='".$login."' and password='".$password."'";
-        $result = $this->connection->query($sql);
-        $row = $result->fetch();
-        return $row;
-    }
-
     public function getAllUsers() {
         $sql = "SELECT * FROM users";
         $result = $this->connection->query($sql);
@@ -19,9 +12,9 @@ class UserDBStorage extends DBStorage
         return $rows;
     }
 
-    public function addUser($row) {
-        $sql = "INSERT INTO `users`(`login`, `password`, `role`) 
-        VALUES ('".$row['login']."','".$row['password']."','".$row['role']."')";
+    public function add($row) {
+        $sql = "INSERT INTO `users`(`name`, `quantity`, `created_at`) 
+        VALUES ('".$row['name']."','".$row['quantity']."','".$row['created_at']."')";
         $result = $this->connection->query($sql);
         return $result;
     }

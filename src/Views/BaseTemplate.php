@@ -23,6 +23,8 @@ class BaseTemplate {
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
+                    <a class="nav-link active" aria-current="page" href="/list">Список урожая</a>
+                    <a class="nav-link active" aria-current="page" href="/add">Добавить</a>
                     </div>               
                 </div>
                 </div>
