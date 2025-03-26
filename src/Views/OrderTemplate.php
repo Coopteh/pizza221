@@ -11,7 +11,7 @@ class OrderTemplate extends BaseTemplate
         $content = <<<CORUSEL
         <main class="row p-5">
             <h1 class="mb-5">Создание заказа</h1>
-            <h3>Корзина</h1>
+            <h3>Список товаров (Корзина)</h1>
         CORUSEL;
 
         $all_sum = 0;
@@ -73,6 +73,26 @@ class OrderTemplate extends BaseTemplate
                 </div>    
 
             LINE;
+
+            $content .= <<<FORMA
+                <h3>Данные для доставки</h1>
+                <form action="/pizza221/order" method="POST">
+                    <div class="mb-3">
+                        <label for="fioInput" class="form-label">Ваше имя (ФИО):</label>
+                        <input type="text" name="fio" class="form-control" id="fioInput" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addressInput" class="form-label">Адрес доставки:</label>
+                        <input type="text" name="address" class="form-control" id="addressInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneInput" class="form-label">Телефон:</label>
+                        <input type="text" name="phone" class="form-control" id="phoneInput">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Создать заказ</button>
+                </form>
+            FORMA;
+
         }
 
         $content .= "</main>";
