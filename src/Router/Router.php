@@ -12,13 +12,9 @@ class Router {
     {
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", trim($path));
-        $pieces = array_filter($pieces);
-
-        if (empty($pieces)) {
-            $home = new HomeController();
-            return $home->get();
-        }
-        switch ($pieces[2]) {
+        $resource = isset($pieces[2]) ? $pieces[2] : "";
+//var_dump($pieces);    
+        switch ($resource) {
             case "about":
                 $about = new AboutController();
                 return $about->get();
