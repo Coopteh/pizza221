@@ -69,5 +69,22 @@
             }
         ],
         "all_sum": 550
+    },
+    {
+        "fio": "FFFFFFFFFF",
+        "address": "sdfsdfsdfsdfsdfsdfsdf",
+        "phone": "89059000088",
+        "email": "a@mail.ru",
+        "created_at": "29-03-2025 10:18:23",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 1,
+                "price": 550,
+                "sum": 550
+            }
+        ],
+        "all_sum": 550
     }
 ]
