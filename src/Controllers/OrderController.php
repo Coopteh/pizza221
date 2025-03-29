@@ -6,47 +6,95 @@ use App\Models\Product;
 use App\Views\OrderTemplate;
 
 class OrderController {
+
     public function get(): string {
-    // метод GET, POST, DELETE
-    $method = $_SERVER['REQUEST_METHOD']; // Исправлено на правильное имя переменной
-    if ($method == "POST") {
-        return $this->create();
-    }
+        // метод GET, POST, DELETE
+        $method = $_SERVER['REQUEST_METHOD']; // Исправлено на правильное имя переменной
+        if ($method == "POST") {
+            return $this->create();
+        }
         $productModel = new Product();
         $data = $productModel->getBasketData(); // Получаем данные корзины
         return OrderTemplate::getOrderTemplate($data); // Возвращаем шаблон
     }
+
     public function create() {
+        session_start();
         $arr = [];
         $arr['fio'] = urldecode($_POST['fio']);
         $arr['address'] = urldecode($_POST['address']);
         $arr['phone'] = $_POST['phone'];
+        $arr['email'] = urldecode($_POST['email']); // Добавлено поле email
         $arr['created_at'] = date("d-m-Y H:i:s"); // добавим дату и время создания заказа
-    
+
+        // Валидация данных
+        if (!$this->validate($arr)) {
+            // Переадресация обратно на страницу заказа с сообщением об ошибке
+            header("Location: /pizza221/order");
+            return '';
+        }
+
         $model = new Product();
         // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
-    
+
         // подсчитаем общую сумму заказа
         $all_sum = 0;
         foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
-    
+
         // Сохраняем данные заказа
         $model->saveData($arr);
-    
+
         // Очистка корзины
-        session_start();
+       
         $_SESSION['basket'] = [];
-    
+
         // Уведомление об успешном создании заказа
         $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
-    
+
         // Переадресация на главную страницу
         header("Location: /pizza221/");
         return '';
+    }
+
+    private function validate(array $data): bool {
+        // Проверка ФИО
+        if (!isset($data['fio']) || preg_match('/\d/', $data['fio'])) {
+            $_SESSION['flash'] = "ФИО содержит недопустимые символы. Исправьте, пожалуйста.";
+            return false;
+        }
+
+        // Проверка адреса
+        if (!isset($data['address']) || 
+            strlen(trim($data['address'])) < 10 || 
+            strlen(trim($data['address'])) > 200) {
+            $_SESSION['flash'] = "Ошибка при проверке адреса, исправьте, пожалуйста.";
+            return false;
+        }
+
+        // Проверка телефона
+        if (!isset($data['phone'])) {
+            $_SESSION['flash'] = "Ошибка при проверке телефона, исправьте, пожалуйста.";
+            return false;
+        }
+        $cleanedPhone = preg_replace('/[^\d]/', '', $data['phone']);
+        if (strlen($cleanedPhone) !== 11 || 
+            !in_array($cleanedPhone[0], ['7', '8'])) {
+            $_SESSION['flash'] = "Ошибка при проверке телефона, исправьте, пожалуйста.";
+            return false;
+        }
+
+        // Проверка email
+        if (!isset($data['email']) || 
+            !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['flash'] = "Ошибка при проверке email, исправьте, пожалуйста.";
+            return false;
+        }
+
+        return true;
     }
 }
