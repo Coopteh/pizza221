@@ -114,5 +114,24 @@
             }
         ],
         "all_sum": 1058
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "payment_method": "sbp",
+        "created_at": "29-03-2025 10:26:34",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "89130758655",
+        "email": "v.milevskiy@coopteh.ru",
+        "payment_method": "yandex_pay",
+        "created_at": "29-03-2025 10:28:25",
+        "products": [],
+        "all_sum": 0
     }
 ]

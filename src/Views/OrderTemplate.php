@@ -118,6 +118,10 @@ HTML;
                         <input type="text" class="form-control" id="fio" name="fio" placeholder="Введите ваше ФИО" required>
                     </div>
                     <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Введите ваш email" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="address" class="form-label">Адрес доставки:</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="Введите адрес доставки" required>
                     </div>
