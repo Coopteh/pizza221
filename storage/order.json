@@ -30,5 +30,38 @@
             }
         ],
         "all_sum": 5000
+    },
+    {
+        "fio": "xdsda",
+        "address": "dasdad",
+        "phone": "3838843444",
+        "created_at": "29-03-2025 10:50:20",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 2,
+                "price": 5000,
+                "sum": 10000
+            }
+        ],
+        "all_sum": 10000
+    },
+    {
+        "fio": "xdsda",
+        "address": "Ул мира дом кифира",
+        "phone": "+79526060880",
+        "email": "v.milevskiy@coopteh.ru",
+        "created_at": "29-03-2025 10:58:00",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 1,
+                "price": 5000,
+                "sum": 5000
+            }
+        ],
+        "all_sum": 5000
     }
 ]
