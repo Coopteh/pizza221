@@ -74,16 +74,20 @@ class OrderTemplate extends BaseTemplate
 
                        <form action="/pizza221/order" method="POST">
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">ФИО</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                <label for="fioInput" class="form-label">ФИО</label>
+                                <input type="text" name = "fio" class="form-control" id="fioInput">
                             </div> 
                             <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Имейл адрес</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1">
+                            <label for="emailInput" class="form-label">Имейл адрес</label>
+                            <input type="text" name = "email" class="form-control" id="emaillInput">
                             </div>
                             <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Телефон</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1">
+                            <label for="phoneInput" class="form-label">Телефон</label>
+                            <input type="text" name = "phone" class="form-control" id="phoneInput">
+                            </div> 
+                                <div class="mb-3">
+                            <label for="addressInput" class="form-label">Адрес</label>
+                            <input type="text" name = "address" class="form-control" id="addressInput">
                             </div> 
                             <div class="mb-3">
                             <button type="submit" class="btn btn-secondary mt-3">Создать заказ</button>

@@ -37,5 +37,46 @@
             }
         ],
         "all_sum": 685
+    },
+    {
+        "fio": "Иван123",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "+79161234567",
+        "email": "example@mail.ru",
+        "created_at": "29-03-2025 11:09:37",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 6,
+                "price": 249,
+                "sum": 1494
+            },
+            {
+                "id": 2,
+                "name": "Макидзуси",
+                "quantity": 2,
+                "price": 218,
+                "sum": 436
+            }
+        ],
+        "all_sum": 1930
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва",
+        "phone": "+79161234567",
+        "email": "example@mail.ru",
+        "created_at": "29-03-2025 11:10:04",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 2,
+                "price": 249,
+                "sum": 498
+            }
+        ],
+        "all_sum": 498
     }
 ]
