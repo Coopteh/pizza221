@@ -131,7 +131,7 @@ HTML;
                     </div>
                     
                     <input type="hidden" id="selected-payment" name="payment_method" value="">
-                    <button type="submit" class="btn btn-custom w-100">Создать заказ</button>
+                    <button type="submit" class="btn btn-custom w-100" id="create-order-button">Создать заказ</button>
                 </form>
             </div>
         </div>
@@ -145,15 +145,23 @@ HTML;
             </form>
         </div>
 
-        <!-- JavaScript для выбора способа оплаты -->
+        <!-- JavaScript для выбора способа оплаты и отключения кнопки -->
         <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Находим все кнопки с классом payment-option
             const paymentButtons = document.querySelectorAll('.payment-option');
             const selectedPaymentInput = document.getElementById('selected-payment');
             const orderForm = document.getElementById('order-form');
+            const createOrderButton = document.getElementById('create-order-button');
 
-            // Добавляем обработчик клика для каждой кнопки
+            // Проверяем, есть ли товары в корзине
+            const cartItems = document.querySelectorAll('.card.mb-3'); // Элементы товаров в корзине
+            if (cartItems.length === 0) {
+                createOrderButton.disabled = true;
+                createOrderButton.classList.add('disabled');
+            }
+
+            // Добавляем обработчик клика для каждой кнопки оплаты
             paymentButtons.forEach(button => {
                 button.addEventListener('click', function () {
                     // Убираем активный класс у всех кнопок

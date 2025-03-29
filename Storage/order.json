@@ -133,5 +133,30 @@
         "created_at": "29-03-2025 10:28:25",
         "products": [],
         "all_sum": 0
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "Тухочевского 32",
+        "phone": "79130758655",
+        "email": "v.milevskiy@coopteh.ru",
+        "payment_method": "card",
+        "created_at": "29-03-2025 10:49:48",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            },
+            {
+                "id": 7,
+                "name": "Ветчина и сыр",
+                "quantity": 1,
+                "price": 549,
+                "sum": 549
+            }
+        ],
+        "all_sum": 1078
     }
 ]

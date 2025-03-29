@@ -78,36 +78,35 @@ class OrderController {
      */
     private function validate(array $data): bool {
         session_start();
-
-        // Проверка ФИО
-        if (!isset($data['fio']) || !preg_match('/^[а-яА-ЯёЁa-zA-Z\s\-]+$/', $data['fio'])) {
-            $_SESSION['flash'] = "Ошибка при проверке ФИО. Убедитесь, что введены только буквы и пробелы.";
-            return false;
-        }
-
+    
+    
         // Проверка адреса
         if (!isset($data['address']) || strlen(trim($data['address'])) < 10 || strlen(trim($data['address'])) > 200) {
             $_SESSION['flash'] = "Ошибка при проверке адреса. Адрес должен быть от 10 до 200 символов.";
+            $_SESSION['form_data'] = $data; // Сохраняем данные формы
             return false;
         }
-
+    
         // Проверка телефона
         if (!isset($data['phone'])) {
             $_SESSION['flash'] = "Ошибка при проверке телефона. Телефон не может быть пустым.";
+            $_SESSION['form_data'] = $data; // Сохраняем данные формы
             return false;
         }
         $cleanedPhone = preg_replace('/[^0-9]/', '', $data['phone']);
         if (strlen($cleanedPhone) !== 11 || !in_array($cleanedPhone[0], ['7', '8'])) {
             $_SESSION['flash'] = "Ошибка при проверке телефона. Убедитесь, что номер состоит из 11 цифр и начинается с 7 или 8.";
+            $_SESSION['form_data'] = $data; // Сохраняем данные формы
             return false;
         }
-
+    
         // Проверка email
         if (!isset($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $_SESSION['flash'] = "Ошибка при проверке email. Убедитесь, что email введен в правильном формате.";
+            $_SESSION['form_data'] = $data; // Сохраняем данные формы
             return false;
         }
-
+    
         return true;
     }
 }
