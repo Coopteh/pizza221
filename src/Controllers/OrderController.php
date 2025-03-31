@@ -4,23 +4,26 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use App\Views\OrderTemplate;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class OrderController {
-     public function get(): string {
-         // Проверяем HTTP-метод запроса
-         $method = $_SERVER['REQUEST_METHOD'];
-         if ($method == "POST") {
-             return $this->create();
-         }
- 
-         // Если это GET-запрос, отображаем страницу заказа
-         $productModel = new Product();
-         $data = $productModel->getBasketData();
- 
-         $orderTemplate = new OrderTemplate();
-         return $orderTemplate->getOrderTemplate($data);
-     }
-     public function create(): string {
+    public function get(): string {
+        // Проверяем HTTP-метод запроса
+        $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == "POST") {
+            return $this->create();
+        }
+
+        // Если это GET-запрос, отображаем страницу заказа
+        $productModel = new Product();
+        $data = $productModel->getBasketData();
+
+        $orderTemplate = new OrderTemplate();
+        return $orderTemplate->getOrderTemplate($data);
+    }
+
+    public function create(): string {
         // Инициализируем массив для сохранения данных заказа
         $arr = [];
     
@@ -28,6 +31,7 @@ class OrderController {
         $arr['fio'] = urldecode($_POST['fio']);
         $arr['address'] = urldecode($_POST['address']);
         $arr['phone'] = $_POST['phone'];
+        $arr['email'] = $_POST['email']; // Добавляем email
         $arr['created_at'] = date("d-m-Y H:i:s"); // Дата и время создания заказа
     
         // Получаем список товаров из корзины
@@ -42,8 +46,17 @@ class OrderController {
         }
         $arr['all_sum'] = $all_sum;
 
+        // Проверка валидности данных
+        if (!$this->validate($arr)) {
+            header("Location: /avtoservis/order");
+            exit;
+        }
+
         // Сохраняем данные заказа через модель
         $model->saveData($arr);
+
+        // отправка емайл
+        $this->sendMail($arr['email']);
     
         // Очищаем корзину
         session_start();
@@ -55,5 +68,72 @@ class OrderController {
         // Перенаправляем пользователя на главную страницу
         header("Location: /avtoservis/");
         return '';
+    }
+
+    protected function validate(array $data): bool {
+        // Проверка ФИО
+        if (!isset($data['fio']) || preg_match('/\d/', $data['fio'])) {
+            $_SESSION['flash'] = "ФИО содержит недопустимые символы. Исправьте, пожалуйста.";
+            return false;
+        }
+
+        // Проверка адреса
+        if (!isset($data['address']) || strlen(trim($data['address'])) < 10 || strlen(trim($data['address'])) > 200) {
+            $_SESSION['flash'] = "Адрес указан неверно. Пожалуйста, уточните адрес доставки.";
+            return false;
+        }
+
+        // Проверка телефона
+        if (!isset($data['phone'])) {
+            $_SESSION['flash'] = "Телефон не указан. Укажите, пожалуйста, ваш контактный номер.";
+            return false;
+        }
+        
+        $cleanedPhone = preg_replace('/[^0-9]/', '', $data['phone']); // Очистка номера от лишних символов
+        if (strlen($cleanedPhone) != 11 || !in_array(substr($cleanedPhone, 0, 1), ['7', '8'])) {
+            $_SESSION['flash'] = "Номер телефона введен неправильно. Проверьте правильность ввода.";
+            return false;
+        }
+
+        // Проверка e-mail
+        if (!isset($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['flash'] = "E-mail указан неверно. Проверьте правильность указанного e-mail.";
+            return false;
+        }
+
+        return true;
+    }
+    public function sendMail($email) {
+        $mail = new PHPMailer();
+        if (isset($email) && !empty($email)) {
+            try {
+                $mail->SMTPDebug = 2;
+                $mail->CharSet = 'UTF-8';
+                $mail->SetFrom("v.milevskiy@coopteh.ru","AVTOSERVIS");
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'ssl://smtp.mail.ru';                   //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'v.milevskiy@coopteh.ru';                     //SMTP username
+                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
+                $mail->Port       = 465;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Subject = 'Заявка с сайта: AVTOSERVIS';
+                $mail->Body = "Информационное сообщение c сайта AVTOSERVIS <br><br>
+                ------------------------------------------<br><br>
+                Спасибо!<br><br>
+                Ваш заказ успешно создан и передан службе доставк.<br><br>
+                Сообщение сгенерировано автоматически.";
+                if ($mail->send()) {
+                    return true;
+                } else {
+                    throw new Exception('Ошибка с отправкой письма');
+                }
+            } catch (Exception $error) {
+                $message = $error->getMessage();
+            }
+        }
+        return false;
     }
 }
