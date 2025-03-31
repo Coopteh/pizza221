@@ -15,5 +15,23 @@
             }
         ],
         "all_sum": 2200
+    },
+    {
+        "fio": "Арбуз Арбуз Арбуз",
+        "address": "Арбуз 42 улица 42",
+        "phone": "+79422424242",
+        "email": "42@gmail.ru",
+        "created_at": "31-03-2025 10:27:02",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Арбуз Арбуз Арбуз",
+        "address": "Арбуз 42 улица 42",
+        "phone": "+79422424242",
+        "email": "luknusifye@gufum.com",
+        "created_at": "31-03-2025 10:27:22",
+        "products": [],
+        "all_sum": 0
     }
 ]
