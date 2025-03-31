@@ -230,5 +230,23 @@
             }
         ],
         "all_sum": 529
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "12222222222",
+        "phone": "79130758655",
+        "email": "soborovets@gmail.com",
+        "payment_method": "sbp",
+        "created_at": "31-03-2025 08:04:47",
+        "products": [
+            {
+                "id": 3,
+                "name": "Кола-барбекю",
+                "quantity": 1,
+                "price": 479,
+                "sum": 479
+            }
+        ],
+        "all_sum": 479
     }
 ]

@@ -123,34 +123,41 @@ HTML;
      * @param array $data Данные о товаре (id, name, price, image, description и т.д.)
      * @return string HTML-код карточки товара
      */
-    public static function getCardTemplate(array $data): string
-    {
-        $template = parent::getTemplate();
-        $title = 'Карточка товара';
+    public static function getCardTemplate(array $data = null): string
+{
+    $template = parent::getTemplate();
+    $title = 'Карточка товара';
 
-        // Содержимое страницы
-        $content = <<<HTML
-        <div class="card mb-3" style="max-width: 540px; margin: 0 auto;">
-            <div class="row g-0">
-                <div class="col-md-4 mt-3">
-                    <img src="{$data['image']}" class="img-fluid rounded-start" alt="{$data['name']}" style="height: 150px; object-fit: cover;">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">{$data['name']}</h5>
-                        <p class="card-text">{$data['description']}</p>
-                        <h5 class="card-title"><strong>Цена:</strong> {$data['price']} руб.</h5>
-                        <form class="mt-4" action="/basket" method="POST">
-                            <input type="hidden" name="id" value="{$data['id']}">
-                            <button type="submit" class="btn btn-custom">Добавить в корзину</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-HTML;
-
+    // Если данные отсутствуют, показываем сообщение об ошибке
+    if ($data === null) {
+        $content = '<div class="alert alert-danger" role="alert">Товар не найден.</div>';
         $resultTemplate = sprintf($template, $title, $content);
         return $resultTemplate;
     }
+
+    // Генерация HTML-кода для карточки товара
+    $content = <<<HTML
+    <div class="card mb-3" style="max-width: 540px; margin: 0 auto;">
+        <div class="row g-0">
+            <div class="col-md-4 mt-3">
+                <img src="{$data['image']}" class="img-fluid rounded-start" alt="{$data['name']}" style="height: 150px; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{$data['name']}</h5>
+                    <p class="card-text">{$data['description']}</p>
+                    <h5 class="card-title"><strong>Цена:</strong> {$data['price']} руб.</h5>
+                    <form class="mt-4" action="/basket" method="POST">
+                        <input type="hidden" name="id" value="{$data['id']}">
+                        <button type="submit" class="btn btn-custom">Добавить в корзину</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+HTML;
+
+    $resultTemplate = sprintf($template, $title, $content);
+    return $resultTemplate;
+}
 }
