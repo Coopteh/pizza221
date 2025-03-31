@@ -141,5 +141,39 @@
         "created_at": "31-03-2025 08:14:27",
         "products": [],
         "all_sum": 0
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060899",
+        "email": "zespafitru@gufum.com",
+        "created_at": "31-03-2025 10:44:16",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 3,
+                "price": 5000,
+                "sum": 15000
+            }
+        ],
+        "all_sum": 15000
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060899",
+        "email": "mayduserde@gufum.com",
+        "created_at": "31-03-2025 10:47:19",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 1,
+                "price": 5000,
+                "sum": 5000
+            }
+        ],
+        "all_sum": 5000
     }
 ]
