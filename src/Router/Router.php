@@ -8,19 +8,18 @@ use App\Controllers\BasketController;
 use App\Controllers\OrderController;
 
 class Router {
-    public function route(string $url): string
-    {
+    public function route(string $url): string {
         $path = parse_url($url, PHP_URL_PATH);
-        $pieces = explode("/", trim($path));
-        $resource = isset($pieces[2]) ? $pieces[2] : "";
-//var_dump($pieces);    
+        $pieces = explode("/", $path);
+        //var_dump($pieces);
+        $resource = $pieces[2];
         switch ($resource) {
             case "about":
                 $about = new AboutController();
                 return $about->get();
             case "order":
-                $order = new OrderController();
-                return $order->get(); 
+                $orderController = new OrderController();
+                return $orderController->get(); 
             case 'basket_clear':
                 $basketController = new BasketController();
                 $basketController->clear();
