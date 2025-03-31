@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use App\Views\OrderTemplate;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class OrderController {
     public function get(): string {
@@ -12,6 +14,7 @@ class OrderController {
         if ($method == "POST") {
             return $this->create();
         }
+        
 
         // Если это GET-запрос, отображаем страницу заказа
         $productModel = new Product();
@@ -23,6 +26,7 @@ class OrderController {
 
     public function create(): string {
         // Инициализируем массив для сохранения данных заказа
+        session_start();
         $arr = [];
     
         // Получаем данные из POST-запроса
@@ -52,13 +56,20 @@ class OrderController {
 
         // Сохраняем данные заказа через модель
         $model->saveData($arr);
+
+        // отправка емайл
+//        $this->sendMail($arr['email']);
     
         // Очищаем корзину
-        session_start();
+        
         $_SESSION['basket'] = [];
     
-        // Добавляем флеш-сообщение об успешной операции
-        $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки.";
+        // Отправляем уведомление на email
+        if (!$this->sendMail($arr['email'])) {
+            $_SESSION['flash'] = "Ваш заказ был создан, но возникла проблема с отправкой уведомления на email.";
+        } else {
+            $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки.";
+        }
     
         // Перенаправляем пользователя на главную страницу
         header("Location: /trenazherka/");
@@ -97,5 +108,40 @@ class OrderController {
         }
 
         return true;
+    }
+
+    public function sendMail($email) {
+        $mail = new PHPMailer();
+        if (isset($email) && !empty($email)) {
+            try {
+                $mail->SMTPDebug = 2;
+                $mail->CharSet = 'UTF-8';
+                $mail->setFrom("v.milevskiy@coopteh.ru", "trenazherka");
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'ssl://smtp.mail.ru';                   //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'v.milevskiy@coopteh.ru';                     //SMTP username
+                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z'; // Consider using environment variables
+                $mail->Port       = 465;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Subject = 'Заявка с сайта: Trenazherniy zal-221';
+                $mail->Body = "Информационное сообщение c сайта Trenazherniy zal-221 <br><br>
+                ------------------------------------------<br><br>
+                Спасибо!<br><br>
+                Ваш заказ успешно создан и передан службе доставки.<br><br>
+                Сообщение сгенерировано автоматически.";
+                if ($mail->send()) {
+                    return true;
+                } else {
+                    throw new Exception('Ошибка с отправкой письма');
+                }
+            } catch (Exception $error) {
+                // Log the error message or handle it as needed
+                return false;
+            }
+        }
+        return false;
     }
 }
