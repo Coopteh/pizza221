@@ -1,101 +1,80 @@
-<?php 
+<?php
+
 namespace App\Views;
 
 use App\Views\BaseTemplate;
 
-class OrderTemplate extends BaseTemplate
-{
-    public static function getOrderTemplate(array $products): string {
+class OrderTemplate extends BaseTemplate{
+    public static function getOrderTemplate(array $arr): string {
         $template = parent::getTemplate();
         $title = 'Создание заказа';
-        $content = <<<CORUSEL
-        <main class="row p-5">
-            <h1 class="mb-5">Создание заказа</h1>
-            <h3>Корзина</h3>
-    CORUSEL;
+        $content = '<h1 class="mb-5">Создание заказа</h1><h3>Корзина</h3>';
     
         $all_sum = 0;
-        foreach ($products as $product) {
-            $name = $product['name'];
-            $price = $product['price'];
-            $quantity = $product['quantity'];
     
-            $sum = $price * $quantity;
-            $all_sum += $sum;
-    
-            $content .= <<<LINE
-                <div class="row">
-                    <div class="col-5">
-                    {$name}
-                    </div>
-                    <div class="col-3">
-                    {$quantity} ед. x {$price} руб.
-                    </div>
-                    <div class="col-2">
-                    {$sum} ₽
-                    </div>
-                </div>
-            LINE;
-        }
-    
-        if ($all_sum == 0) {
-            $content .= <<<LINE
+        if (empty($arr)) {
+            $content .= <<<HTML
             <div class="row">
                 <div class="col-12">
-                - нет добавленных товаров -
+                    - нет добавленных товаров -
                 </div>
             </div>
-            LINE;
+            HTML;
         } else {
-            $content .= <<<LINE
-                <div class="row">
-                    <hr>
-                    <div class="col-5">
-                        <strong>Общая сумма:</strong>
-                    </div>
-                    <div class="col-3">
-                        &nbsp;
-                    </div>
-                    <div class="col-2">
-                        <strong>{$all_sum} ₽</strong>
-                    </div>
-                </div>    
+            foreach ($arr as $product) {
+                $name = $product['name'];
+                $price = $product['price'];
+                $quantity = $product['quantity'];
+                $sum = $product['sum'];
+                $all_sum += $sum;
     
+                $content .= <<<HTML
                 <div class="row">
-                    <div class="col-8">
-                        &nbsp;
-                    </div>
-                    <div class="col-2 float-end">
-                        <form action="/pizza221/basket_clear" method="POST">
-                            <button type="submit" class="btn btn-secondary mt-3">Очистить корзину</button>
-                        </form>
-                    </div>
-                </div>    
-            LINE;
+                    <div class="col-6">{$name}</div>
+                    <div class="col-2">{$quantity} ед. x {$price} руб.</div>
+                    <div class="col-2">{$sum} ₽</div>
+                </div>
+                HTML;
+            }
         }
+    
+        // Итоговая сумма
         if ($all_sum > 0) {
-            $content .= <<<FORM
-            <h3 class="mt-5">Форма для создания заказа</h3>
-            <form action="/pizza221" method="POST">
-                <div class="form-group">
-                    <label for="fio">Ваше ФИО:</label>
+            $content .= <<<HTML
+            <div class="row">
+                <div class="col-6">Итого:</div>
+                <div class="col-2">{$all_sum} ₽</div>
+            </div>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6 float-end">
+                    <form action="/pizza221/basket_clear" method="POST">
+                        <button type="submit" class="btn btn-secondary mt-3">Очистить корзину</button>
+                    </form>
+                </div>
+            </div>
+            <form action="/pizza221/order" method="POST" class="mt-4">
+                <div class="mb-3">
+                    <label for="fio" class="form-label">Ваше ФИО:</label>
                     <input type="text" class="form-control" id="fio" name="fio" required>
                 </div>
-                <div class="form-group">
-                    <label for="address">Адрес доставки:</label>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Адрес доставки:</label>
                     <input type="text" class="form-control" id="address" name="address" required>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Телефон:</label>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Телефон:</label>
                     <input type="tel" class="form-control" id="phone" name="phone" required>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Создать заказ</button>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Mail:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Создать заказ</button>
             </form>
-            FORM;
+            HTML;
         }
-    
-        $content .= "</main>";
-    
+        // Возвращаем сгенерированный контент
         $resultTemplate = sprintf($template, $title, $content);
         return $resultTemplate;
     }

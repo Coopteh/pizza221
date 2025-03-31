@@ -11,10 +11,7 @@ class Router {
     public function route(string $url): string {
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", $path);
-        if (empty($pieces[2])) {
-            $home = new HomeController();
-            return $home->get();
-        }
+        //var_dump($pieces);
         $resource = $pieces[2];
         switch ($resource) {
             case "about":
@@ -22,50 +19,22 @@ class Router {
                 return $about->get();
             case "order":
                 $orderController = new OrderController();
-                try {
-                    return $orderController->get();
-                } catch (\Exception $e) {
-                    error_log($e->getMessage());
-                    return 'Error occurred. Please try again later.';
-                }
+                return $orderController->get(); 
             case 'basket_clear':
                 $basketController = new BasketController();
-                if (isset($_SERVER['HTTP_REFERER'])) {
-                    $prevUrl = $_SERVER['HTTP_REFERER'];
-                } else {
-                    $prevUrl = '/';
-                }
-                try {
-                    $basketController->clear();
-                } catch (\Exception $e) {
-                    error_log($e->getMessage());
-                    return 'Error occurred. Please try again later.';
-                }
+                $basketController->clear();
+                $prevUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: {$prevUrl}");
                 return '';
             case "products":
                 $productController = new ProductController();
                 $id = (isset($pieces[3])) ? intval($pieces[3]) : null;
-                try {
-                    return $productController->get($id);
-                } catch (\Exception $e) {
-                    error_log($e->getMessage());
-                    return 'Error occurred. Please try again later.';
-                }
+                return $productController->get($id);                
             case "basket":
                 $basketController = new BasketController();
-                if (isset($_SERVER['HTTP_REFERER'])) {
-                    $prevUrl = $_SERVER['HTTP_REFERER'];
-                } else {
-                    $prevUrl = '/';
-                }
-                try {
-                    $basketController->add();
-                } catch (\Exception $e) {
-                    error_log($e->getMessage());
-                    return 'Error occurred. Please try again later.';
-                }
-                header("Location: {$prevUrl}");
+                $basketController->add();
+                $prevUrl = $_SERVER['HTTP_REFERER'];
+                header("Location: {$prevUrl}");                    
                 return "";
             default:
                 $home = new HomeController();

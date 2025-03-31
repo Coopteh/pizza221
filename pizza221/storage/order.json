@@ -1,0 +1,19 @@
+[
+    {
+        "fio": "Арбуз Арбуз Арбуз",
+        "address": "Арбуз 42 улица 42",
+        "phone": "+79422424242",
+        "email": "luknusifye@gufum.com",
+        "created_at": "31-03-2025 08:06:57",
+        "products": [
+            {
+                "id": 1,
+                "name": "Пицца Маргарита",
+                "quantity": 4,
+                "price": 550,
+                "sum": 2200
+            }
+        ],
+        "all_sum": 2200
+    }
+]
