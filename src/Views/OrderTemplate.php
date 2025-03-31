@@ -47,7 +47,7 @@ class OrderTemplate extends BaseTemplate {
             <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6 float-end">
-                    <form action="/trenazherka/basket_clear" method="POST">
+                    <form action="/strax/basket_clear" method="POST">
                         <button type="submit" class="btn btn-secondary mt-3">Очистить корзину</button>
                     </form>
                 </div>

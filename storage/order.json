@@ -63,5 +63,83 @@
             }
         ],
         "all_sum": 5000
+    },
+    {
+        "fio": "xdsda ",
+        "address": "Ул мира дом кифира",
+        "phone": "+79526060808",
+        "email": "v.milevskiy@coopteh.ru",
+        "created_at": "29-03-2025 11:00:21",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060800",
+        "email": "zespafitru@gufum.com",
+        "created_at": "31-03-2025 08:08:01",
+        "products": [
+            {
+                "id": 1,
+                "name": "Страхование автотранспорта",
+                "quantity": 1,
+                "price": 5000,
+                "sum": 5000
+            }
+        ],
+        "all_sum": 5000
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060800",
+        "email": "zespafitru@gufum.com",
+        "created_at": "31-03-2025 08:09:59",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060800",
+        "email": "zespafitru@gufum.com",
+        "created_at": "31-03-2025 08:11:51",
+        "products": [
+            {
+                "id": 2,
+                "name": "Страхование домов",
+                "quantity": 1,
+                "price": 20000,
+                "sum": 20000
+            }
+        ],
+        "all_sum": 20000
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060899",
+        "email": "zespafitru@gufum.com",
+        "created_at": "31-03-2025 08:13:11",
+        "products": [
+            {
+                "id": 3,
+                "name": "Страхование жизни",
+                "quantity": 1,
+                "price": 2000,
+                "sum": 2000
+            }
+        ],
+        "all_sum": 2000
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Str. Lenina, 198",
+        "phone": "+79526060899",
+        "email": "zespafitru@gufum.com",
+        "created_at": "31-03-2025 08:14:27",
+        "products": [],
+        "all_sum": 0
     }
 ]
