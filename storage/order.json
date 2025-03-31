@@ -117,5 +117,22 @@
         "created_at": "31-03-2025 08:13:11",
         "products": [],
         "all_sum": 0
+    },
+    {
+        "fio": "RF",
+        "address": "улица Мира",
+        "phone": "89069756331",
+        "email": "kotrabugna@gufum.com",
+        "created_at": "31-03-2025 10:47:39",
+        "products": [
+            {
+                "id": 1,
+                "name": "Проверка машини",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
     }
 ]
