@@ -25,11 +25,11 @@ class OrderController {
         }
 
         // Создаем объект сервиса
-        $storageService = new FileStorage();
-        $productModel = new Product($storageService, 'products_data');
-
-        // Получаем данные корзины
-        $data = $productModel->getBasketData();
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
+        $data = $model->getBasketData();
 
         $orderTemplate = new OrderTemplate();
         return $orderTemplate->getOrderTemplate($data);
@@ -135,7 +135,7 @@ class OrderController {
     /**
      * Метод для отправки письма.
      */
-    public function sendMail($email): bool {
+     public function sendMail($email): bool {
         if (empty($email)) {
             return false;
         }

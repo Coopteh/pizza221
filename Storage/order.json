@@ -248,5 +248,44 @@
             }
         ],
         "all_sum": 479
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "12222222222",
+        "phone": "79130758655",
+        "email": "soborovets@gmail.com",
+        "payment_method": "card",
+        "created_at": "31-03-2025 11:19:10",
+        "products": [
+            {
+                "id": 1,
+                "name": "Мясная с аджикой",
+                "quantity": 2,
+                "price": 469,
+                "sum": 938
+            },
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 3,
+                "price": 529,
+                "sum": 1587
+            },
+            {
+                "id": 3,
+                "name": "Кола-барбекю",
+                "quantity": 1,
+                "price": 479,
+                "sum": 479
+            },
+            {
+                "id": 5,
+                "name": "Добрый Кола",
+                "quantity": 1,
+                "price": 120,
+                "sum": 120
+            }
+        ],
+        "all_sum": 3124
     }
 ]
