@@ -187,5 +187,123 @@
             }
         ],
         "all_sum": 249
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "jedrikardu@gufum.com",
+        "created_at": "31-03-2025 08:05:15",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 1,
+                "price": 249,
+                "sum": 249
+            }
+        ],
+        "all_sum": 249
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "jedrikardu@gufum.com",
+        "created_at": "31-03-2025 10:27:19",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "example@mail.ru",
+        "phone": "89161234567",
+        "email": "example@mail.ru",
+        "created_at": "31-03-2025 10:27:59",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "example@mail.ru",
+        "created_at": "31-03-2025 10:28:18",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "example@mail.ru",
+        "created_at": "31-03-2025 10:28:56",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "example@mail.ru",
+        "created_at": "31-03-2025 10:35:42",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 1,
+                "price": 249,
+                "sum": 249
+            },
+            {
+                "id": 2,
+                "name": "Макидзуси",
+                "quantity": 1,
+                "price": 218,
+                "sum": 218
+            }
+        ],
+        "all_sum": 467
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "v.milevskiy@coopteh.ru",
+        "created_at": "31-03-2025 10:36:55",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 1,
+                "price": 249,
+                "sum": 249
+            },
+            {
+                "id": 2,
+                "name": "Макидзуси",
+                "quantity": 1,
+                "price": 218,
+                "sum": 218
+            }
+        ],
+        "all_sum": 467
+    },
+    {
+        "fio": "Иванов Иван Иванович",
+        "address": "г. Москва, ул. Ленина, д. 15, кв. 42",
+        "phone": "89161234567",
+        "email": "v.milevskiy@coopteh.ru",
+        "created_at": "31-03-2025 10:37:16",
+        "products": [
+            {
+                "id": 1,
+                "name": "Филадельфия",
+                "quantity": 1,
+                "price": 249,
+                "sum": 249
+            }
+        ],
+        "all_sum": 249
     }
 ]

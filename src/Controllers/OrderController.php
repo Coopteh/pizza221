@@ -1,59 +1,85 @@
-<?php
+<?php 
 namespace App\Controllers;
-use App\Models\Product;
-use App\Views\OrderTemplate;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-class OrderController{
-    public function get(): string{
-        // метод GET, POST, DELETE
+
+use App\Views\OrderTemplate;
+use App\Models\Product;
+use App\Services\FileStorage;
+use App\Services\DatabaseStorage;
+use App\Configs\Config;
+
+class OrderController {
+    public function get(): string {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
             return $this->create();
-        $productModel = new Product();
-        $data = $productModel -> getBasketData();
-        $orderTemplate = new OrderTemplate();
-        $result = $orderTemplate -> getOrderTemplate($data);
-        return $result;
+
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
+        $data = $model->getBasketData();
+
+        return OrderTemplate::getOrderTemplate($data);
     }
-    public function create() {
+
+    public function create():string {
         session_start();
+        
         $arr = [];
-        $arr['fio'] = urldecode( $_POST['fio'] );
-            $arr['address'] = urldecode( $_POST['address'] );
-            $arr['phone'] = $_POST['phone'];
-            $arr['email'] = $_POST['email'];
-            $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
+        $arr['fio'] =  strip_tags($_POST['fio']);
+        $arr['address'] = strip_tags($_POST['address']);
+        $arr['phone'] = strip_tags($_POST['phone']);
+        $arr['email'] = strip_tags($_POST['email']);
+        $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
-            if (! $this->validate($arr)) {
-                // переадресация обратно на страницу заказа
-                header("Location: /pizza221/order");
-                return "";
-            }
-        $model = new Product();
+        if (! $this->validate($arr)) {
+            // переадресация обратно на страницу заказа
+            header("Location: /pizza221/order");
+            return "";
+        }
+
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
+        //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        //    $serviceStorage = new DatabaseStorage();
+
         // список заказанных продуктов - берем список товаров из корзины
-            $products = $model->getBasketData();
-            $arr['products'] = $products;
+        $products = $model->getBasketData();
+        $arr['products'] = $products;
         // подсчитаем общую сумму заказа
-            $all_sum = 0;
-            foreach ($products as $product) {
+        $all_sum = 0;
+        foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
-            }
-            $arr['all_sum'] = $all_sum;
-
-            $model->saveData($arr);
-
-            $_SESSION['basket'] = [];
+        }
+        $arr['all_sum'] = $all_sum;
+        $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        // сохраняем данные
+        $model->saveData($arr);
         
-            $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
+        // отправка емайл
+        $this->sendMail( $arr['email'] );
+
+        // очистка корзины
+        $_SESSION['basket'] = [];
+
+        // сообщение для пользователя
+        $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
         
-            header("Location: /pizza221/");
-            return '';
+        // переадресация на Главную
+	    header("Location: /pizza221/");
+
+        return "";
     }
+
     function validate(array $data): bool {
         // Проверка ФИО
         if (!isset($data['fio'])) {
-            $_SESSION['flash'] = "Не заполнено поле ФИО";
+            $_SESSION['flash'] = "Незаполнено поле ФИО.";
             return false;
         }
     
@@ -61,32 +87,33 @@ class OrderController{
         if (!isset($data['address']) || 
             strlen(trim($data['address'])) < 10 || 
             strlen(trim($data['address'])) > 200) {
-                $_SESSION['flash'] = "Поле адреса должно быть олее 10 символов, но не более 200";
+            $_SESSION['flash'] = "Поле адреса должно быть более 10 символов (но не более 200).";
             return false;
         }
     
         // Проверка телефона
         if (!isset($data['phone'])) {
-            $_SESSION['flash'] = "Не правльно заполнен номер телефона";
+            $_SESSION['flash'] = "Незаполнено поле Телефон.";
             return false;
         }
         $cleanedPhone = preg_replace('/[^\\d]/', '', $data['phone']);
         if (strlen($cleanedPhone) !== 11 || 
             !in_array($cleanedPhone[0], ['7', '8'])) {
-                $_SESSION['flash'] = "Не верный номер телефона";
+            $_SESSION['flash'] = "Неверный номер телефона.";
             return false;
         }
     
         // Проверка email
         if (!isset($data['email']) || 
             !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['flash'] = "Не правильно заполнено поле имейл"; 
+            $_SESSION['flash'] = "Неправильно заполнено поле Емайл.";
             return false;
         }
     
         return true;
     }
-    public function sendMail($email) {
+
+    public function sendMail($email):bool {
         $mail = new PHPMailer();
         if (isset($email) && !empty($email)) {
             try {
@@ -108,8 +135,6 @@ class OrderController{
                 Спасибо!<br><br>
                 Ваш заказ успешно создан и передан службе доставки.<br><br>
                 Сообщение сгенерировано автоматически.";
-                // отправка емайл
-                $this->sendMail($email);
                 if ($mail->send()) {
                     return true;
                 } else {
@@ -117,6 +142,8 @@ class OrderController{
                 }
             } catch (Exception $error) {
                 $message = $error->getMessage();
+var_dump($message);
+exit();
             }
         }
         return false;
