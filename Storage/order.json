@@ -158,5 +158,77 @@
             }
         ],
         "all_sum": 1078
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "12222222222",
+        "phone": "79130758655",
+        "email": "nikitadolinin03@gmail.com",
+        "payment_method": "sbp",
+        "created_at": "31-03-2025 07:47:38",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            }
+        ],
+        "all_sum": 529
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "12222222222",
+        "phone": "79130758655",
+        "email": "yeydacegna@gufum.com",
+        "payment_method": "sbp",
+        "created_at": "31-03-2025 07:49:47",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            }
+        ],
+        "all_sum": 529
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "12222222222",
+        "phone": "79130758655",
+        "email": "soborovets@gmail.com",
+        "payment_method": "sbp",
+        "created_at": "31-03-2025 07:54:54",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            }
+        ],
+        "all_sum": 529
+    },
+    {
+        "fio": "Гончаров Денис Алибабаевич",
+        "address": "12222222222",
+        "phone": "79130758655",
+        "email": "cuspecalte@gufum.com",
+        "payment_method": "sbp",
+        "created_at": "31-03-2025 07:59:03",
+        "products": [
+            {
+                "id": 2,
+                "name": "Диабло",
+                "quantity": 1,
+                "price": 529,
+                "sum": 529
+            }
+        ],
+        "all_sum": 529
     }
 ]
