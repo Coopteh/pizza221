@@ -146,5 +146,23 @@
         "created_at": "31-03-2025 09:09:21",
         "products": [],
         "all_sum": 0
+    },
+    {
+        "fio": "Иван",
+        "address": "г. Кемерово, ул. Тухачевского, 32",
+        "phone": "89059000088",
+        "email": "jorkazomli@gufum.com",
+        "created_at": "31-03-2025 10:38:54",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Иван",
+        "address": "г. Кемерово, ул. Тухачевского, 32",
+        "phone": "89059000088",
+        "email": "jorkazomli@gufum.com",
+        "created_at": "31-03-2025 10:40:00",
+        "products": [],
+        "all_sum": 0
     }
 ]

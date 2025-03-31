@@ -43,7 +43,7 @@ class OrderController {
 
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
         //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
         //    $serviceStorage = new DatabaseStorage();
@@ -58,6 +58,10 @@ class OrderController {
         }
         $arr['all_sum'] = $all_sum;
     
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }        
         // сохраняем данные
         $model->saveData($arr);
         
