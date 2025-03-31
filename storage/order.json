@@ -147,5 +147,73 @@
             }
         ],
         "all_sum": 300
+    },
+    {
+        "fio": "Fex",
+        "address": "ул. разбитых фонарей",
+        "phone": "+78901235678",
+        "email": "TerAer@mail.ru",
+        "created_at": "29-03-2025 11:06:46",
+        "products": [
+            {
+                "id": 1,
+                "name": "Шаурма классическая",
+                "quantity": 1,
+                "price": 300,
+                "sum": 300
+            }
+        ],
+        "all_sum": 300
+    },
+    {
+        "fio": "Fex",
+        "address": "ул. разбитых фонарей",
+        "phone": "+78901235678",
+        "email": "kaydagagni@gufum.com",
+        "created_at": "31-03-2025 07:49:32",
+        "products": [
+            {
+                "id": 1,
+                "name": "Шаурма классическая",
+                "quantity": 2,
+                "price": 300,
+                "sum": 600
+            }
+        ],
+        "all_sum": 600
+    },
+    {
+        "fio": "Fex",
+        "address": "ул. разбитых фонарей",
+        "phone": "+78901235678",
+        "email": "kaydagagni@gufum.com",
+        "created_at": "31-03-2025 07:52:40",
+        "products": [
+            {
+                "id": 1,
+                "name": "Шаурма классическая",
+                "quantity": 1,
+                "price": 300,
+                "sum": 300
+            }
+        ],
+        "all_sum": 300
+    },
+    {
+        "fio": "Fex",
+        "address": "ул. разбитых фонарей",
+        "phone": "+78901235678",
+        "email": "kaydagagni@gufum.com",
+        "created_at": "31-03-2025 08:00:40",
+        "products": [
+            {
+                "id": 1,
+                "name": "Шаурма классическая",
+                "quantity": 6,
+                "price": 300,
+                "sum": 1800
+            }
+        ],
+        "all_sum": 1800
     }
 ]
