@@ -27,41 +27,41 @@ class OrderController {
 
     public function create(): string {
         session_start();
-        // Инициализируем массив для сохранения данных заказа
+        
         $arr = [];
-        
-        // Получаем данные из POST-запроса
-        $arr['fio'] = urldecode($_POST['fio']);
-        $arr['address'] = urldecode($_POST['address']);
-        $arr['phone'] = $_POST['phone'];
-        $arr['email'] = $_POST['email']; // Добавляем email
-        $arr['created_at'] = date("d-m-Y H:i:s"); // Дата и время создания заказа
-        
-        // Создание сервиса в зависимости от конфигурации
+        $arr['fio'] =  strip_tags($_POST['fio']);
+        $arr['address'] = strip_tags($_POST['address']);
+        $arr['phone'] = strip_tags($_POST['phone']);
+        $arr['email'] = strip_tags($_POST['email']);
+        $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
+
+        if (! $this->validate($arr)) {
+            // переадресация обратно на страницу заказа
+            header("Location: /pizza221/order");
+            return "";
+        }
+
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
-        } else {
-            $serviceStorage = new DatabaseStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
-    
-        // Получаем список товаров из корзины
+        //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        //    $serviceStorage = new DatabaseStorage();
+
+        // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
-        
-        // Подсчитываем общую сумму заказа
+        // подсчитаем общую сумму заказа
         $all_sum = 0;
         foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
     
-        // Проверка валидности данных
-        if (!$this->validate($arr)) {
-            header("Location: /pizza221/order");
-            exit;
-        }
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }        
     
         // Сохраняем данные заказа через модель
         $model->saveData($arr);

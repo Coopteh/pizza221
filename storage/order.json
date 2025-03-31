@@ -499,5 +499,29 @@
         "created_at": "31-03-2025 10:36:58",
         "products": [],
         "all_sum": 0
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:42:34",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            },
+            {
+                "id": 2,
+                "name": "Кроссовки мужские FILA Escape CL",
+                "quantity": 1,
+                "price": 6000,
+                "sum": 6000
+            }
+        ],
+        "all_sum": 12999
     }
 ]
