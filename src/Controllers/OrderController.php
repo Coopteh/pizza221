@@ -1,133 +1,140 @@
-<?php
-
+<?php 
 namespace App\Controllers;
 
-use App\Models\Product;
-use App\Views\OrderTemplate;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+use App\Views\OrderTemplate;
+use App\Models\Product;
+use App\Services\FileStorage;
+use App\Services\DatabaseStorage;
+use App\Configs\Config;
+
 class OrderController {
     public function get(): string {
-        // Проверяем HTTP-метод запроса
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == "POST") {
+        if ($method == "POST")
             return $this->create();
+
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
-        
+        $data = $model->getBasketData();
 
-        // Если это GET-запрос, отображаем страницу заказа
-        $productModel = new Product();
-        $data = $productModel->getBasketData();
-
-        $orderTemplate = new OrderTemplate();
-        return $orderTemplate->getOrderTemplate($data);
+        return OrderTemplate::getOrderTemplate($data);
     }
 
-    public function create(): string {
-        // Инициализируем массив для сохранения данных заказа
+    public function create():string {
         session_start();
+        
         $arr = [];
-    
-        // Получаем данные из POST-запроса
-        $arr['fio'] = urldecode($_POST['fio']);
-        $arr['address'] = urldecode($_POST['address']);
-        $arr['phone'] = $_POST['phone'];
-        $arr['email'] = $_POST['email']; // Добавляем email
-        $arr['created_at'] = date("d-m-Y H:i:s"); // Дата и время создания заказа
-    
-        // Получаем список товаров из корзины
-        $model = new Product();
+        $arr['fio'] =  strip_tags($_POST['fio']);
+        $arr['address'] = strip_tags($_POST['address']);
+        $arr['phone'] = strip_tags($_POST['phone']);
+        $arr['email'] = strip_tags($_POST['email']);
+        $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
+
+        if (! $this->validate($arr)) {
+            // переадресация обратно на страницу заказа
+            header("Location: /trenazherka/order");
+            return "";
+        }
+
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
+        //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        //    $serviceStorage = new DatabaseStorage();
+
+        // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
-    
-        // Подсчитываем общую сумму заказа
+        // подсчитаем общую сумму заказа
         $all_sum = 0;
         foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
-
-        // Проверка валидности данных
-        if (!$this->validate($arr)) {
-            header("Location: /trenazherka/order");
-            exit;
-        }
-
-        // Сохраняем данные заказа через модель
+    
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }        
+        // сохраняем данные
         $model->saveData($arr);
-
-        // отправка емайл
-//        $this->sendMail($arr['email']);
-    
-        // Очищаем корзину
         
+        // отправка емайл
+        $this->sendMail( $arr['email'] );
+
+        // очистка корзины
         $_SESSION['basket'] = [];
-    
-        // Отправляем уведомление на email
-        if (!$this->sendMail($arr['email'])) {
-            $_SESSION['flash'] = "Ваш заказ был создан, но возникла проблема с отправкой уведомления на email.";
-        } else {
-            $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки.";
-        }
-    
-        // Перенаправляем пользователя на главную страницу
-        header("Location: /trenazherka/");
-        return '';
+
+        // сообщение для пользователя
+        $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
+        
+        // переадресация на Главную
+	    header("Location: /trenazherka/");
+
+        return "";
     }
 
-    protected function validate(array $data): bool {
+    function validate(array $data): bool {
         // Проверка ФИО
-        if (!isset($data['fio']) || preg_match('/\d/', $data['fio'])) {
-            $_SESSION['flash'] = "ФИО содержит недопустимые символы. Исправьте, пожалуйста.";
+        if (!isset($data['fio'])) {
+            $_SESSION['flash'] = "Незаполнено поле ФИО.";
             return false;
         }
-
+    
         // Проверка адреса
-        if (!isset($data['address']) || strlen(trim($data['address'])) < 10 || strlen(trim($data['address'])) > 200) {
-            $_SESSION['flash'] = "Адрес указан неверно. Пожалуйста, уточните адрес доставки.";
+        if (!isset($data['address']) || 
+            strlen(trim($data['address'])) < 10 || 
+            strlen(trim($data['address'])) > 200) {
+            $_SESSION['flash'] = "Поле адреса должно быть более 10 символов (но не более 200).";
             return false;
         }
-
+    
         // Проверка телефона
         if (!isset($data['phone'])) {
-            $_SESSION['flash'] = "Телефон не указан. Укажите, пожалуйста, ваш контактный номер.";
+            $_SESSION['flash'] = "Незаполнено поле Телефон.";
             return false;
         }
-        
-        $cleanedPhone = preg_replace('/[^0-9]/', '', $data['phone']); // Очистка номера от лишних символов
-        if (strlen($cleanedPhone) != 11 || !in_array(substr($cleanedPhone, 0, 1), ['7', '8'])) {
-            $_SESSION['flash'] = "Номер телефона введен неправильно. Проверьте правильность ввода.";
+        $cleanedPhone = preg_replace('/[^\\d]/', '', $data['phone']);
+        if (strlen($cleanedPhone) !== 11 || 
+            !in_array($cleanedPhone[0], ['7', '8'])) {
+            $_SESSION['flash'] = "Неверный номер телефона.";
             return false;
         }
-
-        // Проверка e-mail
-        if (!isset($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['flash'] = "E-mail указан неверно. Проверьте правильность указанного e-mail.";
+    
+        // Проверка email
+        if (!isset($data['email']) || 
+            !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['flash'] = "Неправильно заполнено поле Емайл.";
             return false;
         }
-
+    
         return true;
     }
 
-    public function sendMail($email) {
+    public function sendMail($email):bool {
         $mail = new PHPMailer();
         if (isset($email) && !empty($email)) {
             try {
                 $mail->SMTPDebug = 2;
                 $mail->CharSet = 'UTF-8';
-                $mail->setFrom("v.milevskiy@coopteh.ru", "trenazherka");
+                $mail->SetFrom("v.milevskiy@coopteh.ru","PIZZA-221");
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = 'ssl://smtp.mail.ru';                   //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                 $mail->Username   = 'v.milevskiy@coopteh.ru';                     //SMTP username
-                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z'; // Consider using environment variables
+                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
                 $mail->Port       = 465;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Subject = 'Заявка с сайта: Trenazherniy zal-221';
-                $mail->Body = "Информационное сообщение c сайта Trenazherniy zal-221 <br><br>
+                $mail->Subject = 'Заявка с сайта: PIZZA-221';
+                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
                 ------------------------------------------<br><br>
                 Спасибо!<br><br>
                 Ваш заказ успешно создан и передан службе доставки.<br><br>
@@ -138,8 +145,9 @@ class OrderController {
                     throw new Exception('Ошибка с отправкой письма');
                 }
             } catch (Exception $error) {
-                // Log the error message or handle it as needed
-                return false;
+                $message = $error->getMessage();
+var_dump($message);
+exit();
             }
         }
         return false;

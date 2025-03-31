@@ -1,81 +1,68 @@
-<?php
+<?php 
 
 namespace App\Models;
 
 use App\Configs\Config;
+use App\Services\IStorage;
 
-class Product
-{
-    public function loadData(): ?array {
-        // Открываем файл в режиме чтения
-        if ($file = fopen(Config::FILE_PRODUCTS, 'r')) {
-            // Считываем всё содержимое файла в переменную $data
-            $data = fread($file, filesize(Config::FILE_PRODUCTS));
-            // Закрываем файл
-            fclose($file);
-            
-            // Декодируем строку JSON в ассоциативный массив
-            $arr = json_decode($data, true);
+class Product {
+    private IStorage $dataStorage;
+    private string $nameResource;
 
-            // Возвращаем полученный массив
-            return $arr;
-        }
-        
-        // Если открыть файл не удалось, возвращаем null
-        return null;
+    // Внедряем зависимость через конструктор
+    public function __construct(IStorage $service, string $name)
+    {
+        $this->dataStorage = $service;
+        $this->nameResource = $name;
     }
 
-    public function getBasketData(): ?array {
-        session_start();
+    public function loadData(): ?array {
+        return $this->dataStorage->loadData($this->nameResource); 
+    }
+
+    public function saveData(array $arr): bool {
+        return $this->dataStorage->saveData($this->nameResource, $arr); 
+    }
+
+    public function getBasketData(): array {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
-        $products = $this->loadData(); // Предполагается, что этот метод загружает все товары
+
+        $products = $this->loadData();
         $basketProducts = [];
 
         foreach ($products as $product) {
-            $id = $product['id'];
+            if (isset($product['id'])) {
+                $id = $product['id'];
 
-            if (array_key_exists($id, $_SESSION['basket'])) {
-                $quantity = $_SESSION['basket'][$id]['quantity'];
-                $name = $product['name'];
-                $price = $product['price'];
-                $sum = $price * $quantity;
+                if (array_key_exists($id, $_SESSION['basket'])) {
+                    // количество товара берем то что указано в корзине
+                    $quantity = $_SESSION['basket'][$id]['quantity'];
 
-                $basketProducts[] = [
-                    'id' => $id,
-                    'name' => $name,
-                    'quantity' => $quantity,
-                    'price' => $price,
-                    'sum' => $sum,
-                ];
+                    // остальные характеристики берем из массива всех товаров
+                    $name = $product['name'];
+                    $price = $product['price'];
+
+                    // сумму вычислим 
+                    $sum = $price * $quantity;
+
+                    // добавим в новый массив
+                    $basketProducts[] = [ 
+                        'id' => $id, 
+                        'name' => $name, 
+                        'quantity' => $quantity,
+                        'price' => $price,
+                        'sum' => $sum,
+                    ];
+                }
             }
         }
+
         return $basketProducts;
-    }
-
-    public function saveData(array $arr): void {
-        // Формируем путь к файлу
-        $nameFile = Config::FILE_ORDERS;
-
-        // Читаем существующие данные из файла
-        $handle = fopen($nameFile, "r");
-        if (filesize($nameFile) > 0) { 
-            $data = fread($handle, filesize($nameFile));
-            $allRecords = json_decode($data, true); 
-        } else {
-            $allRecords = [];
-        }
-        fclose($handle);
-
-        // Добавляем новый заказ в массив
-        $allRecords[] = $arr;
-
-        // Преобразуем массив в JSON и записываем обратно в файл
-        $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        $handle = fopen($nameFile, "w");
-        fwrite($handle, $json);
-        fclose($handle);
     }
 }
