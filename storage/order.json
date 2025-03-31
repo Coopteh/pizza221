@@ -445,5 +445,59 @@
             }
         ],
         "all_sum": 6999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:29:42",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:30:40",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:30:56",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:33:35",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:33:46",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "31-03-2025 10:36:58",
+        "products": [],
+        "all_sum": 0
     }
 ]

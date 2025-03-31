@@ -2,72 +2,81 @@
 
 namespace App\Controllers;
 
+use App\Configs\Config;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\Models\Product;
 use App\Views\OrderTemplate;
+use App\Services\FileStorage;
+use App\Services\DatabaseStorage;
 
 class OrderController {
     public function get(): string {
-        // Проверяем HTTP-метод запроса
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == "POST") {
+        if ($method == "POST")
             return $this->create();
+
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
+        $data = $model->getBasketData();
 
-        // Если это GET-запрос, отображаем страницу заказа
-        $productModel = new Product();
-        $data = $productModel->getBasketData();
-
-        $orderTemplate = new OrderTemplate();
-        return $orderTemplate->getOrderTemplate($data);
+        return OrderTemplate::getOrderTemplate($data);
     }
 
     public function create(): string {
         session_start();
         // Инициализируем массив для сохранения данных заказа
         $arr = [];
-    
+        
         // Получаем данные из POST-запроса
         $arr['fio'] = urldecode($_POST['fio']);
         $arr['address'] = urldecode($_POST['address']);
         $arr['phone'] = $_POST['phone'];
         $arr['email'] = $_POST['email']; // Добавляем email
         $arr['created_at'] = date("d-m-Y H:i:s"); // Дата и время создания заказа
+        
+        // Создание сервиса в зависимости от конфигурации
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        } else {
+            $serviceStorage = new DatabaseStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }
     
         // Получаем список товаров из корзины
-        $model = new Product();
         $products = $model->getBasketData();
         $arr['products'] = $products;
-    
+        
         // Подсчитываем общую сумму заказа
         $all_sum = 0;
         foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
-
+    
         // Проверка валидности данных
         if (!$this->validate($arr)) {
             header("Location: /pizza221/order");
             exit;
         }
-
+    
         // Сохраняем данные заказа через модель
         $model->saveData($arr);
-
+    
         // отправка емайл
         $this->sendMail($arr['email']);
-    
+        
         // Очищаем корзину
-
         $_SESSION['basket'] = [];
-    
+        
         // Добавляем флеш-сообщение об успешной операции
         $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки.";
-    
+        
         // Перенаправляем пользователя на главную страницу
-        header("Location: /pizza221/");
+        header("Location: /pizza221/order");
         return '';
     }
 
@@ -133,6 +142,8 @@ class OrderController {
                 } 
             } catch (Exception $error) {
                 $message = $error->getMessage();
+var_dump($message);
+exit();
             }
         }
         return false;
