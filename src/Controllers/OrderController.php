@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use App\Views\OrderTemplate;
 use App\Models\Product;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class OrderController {
     public function get(): string {
@@ -16,7 +18,7 @@ class OrderController {
         return OrderTemplate::getOrderTemplate($data);
     }
 
-    public function create():string {
+    public function create(): string {
         session_start();
         
         $arr = [];
@@ -48,6 +50,9 @@ class OrderController {
         
         // очистка корзины
         $_SESSION['basket'] = [];
+
+        // отправка емайл
+        $this->sendMail($arr['email']);
 
         // сообщение для пользователя
         $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
@@ -93,5 +98,39 @@ class OrderController {
         }
     
         return true;
+    }
+
+    public function sendMail($email) {
+        $mail = new PHPMailer();
+        if (isset($email) && !empty($email)) {
+            try {
+                $mail->SMTPDebug = 2;
+                $mail->CharSet = 'UTF-8';
+                $mail->SetFrom("v.milevskiy@coopteh.ru","PIZZA-221");
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'ssl://smtp.mail.ru';                   //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'v.milevskiy@coopteh.ru';                     //SMTP username
+                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
+                $mail->Port       = 465;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Subject = 'Заявка с сайта: PIZZA-221';
+                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
+                ------------------------------------------<br><br>
+                Спасибо!<br><br>
+                Ваш заказ успешно создан и передан службе доставки.<br><br>
+                Сообщение сгенерировано автоматически.";
+                if ($mail->send()) {
+                    return true;
+                } else {
+                    throw new Exception('Ошибка с отправкой письма');
+                }
+            } catch (Exception $error) {
+                $message = $error->getMessage();
+            }
+        }
+        return false;
     }
 }

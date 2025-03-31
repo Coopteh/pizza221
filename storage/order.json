@@ -137,5 +137,22 @@
             }
         ],
         "all_sum": 250
+    },
+    {
+        "fio": "123213",
+        "address": "ц2цуйцуцуйцуйцу",
+        "phone": "89505855539",
+        "email": "fostuparki@gufum.com",
+        "created_at": "31-03-2025 08:14:39",
+        "products": [
+            {
+                "id": 1,
+                "name": "Завтрак Гостиничный",
+                "quantity": 1,
+                "price": 250,
+                "sum": 250
+            }
+        ],
+        "all_sum": 250
     }
 ]
