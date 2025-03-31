@@ -1,8 +1,14 @@
 <?php 
 namespace App\Controllers;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 use App\Views\OrderTemplate;
 use App\Models\Product;
+use App\Services\FileStorage;
+use App\Services\DatabaseStorage;
+use App\Configs\Config;
 
 class OrderController {
     public function get(): string {
@@ -10,7 +16,10 @@ class OrderController {
         if ($method == "POST")
             return $this->create();
 
-        $model = new Product();
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
         $data = $model->getBasketData();
 
         return OrderTemplate::getOrderTemplate($data);
@@ -20,10 +29,10 @@ class OrderController {
         session_start();
         
         $arr = [];
-        $arr['fio'] =  $_POST['fio'];
-        $arr['address'] = $_POST['address'];
-        $arr['phone'] = $_POST['phone'];
-        $arr['email'] = $_POST['email'];
+        $arr['fio'] =  strip_tags($_POST['fio']);
+        $arr['address'] = strip_tags($_POST['address']);
+        $arr['phone'] = strip_tags($_POST['phone']);
+        $arr['email'] = strip_tags($_POST['email']);
         $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
         if (! $this->validate($arr)) {
@@ -32,7 +41,13 @@ class OrderController {
             return "";
         }
 
-        $model = new Product();
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }
+        //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        //    $serviceStorage = new DatabaseStorage();
+
         // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
@@ -46,6 +61,9 @@ class OrderController {
         // сохраняем данные
         $model->saveData($arr);
         
+        // отправка емайл
+        $this->sendMail( $arr['email'] );
+
         // очистка корзины
         $_SESSION['basket'] = [];
 
@@ -93,5 +111,41 @@ class OrderController {
         }
     
         return true;
+    }
+
+    public function sendMail($email):bool {
+        $mail = new PHPMailer();
+        if (isset($email) && !empty($email)) {
+            try {
+                $mail->SMTPDebug = 2;
+                $mail->CharSet = 'UTF-8';
+                $mail->SetFrom("v.milevskiy@coopteh.ru","PIZZA-221");
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'ssl://smtp.mail.ru';                   //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'v.milevskiy@coopteh.ru';                     //SMTP username
+                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
+                $mail->Port       = 465;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Subject = 'Заявка с сайта: PIZZA-221';
+                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
+                ------------------------------------------<br><br>
+                Спасибо!<br><br>
+                Ваш заказ успешно создан и передан службе доставки.<br><br>
+                Сообщение сгенерировано автоматически.";
+                if ($mail->send()) {
+                    return true;
+                } else {
+                    throw new Exception('Ошибка с отправкой письма');
+                }
+            } catch (Exception $error) {
+                $message = $error->getMessage();
+var_dump($message);
+exit();
+            }
+        }
+        return false;
     }
 }
