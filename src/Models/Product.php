@@ -2,18 +2,26 @@
 namespace App\Models;
 
 use App\Configs\Config;
+use App\Services\IStorage;
+use PhpParser\Node\Expr\Cast\Bool_;
 
 class Product {
-    public function loadData(): ?array {
-        $nameFile= Config::FILE_PRODUCTS;
-        
-        $handle = fopen($nameFile, "r");
-        $data = fread($handle, filesize($nameFile)); 
-        fclose($handle);
+    private IStorage $dataStorage;
+    private string $nameResource;
+    
+    // Внедряем зависимость через конструктор
+    public function __construct(IStorage $service, string $name)
+    {
+        $this->dataStorage = $service;
+        $this->nameResource = $name;
+    }
 
-        $arr = json_decode($data, true); 
-        
-        return $arr; 
+    public function loadData(): ?array {
+        return $this->dataStorage->loadData( $this->nameResource ); 
+    }
+
+    public function saveData($arr): bool {
+        return $this->dataStorage->saveData( $this->nameResource, $arr ); 
     }
 
     public function getBasketData(): array {
@@ -55,23 +63,5 @@ class Product {
 
         return $basketProducts;
     }
-    public function saveData($arr) {
-        $nameFile= Config::FILE_ORDERS;
 
-        $handle = fopen($nameFile, "r");
-        if (filesize($nameFile) > 0){ 
-            $data = fread($handle, filesize($nameFile)); 
-            $allRecords = json_decode($data, true); 
-        } else {
-            $allRecords = [];
-        }
-        fclose($handle);
-        
-        $allRecords[]= $arr;
-        $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        $handle = fopen($nameFile, "w");
-        fwrite($handle, $json);
-        fclose($handle);
-    }
 }
