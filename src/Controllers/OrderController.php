@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 use App\Models\Product;
 use App\Views\OrderTemplate;
 
@@ -53,6 +55,9 @@ class OrderController {
 
         // Сохраняем данные заказа через модель
         $model->saveData($arr);
+
+        // отправка емайл
+        $this->sendMail($arr['email']);
     
         // Очищаем корзину
 
@@ -98,5 +103,38 @@ class OrderController {
         }
 
         return true;
+    }
+    public function sendMail($email) {
+        $mail = new PHPMailer();
+        if (isset($email) && !empty($email)) {
+            try {
+                $mail->SMTPDebug = 2;
+                $mail->CharSet = 'UTF-8';
+                $mail->SetFrom("v.milevskiy@coopteh.ru", "Obyvnoi_magazin");
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->isSMTP();
+                $mail->Host       = 'ssl://smtp.mail.ru';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'v.milevskiy@coopteh.ru';
+                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
+                $mail->Port       = 465;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Subject = 'Заявка с сайта: Obyvnoi_magazin';
+                $mail->Body = "Информационное сообщение c сайта Obyvnoi_magazin <br><br>
+                ------------------------------------------<br><br>
+                Спасибо!<br><br>
+                Ваш заказ успешно создан и передан службе доставки.<br><br>
+                Сообщение сгенерировано автоматически.";
+                if ($mail->send()) {
+                    return true;
+                } else {
+                    throw new Exception('Ошибка с отправкой письма');
+                } 
+            } catch (Exception $error) {
+                $message = $error->getMessage();
+            }
+        }
+        return false;
     }
 }
