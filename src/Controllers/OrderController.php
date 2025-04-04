@@ -129,8 +129,8 @@ class OrderController {
                 $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
                 $mail->Port       = 465;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Subject = 'Заявка с сайта: PIZZA-221';
-                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
+                $mail->Subject = 'Заявка с сайта: сайта Суши и ролы';
+                $mail->Body = "Информационное сообщение c сайта Суши и ролы <br><br>
                 ------------------------------------------<br><br>
                 Спасибо!<br><br>
                 Ваш заказ успешно создан и передан службе доставки.<br><br>
