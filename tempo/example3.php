@@ -1,4 +1,5 @@
 <?php
+
 function calculateArea($width, $height)
 {
     return $width * $height;
