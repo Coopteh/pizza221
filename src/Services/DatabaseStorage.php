@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 class DatabaseStorage implements IStorage
@@ -15,3 +14,4 @@ class DatabaseStorage implements IStorage
         return true;
     }
 }
+

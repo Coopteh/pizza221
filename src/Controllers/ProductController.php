@@ -2,21 +2,20 @@
 namespace App\Controllers;
 
 use App\Models\Product;
+use App\Services\ProductDBStorage;
 use App\Views\ProductTemplate;
 use App\Services\FileStorage;
 use App\Services\DatabaseStorage;
 use App\Config\Config;
+use App\Services\ISaveStorage;
+
 
 class ProductController {
     public function get(?int $id): string {
 
-        // Определяем тип хранилища
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        } else {
-            // Здесь можно добавить поддержку других типов хранилищ, например, DatabaseStorage
-            return "Тип хранилища не поддерживается.";
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
         }
 
         // Загружаем данные

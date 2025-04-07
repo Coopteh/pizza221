@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-class FileStorage implements IStorage
+
+class FileStorage implements IStorage, ILoadStorage, ISaveStorage
 {
     public function loadData(string $name): ?array
     {

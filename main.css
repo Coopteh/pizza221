@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header, .footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: center; /* Центрируем элементы по горизонтали */
+        gap: 10px; /* Уменьшаем отступы между элементами */
+    }
+}
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Отступы между карточками */
+}
+
+.product-card {
+    flex: 1 1 calc(33.333% - 20px); /* Три колонки на ПК */
+    background-color: #eaeaea; /* Цвет фона карточек */
+    padding: 20px; /* Отступ внутри карточек */
+}
+
+@media (max-width: 992px) {
+   .product-card {
+       flex: 1 1 calc(50% - 20px); /* Две колонки на планшетах */
+   }
+}
+
+@media (max-width: 576px) {
+   .product-card {
+       flex: 1 1 calc(100% - 20px); /* Одна колонка на телефонах */
+   }
+}

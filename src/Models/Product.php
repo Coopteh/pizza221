@@ -2,15 +2,15 @@
 namespace App\Models;
 
 use App\Configs\Config;
-use App\Services\IStorage;
+use App\Services\ILoadStorage;
 use PhpParser\Node\Expr\Cast\Bool_;
-
+use App\Services\ISaveStorage;
 class Product {
-    private IStorage $dataStorage;
+    private ILoadStorage $dataStorage;
     private string $nameResource;
     
     // Внедряем зависимость через конструктор
-    public function __construct(IStorage $service, string $name)
+    public function __construct(ILoadStorage $service, string $name)
     {
         $this->dataStorage = $service;
         $this->nameResource = $name;
@@ -18,10 +18,6 @@ class Product {
 
     public function loadData(): ?array {
         return $this->dataStorage->loadData( $this->nameResource ); 
-    }
-
-    public function saveData($arr): bool {
-        return $this->dataStorage->saveData( $this->nameResource, $arr ); 
     }
 
     public function getBasketData(): array {
