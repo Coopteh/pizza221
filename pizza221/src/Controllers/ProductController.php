@@ -24,5 +24,9 @@ class ProductController {
             return ProductTemplate::getCardTemplate($record);
         } else
             return ProductTemplate::getCardTemplate(null);
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new productDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+        }
     }
 }

@@ -16,10 +16,14 @@ class OrderController {
         if ($method == "POST")
             return $this->create();
 
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        }
+            if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+                $serviceStorage = new FileStorage();
+                $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+            }
+            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+                $serviceStorage = new ProductDBStorage();
+                $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+            }
         $data = $model->getBasketData();
 
         return OrderTemplate::getOrderTemplate($data);
@@ -45,6 +49,11 @@ class OrderController {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_ORDERS);
         }
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new OrderDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_ORDERS);
+        }
+        
         //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
         //    $serviceStorage = new DatabaseStorage();
 
