@@ -1,23 +1,23 @@
 [
   {
     "id": 1,
-    "name": "{Холодильник двухкамерный}" ,
+    "name": "Холодильник двухкамерный" ,
     "image": "https://localhost/pizza221/assets/images/t3.png",
-    "description": "Надёжный холодильник способный замораживать до -250 градусов ",
+    "description": "Надёжный холодильник способный замораживать до -250 градусов",
     "price": 25000
   },
   {
     "id": 2,
     "name": "Чайник ТИТАН",
     "image": "https://localhost/pizza221/assets/images/t2.png",
-    "description": "Чайник крутой, ваще жесть поэтому такой дорогой купите и узнайте сами!!!",
+    "description": "Чайник титановый",
     "price": 2900
   },
   {
     "id": 3,
     "name": "Стиралка ACELINE",
     "image": "https://localhost/pizza221/assets/images/t1.png",
-    "description": "Даже женщина не сможет так же постирать бельё как стиралка ACELINE",
+    "description": "ACELINE - знак качества",
     "price": 21900
   }
 ]

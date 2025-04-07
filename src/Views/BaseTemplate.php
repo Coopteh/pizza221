@@ -33,7 +33,7 @@ class BaseTemplate
                         <a class="nav-link" href="/pizza221/products">Каталог</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/pizza221/order">заказ</a>
+                        <a class="nav-link" href="/pizza221/order">Заказ</a>
                         </li>
                     </ul>
                     </div>
