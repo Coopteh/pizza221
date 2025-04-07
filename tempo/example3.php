@@ -5,4 +5,4 @@ function calculateArea($width, $height)
     return $width * $height;
 }
 
-echo calculateArea(5, '10');
+echo calculateArea(5, 10);

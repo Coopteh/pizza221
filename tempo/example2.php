@@ -1,6 +1,6 @@
 <?php
 
-function divide($a, $b)
+function divide($a, $b):float
 {
     return $a / $b;
 }
