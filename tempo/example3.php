@@ -1,8 +1,8 @@
 <?php
 
-function calculateArea($width, $height)
+function calculateArea(float $width, float $height): float
 {
     return $width * $height;
 }
 
-echo calculateArea(5, '10');
+echo calculateArea(5, 10);
