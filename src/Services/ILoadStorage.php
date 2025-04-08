@@ -1,8 +1,7 @@
 <?php 
 namespace App\Services;
 
-interface IStorage
+interface ILoadStorage
 {
     public function loadData(string $name): ?array;
-    public function saveData(string $name, array $data): bool;
 }

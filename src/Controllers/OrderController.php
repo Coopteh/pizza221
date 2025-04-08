@@ -57,7 +57,11 @@ class OrderController {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
-        $model = new Product($serviceStorage, Config::FILE_ORDERS);
+    
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }        
         // сохраняем данные
         $model->saveData($arr);
         
@@ -129,8 +133,8 @@ class OrderController {
                 $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
                 $mail->Port       = 465;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Subject = 'Заявка с сайта: сайта Суши и ролы';
-                $mail->Body = "Информационное сообщение c сайта Суши и ролы <br><br>
+                $mail->Subject = 'Заявка с сайта: PIZZA-221';
+                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
                 ------------------------------------------<br><br>
                 Спасибо!<br><br>
                 Ваш заказ успешно создан и передан службе доставки.<br><br>
