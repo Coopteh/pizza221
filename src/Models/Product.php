@@ -1,18 +1,19 @@
-<?php
+<?php 
 
 namespace App\Models;
 
+use App\Models\Order;
 use App\Configs\Config;
-use Exception;
-use App\Services\IStorage;
+use App\Services\ILoadStorage;
 use PhpParser\Node\Expr\Cast\Bool_;
+use App\Services\OrderDBStorage;
 
-class Product
-{    private IStorage $dataStorage;
+class Product {
+    private ILoadStorage $dataStorage;
     private string $nameResource;
     
     // Внедряем зависимость через конструктор
-    public function __construct(IStorage $service, string $name)
+    public function __construct(ILoadStorage $service, string $name)
     {
         $this->dataStorage = $service;
         $this->nameResource = $name;
@@ -26,36 +27,44 @@ class Product
         return $this->dataStorage->saveData( $this->nameResource, $arr ); 
     }
 
-    public function getBasketData(): ?array {
-        session_start();
+    public function getBasketData(): array {
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
+
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
-        $products = $this->loadData(); // Загружаем все товары
-        $basketProducts = [];
-
+        $products = $this->loadData();
+        $basketProducts= [];
+//var_dump($_SESSION['basket']);
         foreach ($products as $product) {
-            if (isset($product['id'])){
             $id = $product['id'];
 
             if (array_key_exists($id, $_SESSION['basket'])) {
+                // количество товара берем то что указано в корзине
                 $quantity = $_SESSION['basket'][$id]['quantity'];
-                $name = $product['name'];
-                $price = $product['price'];
-                $sum = $price * $quantity;
 
-                $basketProducts[] = [
-                    'id' => $id,
-                    'name' => $name,
+                // остальные характеристики берем из массива всех товаров
+                $name = $product['name'];
+                $price= $product['price'];
+
+                // сумму вычислим 
+                $sum  = $price * $quantity;
+
+                // добавим в новый массив
+                $basketProducts[] = array( 
+                    'id' => $id, 
+                    'name' => $name, 
                     'quantity' => $quantity,
                     'price' => $price,
                     'sum' => $sum,
-                ];
+                );
             }
-            }   
         }
+
         return $basketProducts;
     }
 
 }
-

@@ -1,8 +1,7 @@
-<?php
+<?php 
 namespace App\Services;
-use App\Configs\Config;
 
-class FileStorage implements IStorage
+class FileStorage implements ILoadStorage, ISaveStorage
 {
     public function loadData(string $name): ?array
     {       

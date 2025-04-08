@@ -8,26 +8,41 @@ use PHPMailer\PHPMailer\Exception;
 use App\Models\Product;
 use App\Views\OrderTemplate;
 use App\Services\FileStorage;
-use App\Services\DatabaseStorage;
+use App\Services\OrderDBStorage;
+use App\Services\ProductDBStorage;
+use App\Models\Order;
 
 class OrderController {
     public function get(): string {
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == "POST")
+        if ($method == "POST") {
             return $this->create();
-
+        }
+    
+        // Инициализация переменной $model
+        $model = null;
+    
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        } elseif (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
         }
+    
+        // Проверка, была ли инициализирована переменная $model
+        if ($model === null) {
+            // Обработка случая, когда модель не была инициализирована
+            throw new \Exception("Модель не инициализирована. Проверьте настройки хранения данных.");
+        }
+    
         $data = $model->getBasketData();
-
+    
         return OrderTemplate::getOrderTemplate($data);
     }
 
     public function create(): string {
         session_start();
-        
         $arr = [];
         $arr['fio'] =  strip_tags($_POST['fio']);
         $arr['address'] = strip_tags($_POST['address']);
@@ -40,28 +55,32 @@ class OrderController {
             header("Location: /pizza221/order");
             return "";
         }
-
+        // список заказанных продуктов - берем список товаров из корзины
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
-        //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-        //    $serviceStorage = new DatabaseStorage();
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+        }
 
-        // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
+        
         // подсчитаем общую сумму заказа
         $all_sum = 0;
         foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
-    
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+        
+        //Сохраняем данные заказа
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_ORDERS);
-        }        
+        }
+     
     
         // Сохраняем данные заказа через модель
         $model->saveData($arr);

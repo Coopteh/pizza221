@@ -523,5 +523,172 @@
             }
         ],
         "all_sum": 12999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "07-04-2025 08:22:27",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "07-04-2025 08:27:18",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            },
+            {
+                "id": 2,
+                "name": "Кроссовки мужские FILA Escape CL",
+                "quantity": 1,
+                "price": 6000,
+                "sum": 6000
+            }
+        ],
+        "all_sum": 12999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "07-04-2025 08:59:20",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "07-04-2025 09:13:22",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "08-04-2025 04:56:47",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки demix",
+                "quantity": 4,
+                "price": 4000,
+                "sum": 16000
+            },
+            {
+                "id": 2,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 22999
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "08-04-2025 04:56:56",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки demix",
+                "quantity": 1,
+                "price": 4000,
+                "sum": 4000
+            }
+        ],
+        "all_sum": 4000
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "08-04-2025 04:58:08",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки demix",
+                "quantity": 1,
+                "price": 4000,
+                "sum": 4000
+            }
+        ],
+        "all_sum": 4000
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "08-04-2025 05:10:25",
+        "products": [
+            {
+                "id": 1,
+                "name": "Кроссовки demix",
+                "quantity": 2,
+                "price": 4000,
+                "sum": 8000
+            }
+        ],
+        "all_sum": 8000
+    },
+    {
+        "fio": "Вебер Владислав Сергеевич",
+        "address": "Тухачевского 32a",
+        "phone": "89049988551",
+        "email": "vladveber2006@mail.ru",
+        "created_at": "08-04-2025 05:13:47",
+        "products": [
+            {
+                "id": 2,
+                "name": "Кроссовки мужские PUMA St Runner V3 L",
+                "quantity": 1,
+                "price": 6999,
+                "sum": 6999
+            }
+        ],
+        "all_sum": 6999
     }
 ]
