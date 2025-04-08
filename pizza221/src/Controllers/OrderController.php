@@ -16,14 +16,10 @@ class OrderController {
         if ($method == "POST")
             return $this->create();
 
-            if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-                $serviceStorage = new FileStorage();
-                $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-            }
-            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-                $serviceStorage = new ProductDBStorage();
-                $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-            }
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
         $data = $model->getBasketData();
 
         return OrderTemplate::getOrderTemplate($data);
@@ -47,13 +43,8 @@ class OrderController {
 
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new OrderDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_ORDERS);
-        }
-        
         //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
         //    $serviceStorage = new DatabaseStorage();
 
@@ -67,6 +58,10 @@ class OrderController {
         }
         $arr['all_sum'] = $all_sum;
     
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+        }        
         // сохраняем данные
         $model->saveData($arr);
         

@@ -25,7 +25,7 @@ class ProductController {
         } else
             return ProductTemplate::getCardTemplate(null);
         if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new productDBStorage();
+             $serviceStorage = new ProductDBStorage();
             $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
         }
     }
