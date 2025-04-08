@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "name": "еда",
+      "image": "/pizza221/assets/images/img1.png",
+      "description": "котлета с картошкой и салат.",
+      "price": 500
+    },
+    {
+      "id": 2,
+      "name": "хавай",
+      "image": "/pizza221/assets/images/img2.png",
+      "description": "салат с картошкой и катлетлетай.",
+      "price": 400
+    },
+    {"id": 3,
+      "name": "вкусно",
+      "image": "/pizza221/assets/images/img3.png",
+      "description": "бульба с салатаом и каталктай.",
+      "price": 300
+    }
+  ]
