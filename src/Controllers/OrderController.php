@@ -133,11 +133,11 @@ class OrderController {
                 $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
                 $mail->Port       = 465;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Subject = 'Заявка с сайта: PIZZA-221';
-                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
+                $mail->Subject = 'Заявка с сайта: TRENAZHERKA-221';
+                $mail->Body = "Информационное сообщение c сайта TRENAZHERKA-221 <br><br>
                 ------------------------------------------<br><br>
                 Спасибо!<br><br>
-                Ваш заказ успешно создан и передан службе доставки.<br><br>
+                Ваш заказ успешно создан и передан админу.<br><br>
                 Сообщение сгенерировано автоматически.";
                 if ($mail->send()) {
                     return true;
