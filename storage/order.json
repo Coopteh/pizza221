@@ -175,5 +175,14 @@
             }
         ],
         "all_sum": 5000
+    },
+    {
+        "fio": "Jefry Boger Blog",
+        "address": "Кифирчик ул",
+        "phone": "83838843444",
+        "email": "v.milevskiy@coopteh.ru",
+        "created_at": "08-04-2025 05:47:34",
+        "products": [],
+        "all_sum": 0
     }
 ]

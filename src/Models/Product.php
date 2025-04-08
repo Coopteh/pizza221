@@ -1,17 +1,16 @@
-<?php
-
+<?php 
 namespace App\Models;
 
 use App\Configs\Config;
-use App\Services\IStorage;
+use App\Services\ILoadStorage;
 use PhpParser\Node\Expr\Cast\Bool_;
 
 class Product {
-    private IStorage $dataStorage;
+    private ILoadStorage $dataStorage;
     private string $nameResource;
     
     // Внедряем зависимость через конструктор
-    public function __construct(IStorage $service, string $name)
+    public function __construct(ILoadStorage $service, string $name)
     {
         $this->dataStorage = $service;
         $this->nameResource = $name;
@@ -36,6 +35,7 @@ class Product {
         }
         $products = $this->loadData();
         $basketProducts= [];
+
         foreach ($products as $product) {
             $id = $product['id'];
 
