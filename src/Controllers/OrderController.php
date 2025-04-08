@@ -76,14 +76,16 @@ class OrderController {
         $arr['all_sum'] = $all_sum;
         
         //Сохраняем данные заказа
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+            $orderModel = new Order($serviceStorage, Config::FILE_ORDERS);
         }
-     
-    
-        // Сохраняем данные заказа через модель
-        $model->saveData($arr);
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new OrderDBStorage();
+            $orderModel = new Order($serviceStorage, Config::TABLE_ORDERS);
+        }     
+        // сохраняем данные
+        $orderModel->saveData($arr);
     
         // отправка емайл
         $this->sendMail($arr['email']);
