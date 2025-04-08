@@ -6,8 +6,10 @@ use PHPMailer\PHPMailer\Exception;
 
 use App\Views\OrderTemplate;
 use App\Models\Product;
+use App\Models\Order;
 use App\Services\FileStorage;
-use App\Services\DatabaseStorage;
+use App\Services\ProductDBStorage;
+use App\Services\OrderDBStorage;
 use App\Configs\Config;
 
 class OrderController {
@@ -20,6 +22,10 @@ class OrderController {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+        }        
         $data = $model->getBasketData();
 
         return OrderTemplate::getOrderTemplate($data);
@@ -35,18 +41,22 @@ class OrderController {
         $arr['email'] = strip_tags($_POST['email']);
         $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
+        // Валидация (проверка) переданных из формы значений
         if (! $this->validate($arr)) {
             // переадресация обратно на страницу заказа
             header("Location: /pizza221/order");
             return "";
         }
 
+        // Создаем модель Product для работы с данными
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
-        //if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-        //    $serviceStorage = new DatabaseStorage();
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+        }
 
         // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
@@ -60,10 +70,14 @@ class OrderController {
     
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
-        }        
+            $orderModel = new Order($serviceStorage, Config::FILE_ORDERS);
+        }
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new OrderDBStorage();
+            $orderModel = new Order($serviceStorage, Config::TABLE_ORDERS);
+        }     
         // сохраняем данные
-        $model->saveData($arr);
+        $orderModel->saveData($arr);
         
         // отправка емайл
         $this->sendMail( $arr['email'] );

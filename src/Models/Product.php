@@ -1,9 +1,7 @@
 <?php 
 namespace App\Models;
 
-use App\Configs\Config;
 use App\Services\ILoadStorage;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 class Product {
     private ILoadStorage $dataStorage;
@@ -18,10 +16,6 @@ class Product {
 
     public function loadData(): ?array {
         return $this->dataStorage->loadData( $this->nameResource ); 
-    }
-
-    public function saveData($arr): bool {
-        return $this->dataStorage->saveData( $this->nameResource, $arr ); 
     }
 
     public function getBasketData(): array {
