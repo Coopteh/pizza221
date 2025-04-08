@@ -2,14 +2,14 @@
     {
       "id": 1,
       "name": "Завтрак Гостиничный",
-      "image": "./../assets/images/Hf1.jpeg",
+      "image": "http://localhost/Pizza221/assets/images/Hf1.jpeg",
       "description": "Яичница, бекон, тосты и кофе",
       "price": 250
     },
     {
       "id": 2,
       "name": "Обед Бизнес",
-      "image": "./../assets/images/Hf2.jpeg",
+      "image": "http://localhost/Pizza221/assets/images/Hf2.jpeg",
       "description": "Суп, салат и основное блюдо по выбору",
       "price": 450
     }
