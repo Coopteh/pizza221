@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 use App\Models\Product;
 use App\Views\OrderTemplate;
 use App\Services\FileStorage;
-use App\Services\OrderDataBaseStorage;
+use App\Services\OrderDBStorage;
 use App\Services\ProductDBStorage;
 use App\Models\Order;
 
@@ -76,14 +76,16 @@ class OrderController {
         $arr['all_sum'] = $all_sum;
         
         //Сохраняем данные заказа
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
+            $orderModel = new Order($serviceStorage, Config::FILE_ORDERS);
         }
-     
-    
-        // Сохраняем данные заказа через модель
-        $model->saveData($arr);
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new OrderDBStorage();
+            $orderModel = new Order($serviceStorage, Config::TABLE_ORDERS);
+        }     
+        // сохраняем данные
+        $orderModel->saveData($arr);
     
         // отправка емайл
         $this->sendMail($arr['email']);
@@ -138,7 +140,7 @@ class OrderController {
             try {
                 $mail->SMTPDebug = 2;
                 $mail->CharSet = 'UTF-8';
-                $mail->SetFrom("v.milevskiy@coopteh.ru", "Straxovka");
+                $mail->SetFrom("v.milevskiy@coopteh.ru", "Obyvnoi_magazin");
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->isSMTP();
@@ -148,8 +150,8 @@ class OrderController {
                 $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
                 $mail->Port       = 465;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Subject = 'Заявка с сайта: Straxovka';
-                $mail->Body = "Информационное сообщение c сайта Straxovka <br><br>
+                $mail->Subject = 'Заявка с сайта: Obyvnoi_magazin';
+                $mail->Body = "Информационное сообщение c сайта Obyvnoi_magazin <br><br>
                 ------------------------------------------<br><br>
                 Спасибо!<br><br>
                 Ваш заказ успешно создан и передан службе доставки.<br><br>
