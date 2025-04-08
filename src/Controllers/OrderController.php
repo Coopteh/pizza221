@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Config\Config;
+use App\Models\Order;
+use App\Services\OrderDBStorage;
+use App\Services\ProductDBStorage;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -29,6 +32,10 @@ class OrderController {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
         }
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+        }
         $data = $model->getBasketData();
 
         $orderTemplate = new OrderTemplate();
@@ -42,20 +49,25 @@ class OrderController {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
+    
         // Создаем объект сервиса
-        $storageService = new FileStorage();
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        } elseif (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
+        } else {
+            // Если тип хранилища не определен, выбрасываем исключение
+            throw new \Exception("Неизвестный тип хранилища данных.");
         }
-
+    
         // Валидация данных
         if (!$this->validate($_POST)) {
             header("Location: /order");
             return "";
         }
-
+    
         // Подготовка данных заказа
         $arr = [
             'fio' => urldecode($_POST['fio']),
@@ -65,33 +77,37 @@ class OrderController {
             'payment_method' => $_POST['payment_method'],
             'created_at' => date("d-m-Y H:i:s"),
         ];
-
+    
         // Получаем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
-
+    
         // Подсчитываем общую сумму заказа
         $all_sum = 0;
         foreach ($products as $product) {
             $all_sum += $product['price'] * $product['quantity'];
         }
         $arr['all_sum'] = $all_sum;
-
+    
+        // Инициализация модели заказа
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_ORDERS);
-        }        
-
-        // Сохраняем данные заказа
-        if ($model->saveData($arr)) {
-            $this->sendMail($arr['email']);
-            $_SESSION['basket'] = [];
+            $orderStorageService = new FileStorage();
+            $orderModel = new Order($orderStorageService, Config::FILE_ORDERS);
+        } elseif (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $orderStorageService = new OrderDBStorage();
+            $orderModel = new Order($orderStorageService, Config::TABLE_ORDERS);
         } else {
-            $_SESSION['flash'] = "Ошибка при сохранении заказа. Попробуйте снова.";
-            header("Location: /order");
-            return "";
+            throw new \Exception("Неизвестный тип хранилища данных.");
         }
+    
+        // Сохраняем данные
+        $orderModel->saveData($arr);
 
+        // Очистка корзины
+        if (isset($_SESSION['basket'])) {
+            $_SESSION['basket'] = [];
+        }
+    
         // Добавляем флеш-сообщение
         $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки.";
         header("Location: /pizza221/");
