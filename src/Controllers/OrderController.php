@@ -11,21 +11,17 @@ use App\Services\FileStorage;
 use App\Services\ProductDBStorage;
 use App\Services\OrderDBStorage;
 use App\Configs\Config;
+use App\Services\OrderFactory;
+use App\Services\ProductFactory;
+use App\Services\ValidateOrderData;
+
 
 class OrderController {
     public function get(): string {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
             return $this->create();
-
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        }        
+        $model = ProductFactory::createProduct();      
         $data = $model->getBasketData();
 
         return OrderTemplate::getOrderTemplate($data);
@@ -42,22 +38,13 @@ class OrderController {
         $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
         // Валидация (проверка) переданных из формы значений
-        if (! $this->validate($arr)) {
+        if (!ValidateOrderData::validate($arr)) {
             // переадресация обратно на страницу заказа
             header("Location: /pizza221/order");
             return "";
         }
-
         // Создаем модель Product для работы с данными
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        }
-
+        $model = ProductFactory::createProduct();
         // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
@@ -68,14 +55,10 @@ class OrderController {
         }
         $arr['all_sum'] = $all_sum;
     
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $orderModel = new Order($serviceStorage, Config::FILE_ORDERS);
-        }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new OrderDBStorage();
-            $orderModel = new Order($serviceStorage, Config::TABLE_ORDERS);
-        }     
+       
+        $orderModel = OrderFactory::createOrder();
+
+
         // сохраняем данные
         $orderModel->saveData($arr);
         
@@ -92,43 +75,6 @@ class OrderController {
 	    header("Location: /pizza221/");
 
         return "";
-    }
-
-    function validate(array $data): bool {
-        // Проверка ФИО
-        if (!isset($data['fio'])) {
-            $_SESSION['flash'] = "Незаполнено поле ФИО.";
-            return false;
-        }
-    
-        // Проверка адреса
-        if (!isset($data['address']) || 
-            strlen(trim($data['address'])) < 10 || 
-            strlen(trim($data['address'])) > 200) {
-            $_SESSION['flash'] = "Поле адреса должно быть более 10 символов (но не более 200).";
-            return false;
-        }
-    
-        // Проверка телефона
-        if (!isset($data['phone'])) {
-            $_SESSION['flash'] = "Незаполнено поле Телефон.";
-            return false;
-        }
-        $cleanedPhone = preg_replace('/[^\\d]/', '', $data['phone']);
-        if (strlen($cleanedPhone) !== 11 || 
-            !in_array($cleanedPhone[0], ['7', '8'])) {
-            $_SESSION['flash'] = "Неверный номер телефона.";
-            return false;
-        }
-    
-        // Проверка email
-        if (!isset($data['email']) || 
-            !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['flash'] = "Неправильно заполнено поле Емайл.";
-            return false;
-        }
-    
-        return true;
     }
 
     public function sendMail($email):bool {
