@@ -6,9 +6,14 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf
 {
+    public static $files = array (
+        '5f0e95b8df5acf4a92c896dc3ac4bb6e' => __DIR__ . '/..' . '/phpmetrics/phpmetrics/src/functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'PhpParser\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'A' => 
@@ -18,6 +23,10 @@ class ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf
     );
 
     public static $prefixDirsPsr4 = array (
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -25,6 +34,16 @@ class ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'H' => 
+        array (
+            'Hal\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpmetrics/phpmetrics/src',
+            ),
         ),
     );
 
@@ -37,6 +56,7 @@ class ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitb9eb650efb2d694f3f9735611aa7eacf::$classMap;
 
         }, null, ClassLoader::class);

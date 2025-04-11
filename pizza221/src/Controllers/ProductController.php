@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\Product;
 use App\Views\ProductTemplate;
 use App\Services\FileStorage;
-use App\Services\DatabaseStorage;
+use App\Services\ProductDBStorage;
 use App\Configs\Config;
 
 class ProductController {
@@ -13,6 +13,10 @@ class ProductController {
         if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
             $serviceStorage = new FileStorage();
             $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
+        }
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceStorage = new ProductDBStorage();
+            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
         }
 
         $data = $model->loadData();
@@ -24,9 +28,5 @@ class ProductController {
             return ProductTemplate::getCardTemplate($record);
         } else
             return ProductTemplate::getCardTemplate(null);
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-             $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        }
     }
 }
