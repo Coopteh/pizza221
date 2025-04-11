@@ -188,5 +188,29 @@
             }
         ],
         "all_sum": 250
+    },
+    {
+        "fio": "55512321322222",
+        "address": "ц2цуйцуцуйцуйц3433у",
+        "phone": "89505855539",
+        "email": "fostuparki@gufum.com",
+        "created_at": "08-04-2025 04:47:26",
+        "products": [
+            {
+                "id": 1,
+                "name": "Завтрак Гостиничный",
+                "quantity": 1,
+                "price": 250,
+                "sum": 250
+            },
+            {
+                "id": 2,
+                "name": "Обед Бизнес",
+                "quantity": 1,
+                "price": 450,
+                "sum": 450
+            }
+        ],
+        "all_sum": 700
     }
 ]

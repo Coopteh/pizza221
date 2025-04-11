@@ -7,12 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6
 {
     public static $files = array (
+        '5f0e95b8df5acf4a92c896dc3ac4bb6e' => __DIR__ . '/..' . '/phpmetrics/phpmetrics/src/functions.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'PhpParser\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'A' => 
@@ -22,6 +24,10 @@ class ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6
     );
 
     public static $prefixDirsPsr4 = array (
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -29,6 +35,16 @@ class ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'H' => 
+        array (
+            'Hal\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpmetrics/phpmetrics/src',
+            ),
         ),
     );
 
@@ -41,6 +57,7 @@ class ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit14d6b2b2df55e83de82ff571dec3a4f6::$classMap;
 
         }, null, ClassLoader::class);
