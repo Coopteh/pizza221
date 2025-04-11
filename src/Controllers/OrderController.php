@@ -8,7 +8,9 @@ use App\Services\OrderDBStorage;
 use App\Services\ProductDBStorage;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+use App\Services\ValidateOrderData;
+use App\Services\OrderFactory;
+use App\Services\ProductFactory;
 use App\Models\Product;
 use App\Services\FileStorage;
 use App\Views\OrderTemplate;
@@ -28,14 +30,7 @@ class OrderController {
         }
 
         // Создаем объект сервиса
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        }
+        $model = ProductFactory::createProduct();
         $data = $model->getBasketData();
 
         $orderTemplate = new OrderTemplate();
@@ -51,19 +46,10 @@ class OrderController {
         }
     
         // Создаем объект сервиса
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        } elseif (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        } else {
-            // Если тип хранилища не определен, выбрасываем исключение
-            throw new \Exception("Неизвестный тип хранилища данных.");
-        }
+        $model = ProductFactory::createProduct();
     
         // Валидация данных
-        if (!$this->validate($_POST)) {
+        if (ValidateOrderData::validate($_POST)) {
             header("Location: /order");
             return "";
         }
@@ -90,15 +76,7 @@ class OrderController {
         $arr['all_sum'] = $all_sum;
     
         // Инициализация модели заказа
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $orderStorageService = new FileStorage();
-            $orderModel = new Order($orderStorageService, Config::FILE_ORDERS);
-        } elseif (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $orderStorageService = new OrderDBStorage();
-            $orderModel = new Order($orderStorageService, Config::TABLE_ORDERS);
-        } else {
-            throw new \Exception("Неизвестный тип хранилища данных.");
-        }
+        $orderModel = OrderFactory::createOrder();
     
         // Сохраняем данные
         $orderModel->saveData($arr);
@@ -112,40 +90,6 @@ class OrderController {
         $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки.";
         header("Location: /pizza221/");
         return "";
-    }
-
-    /**
-     * Метод для валидации данных формы заказа.
-     */
-    private function validate(array $data): bool {
-        // Валидация адреса
-        if (!isset($data['address']) || strlen(trim($data['address'])) < 10 || strlen(trim($data['address'])) > 200) {
-            $_SESSION['flash'] = "Ошибка при проверке адреса. Адрес должен быть от 10 до 200 символов.";
-            $_SESSION['form_data'] = $data;
-            return false;
-        }
-
-        // Валидация телефона
-        if (!isset($data['phone'])) {
-            $_SESSION['flash'] = "Ошибка при проверке телефона. Телефон не может быть пустым.";
-            $_SESSION['form_data'] = $data;
-            return false;
-        }
-        $cleanedPhone = preg_replace('/[^0-9]/', '', $data['phone']);
-        if (strlen($cleanedPhone) !== 11 || !in_array($cleanedPhone[0], ['7', '8'])) {
-            $_SESSION['flash'] = "Ошибка при проверке телефона. Убедитесь, что номер состоит из 11 цифр и начинается с 7 или 8.";
-            $_SESSION['form_data'] = $data;
-            return false;
-        }
-
-        // Валидация email
-        if (!isset($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['flash'] = "Ошибка при проверке email. Убедитесь, что email введен в правильном формате.";
-            $_SESSION['form_data'] = $data;
-            return false;
-        }
-
-        return true;
     }
 
     /**

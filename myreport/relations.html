@@ -49,7 +49,7 @@
 <div class="page">
     <div class="content content-first">
         <div class="report-details">
-            Created at 2025-03-07 04:51:55        , with PHPMetrics v2.8.2 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
+            Created at 2025-04-11 07:53:27        , with PHPMetrics v2.8.2 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
         </div>
 
         
@@ -93,7 +93,7 @@
                             <path d="M0 0h24v24H0z" fill="none">
                             <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z">
                         </svg>
-                        Violations (0)
+                        Violations (3)
                     </a>
                 </li>
                                     <li>
@@ -247,17 +247,166 @@
 
     var relations = [
     {
-        "name": "\\Process",
+        "name": "\\App\\Config\\Config",
         "size": 3000,
         "relations": []
     },
     {
-        "name": "\\Calculate",
+        "name": "\\App\\Controllers\\AboutController",
         "size": 3000,
         "relations": []
     },
     {
-        "name": "\\Complex",
+        "name": "\\App\\Views\\AboutTemplate",
+        "size": 3000,
+        "relations": [
+            "\\App\\Views\\BaseTemplate"
+        ]
+    },
+    {
+        "name": "\\App\\Controllers\\BasketController",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Controllers\\HomeController",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Views\\HomeTemplate",
+        "size": 3000,
+        "relations": [
+            "\\App\\Views\\BaseTemplate"
+        ]
+    },
+    {
+        "name": "\\App\\Controllers\\OrderController",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ProductFactory",
+        "size": 3000,
+        "relations": [
+            "\\App\\Models\\Product",
+            "\\App\\Services\\FileStorage",
+            "\\App\\Services\\ProductDBStorage"
+        ]
+    },
+    {
+        "name": "\\App\\Views\\OrderTemplate",
+        "size": 3000,
+        "relations": [
+            "\\App\\Views\\BaseTemplate"
+        ]
+    },
+    {
+        "name": "\\App\\Services\\ValidateOrderData",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\OrderFactory",
+        "size": 3000,
+        "relations": [
+            "\\App\\Models\\Order",
+            "\\App\\Services\\FileStorage",
+            "\\App\\Services\\OrderDBStorage"
+        ]
+    },
+    {
+        "name": "\\PHPMailer\\PHPMailer\\PHPMailer",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Controllers\\ProductController",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ProductDBStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Models\\Product",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Views\\ProductTemplate",
+        "size": 3000,
+        "relations": [
+            "\\App\\Views\\BaseTemplate"
+        ]
+    },
+    {
+        "name": "\\App\\Models\\Order",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ISaveStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ILoadStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Router\\Router",
+        "size": 3000,
+        "relations": [
+            "\\App\\Controllers\\AboutController",
+            "\\App\\Controllers\\ProductController",
+            "\\App\\Controllers\\BasketController",
+            "\\App\\Controllers\\OrderController",
+            "\\App\\Controllers\\HomeController"
+        ]
+    },
+    {
+        "name": "\\App\\Services\\DatabaseStorage",
+        "size": 3000,
+        "relations": [
+            "\\App\\Services\\IStorage"
+        ]
+    },
+    {
+        "name": "\\App\\Services\\IStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\DBStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\PDO",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\FileStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\RuntimeException",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\OrderDBStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Views\\BaseTemplate",
         "size": 3000,
         "relations": []
     }
