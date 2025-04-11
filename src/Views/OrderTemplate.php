@@ -5,7 +5,10 @@ use App\Views\BaseTemplate;
 
 class OrderTemplate extends BaseTemplate
 {
-    public static function getOrderTemplate(array $products): string {
+    /*
+        Формирование страница ""Создание заказа"
+    */
+    public static function getOrderTemplate(?array $products, float $all_sum): string {
         $template = parent::getTemplate();
         $title= 'Создание заказа';
         $content = <<<CORUSEL
@@ -13,15 +16,25 @@ class OrderTemplate extends BaseTemplate
             <h1 class="mb-5">Создание заказа</h1>
             <h3>Список товаров (Корзина)</h1>
         CORUSEL;
+        $content .= self::getProductList($products);
+        $content .= self::getSummaryInfo($all_sum);
+        $content .= "</main>";
 
-        $all_sum = 0;
+        $resultTemplate =  sprintf($template, $title, $content);
+        return $resultTemplate;
+    }
+
+    /*
+        Отображение списка товаров заказа (товаров в корзине)
+    */
+    public static function getProductList(?array $products): string {
+        $content= '';
         foreach ($products as $product) {
 		    $name = $product['name'];
             $price = $product['price'];
 		    $quantity = $product['quantity'];
 
             $sum = $price * $quantity;
-            $all_sum += $sum;
 
             $content .= <<<LINE
                 <div class="row">
@@ -37,7 +50,15 @@ class OrderTemplate extends BaseTemplate
                 </div>
             LINE;
 	    }
-
+        return $content;
+    }
+    /*
+        Общие итоги под списком товаров заказа 
+        (сумма заказа, кнопка очистки корзины)
+    */
+    public static function getSummaryInfo(int $all_sum): string 
+    {
+        $content= '';
         if ($all_sum == 0) {
             $content .= <<<LINE
             <div class="row">
@@ -71,10 +92,19 @@ class OrderTemplate extends BaseTemplate
                         </form>
                     </div>
                 </div>    
-
             LINE;
 
-            $content .= <<<FORMA
+            $content .= self::getFormUserInformation();
+        }
+        return $content;
+    }
+
+    /* 
+        Форма для сбора данных от пользователя 
+        для доставки (телефон, адрес,..)
+    */
+    public static function getFormUserInformation(): string {
+        $html= <<<FORMA
                 <h3>Данные для доставки</h1>
                 <form action="/pizza221/order" method="POST">
                     <div class="mb-3">
@@ -95,13 +125,7 @@ class OrderTemplate extends BaseTemplate
                     </div>                    
                     <button type="submit" class="btn btn-primary">Создать заказ</button>
                 </form>
-            FORMA;
-
-        }
-
-        $content .= "</main>";
-
-        $resultTemplate =  sprintf($template, $title, $content);
-        return $resultTemplate;
+        FORMA;
+        return $html;
     }
 }

@@ -58,4 +58,17 @@ class Product {
         return $basketProducts;
     }
 
+        /* 
+        Подсчет общей суммы заказа (товаров в корзине)
+    */
+    public function getAllSum(?array $products): float {
+        $all_sum =0;
+        foreach ($products as $product) {
+            $price = $product['price'];
+		    $quantity = $product['quantity'];
+
+            $all_sum += $price * $quantity;
+	    }
+        return $all_sum;
+    }
 }
