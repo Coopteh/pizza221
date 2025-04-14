@@ -1,1 +1,1 @@
-{"version":1,"defects":{"Test\\RouterTest::test_router":7,"Test\\RouterTest::test_router2":7},"times":{"Test\\RouterTest::test_router":0.011,"Test\\RouterTest::test_router1":0.01,"Test\\RouterTest::test_router2":0.018,"Test\\RouterTest::test_router3":0.001}}
+{"version":1,"defects":{"Test\\RouterTest::test_router":7,"Test\\RouterTest::test_router2":7},"times":{"Test\\RouterTest::test_router":0.011,"Test\\RouterTest::test_router1":0.01,"Test\\RouterTest::test_router2":0.018,"Test\\RouterTest::test_router3":0.001,"OrderDataTest::testValidateOrderData":0.008}}
