@@ -17,23 +17,22 @@ use IteratorAggregate;
 /**
  * @template-implements IteratorAggregate<int, CodeUnit>
  *
- * @immutable
+ * @psalm-immutable
  */
-final readonly class CodeUnitCollection implements Countable, IteratorAggregate
+final class CodeUnitCollection implements Countable, IteratorAggregate
 {
     /**
-     * @var list<CodeUnit>
+     * @psalm-var list<CodeUnit>
      */
-    private array $codeUnits;
+    private readonly array $codeUnits;
 
     public static function fromList(CodeUnit ...$codeUnits): self
     {
-        // @phpstan-ignore argument.type
         return new self($codeUnits);
     }
 
     /**
-     * @param list<CodeUnit> $codeUnits
+     * @psalm-param list<CodeUnit> $codeUnits
      */
     private function __construct(array $codeUnits)
     {
@@ -41,7 +40,7 @@ final readonly class CodeUnitCollection implements Countable, IteratorAggregate
     }
 
     /**
-     * @return list<CodeUnit>
+     * @psalm-return list<CodeUnit>
      */
     public function asArray(): array
     {
@@ -60,7 +59,7 @@ final readonly class CodeUnitCollection implements Countable, IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return $this->codeUnits === [];
+        return empty($this->codeUnits);
     }
 
     public function mergeWith(self $other): self
@@ -68,8 +67,8 @@ final readonly class CodeUnitCollection implements Countable, IteratorAggregate
         return new self(
             array_merge(
                 $this->asArray(),
-                $other->asArray(),
-            ),
+                $other->asArray()
+            )
         );
     }
 }

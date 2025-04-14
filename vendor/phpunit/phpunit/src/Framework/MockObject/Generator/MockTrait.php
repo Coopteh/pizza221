@@ -18,17 +18,17 @@ use function class_exists;
  *
  * @deprecated https://github.com/sebastianbergmann/phpunit/issues/5243
  */
-final readonly class MockTrait implements MockType
+final class MockTrait implements MockType
 {
-    private string $classCode;
+    private readonly string $classCode;
 
     /**
-     * @var class-string
+     * @psalm-var class-string
      */
-    private string $mockName;
+    private readonly string $mockName;
 
     /**
-     * @param class-string $mockName
+     * @psalm-param class-string $mockName
      */
     public function __construct(string $classCode, string $mockName)
     {
@@ -37,7 +37,7 @@ final readonly class MockTrait implements MockType
     }
 
     /**
-     * @return class-string
+     * @psalm-return class-string
      */
     public function generate(): string
     {

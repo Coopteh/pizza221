@@ -27,7 +27,7 @@ use PhpParser\NodeVisitorAbstract;
 final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
 {
     /**
-     * @var array<int>
+     * @psalm-var array<int>
      */
     private array $ignoredLines = [];
     private readonly bool $useAnnotationsForIgnoringCode;
@@ -91,7 +91,7 @@ final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
     }
 
     /**
-     * @return array<int>
+     * @psalm-return array<int>
      */
     public function ignoredLines(): array
     {

@@ -10,20 +10,20 @@
 namespace PHPUnit\Metadata;
 
 /**
- * @immutable
+ * @psalm-immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class UsesDefaultClass extends Metadata
+final class UsesDefaultClass extends Metadata
 {
     /**
-     * @var class-string
+     * @psalm-var class-string
      */
-    private string $className;
+    private readonly string $className;
 
     /**
-     * @param 0|1          $level
-     * @param class-string $className
+     * @psalm-param 0|1 $level
+     * @psalm-param class-string $className
      */
     protected function __construct(int $level, string $className)
     {
@@ -32,13 +32,16 @@ final readonly class UsesDefaultClass extends Metadata
         $this->className = $className;
     }
 
-    public function isUsesDefaultClass(): true
+    /**
+     * @psalm-assert-if-true UsesDefaultClass $this
+     */
+    public function isUsesDefaultClass(): bool
     {
         return true;
     }
 
     /**
-     * @return class-string
+     * @psalm-return class-string
      */
     public function className(): string
     {

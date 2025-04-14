@@ -38,13 +38,11 @@ use const T_ENDFOREACH;
 use const T_ENDIF;
 use const T_ENDSWITCH;
 use const T_ENDWHILE;
-use const T_ENUM;
 use const T_EVAL;
 use const T_EXIT;
 use const T_EXTENDS;
 use const T_FINAL;
 use const T_FINALLY;
-use const T_FN;
 use const T_FOR;
 use const T_FOREACH;
 use const T_FUNCTION;
@@ -61,14 +59,12 @@ use const T_INSTEADOF;
 use const T_INTERFACE;
 use const T_ISSET;
 use const T_LIST;
-use const T_MATCH;
 use const T_NAMESPACE;
 use const T_NEW;
 use const T_PRINT;
 use const T_PRIVATE;
 use const T_PROTECTED;
 use const T_PUBLIC;
-use const T_READONLY;
 use const T_REQUIRE;
 use const T_REQUIRE_ONCE;
 use const T_RETURN;
@@ -83,7 +79,6 @@ use const T_VAR;
 use const T_WHILE;
 use const T_YIELD;
 use const T_YIELD_FROM;
-use const TOKEN_PARSE;
 use function array_key_exists;
 use function array_keys;
 use function array_merge;
@@ -114,7 +109,7 @@ use SebastianBergmann\Template\Template;
 final class File extends Renderer
 {
     /**
-     * @var array<int,true>
+     * @psalm-var array<int,true>
      */
     private const KEYWORD_TOKENS = [
         T_ABSTRACT      => true,
@@ -553,7 +548,7 @@ final class File extends Renderer
 
             if (!empty($popoverTitle)) {
                 $popover = sprintf(
-                    ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
+                    ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
                     $popoverTitle,
                     htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
                 );
@@ -640,7 +635,7 @@ final class File extends Renderer
                 $trClass = $lineCss . ' popin';
 
                 $popover = sprintf(
-                    ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
+                    ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
                     $popoverTitle,
                     htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
                 );
@@ -730,7 +725,7 @@ final class File extends Renderer
                 $trClass = $lineCss . ' popin';
 
                 $popover = sprintf(
-                    ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
+                    ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
                     $popoverTitle,
                     htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
                 );
@@ -828,7 +823,7 @@ final class File extends Renderer
 
             if (!empty($popoverTitle)) {
                 $popover = sprintf(
-                    ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
+                    ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
                     $popoverTitle,
                     htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
                 );
@@ -943,7 +938,7 @@ final class File extends Renderer
 
                 if (!empty($popoverTitle)) {
                     $popover = sprintf(
-                        ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
+                        ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
                         $popoverTitle,
                         htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
                     );
@@ -983,7 +978,7 @@ final class File extends Renderer
         }
 
         $buffer              = file_get_contents($file);
-        $tokens              = token_get_all($buffer, TOKEN_PARSE);
+        $tokens              = token_get_all($buffer);
         $result              = [''];
         $i                   = 0;
         $stringFlag          = false;

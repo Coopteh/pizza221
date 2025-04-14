@@ -9,6 +9,7 @@
  */
 namespace PHPUnit\Framework\MockObject\Generator;
 
+use function call_user_func;
 use function class_exists;
 use PHPUnit\Framework\MockObject\ConfigurableMethod;
 
@@ -17,23 +18,23 @@ use PHPUnit\Framework\MockObject\ConfigurableMethod;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MockClass implements MockType
+final class MockClass implements MockType
 {
-    private string $classCode;
+    private readonly string $classCode;
 
     /**
-     * @var class-string
+     * @psalm-var class-string
      */
-    private string $mockName;
+    private readonly string $mockName;
 
     /**
-     * @var list<ConfigurableMethod>
+     * @psalm-var list<ConfigurableMethod>
      */
-    private array $configurableMethods;
+    private readonly array $configurableMethods;
 
     /**
-     * @param class-string             $mockName
-     * @param list<ConfigurableMethod> $configurableMethods
+     * @psalm-param class-string $mockName
+     * @psalm-param list<ConfigurableMethod> $configurableMethods
      */
     public function __construct(string $classCode, string $mockName, array $configurableMethods)
     {
@@ -43,12 +44,20 @@ final readonly class MockClass implements MockType
     }
 
     /**
-     * @return class-string
+     * @psalm-return class-string
      */
     public function generate(): string
     {
         if (!class_exists($this->mockName, false)) {
             eval($this->classCode);
+
+            call_user_func(
+                [
+                    $this->mockName,
+                    '__phpunit_initConfigurableMethods',
+                ],
+                ...$this->configurableMethods,
+            );
         }
 
         return $this->mockName;
@@ -57,13 +66,5 @@ final readonly class MockClass implements MockType
     public function classCode(): string
     {
         return $this->classCode;
-    }
-
-    /**
-     * @return list<ConfigurableMethod>
-     */
-    public function configurableMethods(): array
-    {
-        return $this->configurableMethods;
     }
 }

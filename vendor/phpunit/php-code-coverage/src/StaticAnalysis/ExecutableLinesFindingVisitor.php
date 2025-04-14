@@ -27,7 +27,7 @@ use PhpParser\NodeVisitorAbstract;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  *
- * @phpstan-import-type LinesType from \SebastianBergmann\CodeCoverage\StaticAnalysis\FileAnalyser
+ * @psalm-import-type LinesType from \SebastianBergmann\CodeCoverage\StaticAnalysis\FileAnalyser
  */
 final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
 {
@@ -35,17 +35,17 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
     private readonly string $source;
 
     /**
-     * @var LinesType
+     * @psalm-var LinesType
      */
     private array $executableLinesGroupedByBranch = [];
 
     /**
-     * @var array<int, bool>
+     * @psalm-var array<int, bool>
      */
     private array $unsets = [];
 
     /**
-     * @var array<int, string>
+     * @psalm-var array<int, string>
      */
     private array $commentsToCheckForUnset = [];
 
@@ -128,6 +128,21 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
             return;
         }
 
+        /*
+         * nikic/php-parser ^4.18 represents <code>throw</code> statements
+         * as <code>Stmt\Throw_</code> objects
+         */
+        if ($node instanceof Node\Stmt\Throw_) {
+            $this->setLineBranch($node->expr->getEndLine(), $node->expr->getEndLine(), ++$this->nextBranch);
+
+            return;
+        }
+
+        /*
+         * nikic/php-parser ^5 represents <code>throw</code> statements
+         * as <code>Stmt\Expression</code> objects that contain an
+         * <code>Expr\Throw_</code> object
+         */
         if ($node instanceof Node\Stmt\Expression && $node->expr instanceof Node\Expr\Throw_) {
             $this->setLineBranch($node->expr->expr->getEndLine(), $node->expr->expr->getEndLine(), ++$this->nextBranch);
 
@@ -382,7 +397,7 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
     }
 
     /**
-     * @return LinesType
+     * @psalm-return LinesType
      */
     public function executableLinesGroupedByBranch(): array
     {

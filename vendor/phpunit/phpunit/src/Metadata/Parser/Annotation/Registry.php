@@ -28,12 +28,12 @@ final class Registry
     private static ?Registry $instance = null;
 
     /**
-     * @var array<string, DocBlock> indexed by class name
+     * @psalm-var array<string, DocBlock> indexed by class name
      */
     private array $classDocBlocks = [];
 
     /**
-     * @var array<string, array<string, DocBlock>> indexed by class name and method name
+     * @psalm-var array<string, array<string, DocBlock>> indexed by class name and method name
      */
     private array $methodDocBlocks = [];
 
@@ -43,7 +43,7 @@ final class Registry
     }
 
     /**
-     * @param class-string $class
+     * @psalm-param class-string $class
      *
      * @throws AnnotationsAreNotSupportedForInternalClassesException
      * @throws ReflectionException
@@ -56,9 +56,7 @@ final class Registry
 
         try {
             $reflection = new ReflectionClass($class);
-
             // @codeCoverageIgnoreStart
-            /** @phpstan-ignore catch.neverThrown */
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
@@ -72,7 +70,7 @@ final class Registry
     }
 
     /**
-     * @param class-string $classInHierarchy
+     * @psalm-param class-string $classInHierarchy
      *
      * @throws AnnotationsAreNotSupportedForInternalClassesException
      * @throws ReflectionException

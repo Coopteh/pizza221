@@ -26,12 +26,12 @@ final class DirectDispatcher implements SubscribableDispatcher
     private readonly TypeMap $typeMap;
 
     /**
-     * @var array<class-string, list<Subscriber>>
+     * @psalm-var array<class-string, list<Subscriber>>
      */
     private array $subscribers = [];
 
     /**
-     * @var list<Tracer\Tracer>
+     * @psalm-var list<Tracer\Tracer>
      */
     private array $tracers = [];
 
@@ -102,7 +102,6 @@ final class DirectDispatcher implements SubscribableDispatcher
 
         foreach ($this->subscribers[$eventClassName] as $subscriber) {
             try {
-                /** @phpstan-ignore method.notFound */
                 $subscriber->notify($event);
             } catch (Throwable $t) {
                 $this->handleThrowable($t);
@@ -116,7 +115,7 @@ final class DirectDispatcher implements SubscribableDispatcher
     public function handleThrowable(Throwable $t): void
     {
         if ($this->isThrowableFromThirdPartySubscriber($t)) {
-            Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+            Facade::emitter()->testRunnerTriggeredWarning(
                 sprintf(
                     'Exception in third-party event subscriber: %s%s%s',
                     $t->getMessage(),

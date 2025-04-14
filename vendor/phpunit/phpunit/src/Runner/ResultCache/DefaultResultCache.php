@@ -45,12 +45,12 @@ final class DefaultResultCache implements ResultCache
     private readonly string $cacheFilename;
 
     /**
-     * @var array<string, TestStatus>
+     * @psalm-var array<string, TestStatus>
      */
     private array $defects = [];
 
     /**
-     * @var array<string, float>
+     * @psalm-var array<string, float>
      */
     private array $times = [];
 

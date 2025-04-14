@@ -17,7 +17,7 @@ use Iterator;
 final class CodeUnitCollectionIterator implements Iterator
 {
     /**
-     * @var list<CodeUnit>
+     * @psalm-var list<CodeUnit>
      */
     private array $codeUnits;
     private int $position = 0;

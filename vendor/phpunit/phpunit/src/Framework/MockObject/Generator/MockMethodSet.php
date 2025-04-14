@@ -21,7 +21,7 @@ use function strtolower;
 final class MockMethodSet
 {
     /**
-     * @var array<string,MockMethod>
+     * @psalm-var array<string,MockMethod>
      */
     private array $methods = [];
 
@@ -33,7 +33,7 @@ final class MockMethodSet
     }
 
     /**
-     * @return list<MockMethod>
+     * @psalm-return list<MockMethod>
      */
     public function asArray(): array
     {

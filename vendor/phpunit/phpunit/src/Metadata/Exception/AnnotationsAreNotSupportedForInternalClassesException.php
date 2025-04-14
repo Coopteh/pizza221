@@ -21,7 +21,7 @@ use RuntimeException;
 final class AnnotationsAreNotSupportedForInternalClassesException extends RuntimeException implements Exception
 {
     /**
-     * @param class-string $className
+     * @psalm-param class-string $className
      */
     public function __construct(string $className)
     {

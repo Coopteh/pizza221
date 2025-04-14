@@ -30,12 +30,12 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PharLoader
+final class PharLoader
 {
     /**
-     * @param non-empty-string $directory
+     * @psalm-param non-empty-string $directory
      *
-     * @return list<string>
+     * @psalm-return list<string>
      */
     public function loadPharExtensionsInDirectory(string $directory): array
     {
@@ -44,7 +44,7 @@ final readonly class PharLoader
 
         foreach ((new FileIteratorFacade)->getFilesAsArray($directory, '.phar') as $file) {
             if (!$pharExtensionLoaded) {
-                Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                Event\Facade::emitter()->testRunnerTriggeredWarning(
                     sprintf(
                         'Cannot load extension from %s because the PHAR extension is not available',
                         $file,
@@ -55,7 +55,7 @@ final readonly class PharLoader
             }
 
             if (!is_file('phar://' . $file . '/manifest.xml')) {
-                Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                Event\Facade::emitter()->testRunnerTriggeredWarning(
                     sprintf(
                         '%s is not an extension for PHPUnit',
                         $file,
@@ -71,7 +71,7 @@ final readonly class PharLoader
                 $manifest        = ManifestLoader::fromFile('phar://' . $file . '/manifest.xml');
 
                 if (!$manifest->isExtensionFor($applicationName)) {
-                    Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                    Event\Facade::emitter()->testRunnerTriggeredWarning(
                         sprintf(
                             '%s is not an extension for PHPUnit',
                             $file,
@@ -82,7 +82,7 @@ final readonly class PharLoader
                 }
 
                 if (!$manifest->isExtensionFor($applicationName, $version)) {
-                    Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                    Event\Facade::emitter()->testRunnerTriggeredWarning(
                         sprintf(
                             '%s is not compatible with PHPUnit %s',
                             $file,
@@ -93,7 +93,7 @@ final readonly class PharLoader
                     continue;
                 }
             } catch (ManifestException $e) {
-                Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                Event\Facade::emitter()->testRunnerTriggeredWarning(
                     sprintf(
                         'Cannot load extension from %s: %s',
                         $file,
@@ -105,9 +105,10 @@ final readonly class PharLoader
             }
 
             try {
+                /** @psalm-suppress UnresolvableInclude */
                 @require $file;
             } catch (Throwable $t) {
-                Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                Event\Facade::emitter()->testRunnerTriggeredWarning(
                     sprintf(
                         'Cannot load extension from %s: %s',
                         $file,

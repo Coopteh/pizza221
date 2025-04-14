@@ -19,45 +19,22 @@ interface InvocationStubber
 {
     public function will(Stub $stub): Identity;
 
-    /**
-     * @return $this
-     */
     public function willReturn(mixed $value, mixed ...$nextValues): self;
 
-    /**
-     * @return $this
-     */
     public function willReturnReference(mixed &$reference): self;
 
     /**
-     * @param array<int, array<int, mixed>> $valueMap
-     *
-     * @return $this
+     * @psalm-param array<int, array<int, mixed>> $valueMap
      */
     public function willReturnMap(array $valueMap): self;
 
-    /**
-     * @return $this
-     */
     public function willReturnArgument(int $argumentIndex): self;
 
-    /**
-     * @return $this
-     */
     public function willReturnCallback(callable $callback): self;
 
-    /**
-     * @return $this
-     */
     public function willReturnSelf(): self;
 
-    /**
-     * @return $this
-     */
     public function willReturnOnConsecutiveCalls(mixed ...$values): self;
 
-    /**
-     * @return $this
-     */
     public function willThrowException(Throwable $exception): self;
 }

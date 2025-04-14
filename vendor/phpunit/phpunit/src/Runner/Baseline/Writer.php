@@ -19,10 +19,10 @@ use XMLWriter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Writer
+final class Writer
 {
     /**
-     * @param non-empty-string $baselineFile
+     * @psalm-param non-empty-string $baselineFile
      */
     public function write(string $baselineFile, Baseline $baseline): void
     {
@@ -50,7 +50,7 @@ final readonly class Writer
 
                 foreach ($issues as $issue) {
                     $writer->startElement('issue');
-                    $writer->writeCdata($issue->description());
+                    $writer->writeCData($issue->description());
                     $writer->endElement();
                 }
 

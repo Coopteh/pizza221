@@ -10,10 +10,13 @@
 namespace SebastianBergmann\CodeUnit;
 
 /**
- * @immutable
+ * @psalm-immutable
  */
-final readonly class FileUnit extends CodeUnit
+final class FileUnit extends CodeUnit
 {
+    /**
+     * @psalm-assert-if-true FileUnit $this
+     */
     public function isFile(): bool
     {
         return true;
