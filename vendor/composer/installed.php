@@ -3,7 +3,7 @@
         'name' => 'kkt/pizza221',
         'pretty_version' => 'dev-nikita',
         'version' => 'dev-nikita',
-        'reference' => '37d316c45e35b3263408113a787c468c331fd847',
+        'reference' => '283c17a1e84a5803bb4f8e833e66e899ede6f539',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -43,7 +43,7 @@
         'kkt/pizza221' => array(
             'pretty_version' => 'dev-nikita',
             'version' => 'dev-nikita',
-            'reference' => '37d316c45e35b3263408113a787c468c331fd847',
+            'reference' => '283c17a1e84a5803bb4f8e833e66e899ede6f539',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
