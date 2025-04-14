@@ -8,15 +8,18 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Test\\": "tests/"
         }
     },
     "scripts": {
-        "start": "php -S localhost:8000"
+        "start": "php -S localhost:8000",
+        "test": "./vendor/bin/phpunit ./tests --color"
     },
     "require-dev": {
         "phpmetrics/phpmetrics": "^2.8",
         "squizlabs/php_codesniffer": "^3.12",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^10.5"
     }
 }
