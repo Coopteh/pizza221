@@ -12,7 +12,7 @@ class BaseTemplate
             <title> %s </title>
             <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
             <style>
-                
+       
             </style>
             <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
         </head>
