@@ -18,8 +18,8 @@ class BaseTemplate
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="https://localhost/pizza221/assets/images/logo1.png"" alt="Логотип компании" width="64" height="64">
-                        БЫТОВАЯ ТЕХНИКА ИС221
+                        <img src="https://localhost/pizza221/assets/images/logo3.png" alt="Логотип компании" width="64" height="64">
+                        Бытвоая Техника ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,12 +28,18 @@ class BaseTemplate
                     <ul class="navbar-nav">
                         <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/pizza221/">Главная</a>
-                       <a class="nav-link" href="/pizza221/about">О нас</a>
+                        </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/products">Каталог</a>
                         </li>
                         <li class="nav-item">
+                        <a class="nav-link" href="/pizza221/about">О нас</a>
+                        </li>
+                        <li class="nav-item">
                         <a class="nav-link" href="/pizza221/order">Заказ</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/pizza221/register">Регистрация</a>
                         </li>
                     </ul>
                     </div>
@@ -43,6 +49,10 @@ class BaseTemplate
         LINE;
 
         // Добавим flash сообщение
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
         if (isset($_SESSION['flash'])) {
             $template .= <<<END
                 <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">

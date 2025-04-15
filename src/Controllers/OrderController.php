@@ -47,7 +47,8 @@ class OrderController {
         $arr['email'] = strip_tags($_POST['email']);
         $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
-        if (! ValidateOrderData::validate($arr)) {
+        if (! Valida++
+        ata::validate($arr)) {
             // переадресация обратно на страницу заказа
             header("Location: /pizza221/order");
             return "";
@@ -122,4 +123,4 @@ exit();
         }
         return false;
     }
-}
+}ИИ
