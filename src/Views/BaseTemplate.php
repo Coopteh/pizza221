@@ -50,8 +50,8 @@ class BaseTemplate
                     color: #ffffff; /* Цвет текста */
                 }
                 .btn-custom:hover {
-                    background-color: rgb(180,130,150); /* Цвет при наведении */
-                    border-color: rgb(180,130,150); /* Цвет границы при наведении */
+                    background-color: rgb(215, 93, 138); /* Цвет при наведении */
+                    border-color: rgb(215, 93, 138); /* Цвет границы при наведении */
                     color: #ffffff; /* Цвет текста */
                 }
                 .alert {
@@ -117,6 +117,9 @@ class BaseTemplate
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="http://localhost/order">Заказ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/register">Регистрация</a>
                                 </li>
                             </ul>
                         </div>

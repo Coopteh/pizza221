@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 07 2025 г., 11:19
+-- Время создания: Апр 15 2025 г., 06:35
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -38,6 +38,16 @@ CREATE TABLE `orders` (
   `payment_method` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `fio`, `addres`, `phone`, `email`, `all_sum`, `created`, `payment_method`) VALUES
+(1, 'Гончаров Денис Алибабаевич', '12222222222', '79130758655', 'soborovets@gmail.com', 529, '2025-04-08 07:45:45', 'sbp'),
+(2, 'Гончаров Денис Алибабаевич', '12222222222', '79130758655', 'soborovets@gmail.com', 529, '2025-04-08 07:46:38', 'sbp'),
+(3, 'Гвоздиков Данил Александрович', 'Тухочевского 32', '79999999999', 'soborovets@gmail.com', 1865, '2025-04-08 07:50:14', 'sbp'),
+(4, 'Буланов Семён Димка', 'Тухочевского 32', '89130758655', 'soborovets@gmail.com', 967, '2025-04-08 07:55:17', 'card');
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +62,23 @@ CREATE TABLE `order_item` (
   `price_item` float NOT NULL,
   `sum_item` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `order_item`
+--
+
+INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `count_item`, `price_item`, `sum_item`) VALUES
+(1, 2, 3, 1, 529, 529),
+(2, 3, 3, 2, 529, 1058),
+(3, 3, 6, 1, 120, 120),
+(4, 3, 9, 1, 199, 199),
+(5, 3, 10, 1, 199, 199),
+(6, 3, 11, 1, 219, 219),
+(7, 3, 14, 1, 70, 70),
+(8, 4, 4, 1, 479, 479),
+(9, 4, 10, 1, 199, 199),
+(10, 4, 12, 1, 219, 219),
+(11, 4, 13, 1, 70, 70);
 
 -- --------------------------------------------------------
 
@@ -89,6 +116,22 @@ INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `category
 (13, 'Чесночный', 'Фирменный соус с чесночным вкусом для бортиков пиццы и горячих закусок, 25 г', '/assets/image/12.png', 70, 'sauce', '2025-04-07 09:13:14', '2025-04-07 09:13:14'),
 (14, 'Малиновое варенье', 'Идеально к сырникам, но у нас их нет XD 25 г', '/assets/image/13.png', 70, 'sauce', '2025-04-07 09:13:14', '2025-04-07 09:13:14');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `is_verified` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -115,6 +158,13 @@ ALTER TABLE `products`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -122,19 +172,25 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
