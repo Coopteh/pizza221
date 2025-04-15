@@ -63,12 +63,6 @@ class TypeIntersection
     /* testTypeIntersectionPropertyWithStaticKeyword */
     static Foo&Bar $obj;
 
-    /* testTypeIntersectionWithPHP84FinalKeyword */
-    final className&InterfaceName $finalKeywordA;
-
-    /* testTypeIntersectionWithPHP84FinalKeywordFirst */
-    final private \className&InterfaceName $finalKeywordB;
-
     public function paramTypes(
         /* testTypeIntersectionParam1 */
         Foo&Bar $paramA /* testBitwiseAndParamDefaultValue */ = CONSTANT_A & CONSTANT_B,

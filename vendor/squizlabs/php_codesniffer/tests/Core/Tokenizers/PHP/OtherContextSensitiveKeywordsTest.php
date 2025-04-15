@@ -134,7 +134,7 @@ final class OtherContextSensitiveKeywordsTest extends AbstractTokenizerTestCase
      *
      * @see testKeywords()
      *
-     * @return array<string, array<string, string>>
+     * @return array
      */
     public static function dataKeywords()
     {

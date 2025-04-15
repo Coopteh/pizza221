@@ -243,7 +243,7 @@ final class ProcessRulesetTest extends TestCase
     /**
      * Test Helper.
      *
-     * @return \PHP_CodeSniffer\Ruleset
+     * @return \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function getMiscRuleset()
     {

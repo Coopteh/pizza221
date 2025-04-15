@@ -1,13 +1,13 @@
-<documentation title="Useless Overriding Method">
+<documentation title="Useless Overriding Methods">
     <standard>
     <![CDATA[
-    It is discouraged to override a method if the overriding method only calls the parent method.
+    Methods should not be defined that only call the parent method.
     ]]>
     </standard>
     <code_comparison>
-        <code title="Valid: A method that extends functionality of a parent method.">
+        <code title="Valid: A method that extends functionality on a parent method.">
         <![CDATA[
-final class Foo extends Baz
+final class Foo
 {
     public function bar()
     {
@@ -17,9 +17,9 @@ final class Foo extends Baz
 }
         ]]>
         </code>
-        <code title="Invalid: An overriding method that only calls the parent method.">
+        <code title="Invalid: An overriding method that only calls the parent.">
         <![CDATA[
-final class Foo extends Baz
+final class Foo
 {
     public function bar()
     {

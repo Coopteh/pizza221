@@ -11,8 +11,8 @@ use App\Services\FileStorage;
 use App\Services\ProductDBStorage;
 use App\Services\OrderDBStorage;
 use App\Configs\Config;
-use App\Services\OrderFactory;
 use App\Services\ProductFactory;
+use App\Services\OrderFactory;
 use App\Services\ValidateOrderData;
 
 
@@ -21,7 +21,8 @@ class OrderController {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
             return $this->create();
-        $model = ProductFactory::createProduct();      
+
+        $model = ProductFactory::createProduct();
         $data = $model->getBasketData();
 
         return OrderTemplate::getOrderTemplate($data);
@@ -38,13 +39,14 @@ class OrderController {
         $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
         // Валидация (проверка) переданных из формы значений
-        if (!ValidateOrderData::validate($arr)) {
+        if (! ValidateOrderData::validate($arr)) {
             // переадресация обратно на страницу заказа
             header("Location: /pizza221/order");
             return "";
         }
-        // Создаем модель Product для работы с данными
+
         $model = ProductFactory::createProduct();
+
         // список заказанных продуктов - берем список товаров из корзины
         $products = $model->getBasketData();
         $arr['products'] = $products;
@@ -55,10 +57,7 @@ class OrderController {
         }
         $arr['all_sum'] = $all_sum;
     
-       
-        $orderModel = OrderFactory::createOrder();
-
-
+        $orderModel=OrderFactory::createOrder();
         // сохраняем данные
         $orderModel->saveData($arr);
         

@@ -54,13 +54,13 @@ class ProductTemplate extends BaseTemplate
             $element_template= <<<END
             <div class="row mb-5">
                 <div class="col-6">
-                    <img src="{$item['image']}" class="w-100">
+                    <img src="https://habrastorage.org/webt/65/25/15/65251536a7ad4387085522.png" class="w-100">
                 </div>
                 <div class="col-6">
                     <div class="block mt-3">
-                        <a href="/pizza221/products/{$item['id']}"><h2>{$item['name']}</h2></a>
-                        <p>{$item['description']}</p>
-                        <h3>{$item['price']} ₽</h3>
+                        <a href="/pizza221/products/{$item['id']}"><h2>Покупка ПК</h2></a>
+
+                        <h3>100000 ₽</h3>
                         <form class="mt-4" action="/pizza221/basket" method="POST">
                             <input type="hidden" name="id" value="{$item['id']}">
                             <button type="submit" class="btn btn-primary">Добавить в корзину</button>

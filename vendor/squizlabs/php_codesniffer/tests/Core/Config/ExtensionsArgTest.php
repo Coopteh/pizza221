@@ -44,7 +44,7 @@ final class ExtensionsArgTest extends TestCase
      *
      * @see self::testValidExtensions()
      *
-     * @return array<string, array<string, string|array<string, string>>>
+     * @return array<int, array<string>>
      */
     public static function dataValidExtensions()
     {

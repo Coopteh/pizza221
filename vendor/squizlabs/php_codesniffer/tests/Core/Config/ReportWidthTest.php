@@ -10,15 +10,72 @@
 namespace PHP_CodeSniffer\Tests\Core\Config;
 
 use PHP_CodeSniffer\Config;
-use PHP_CodeSniffer\Tests\Core\Config\AbstractRealConfigTestCase;
+use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 
 /**
  * Tests for the \PHP_CodeSniffer\Config reportWidth value.
  *
  * @covers \PHP_CodeSniffer\Config::__get
  */
-final class ReportWidthTest extends AbstractRealConfigTestCase
+final class ReportWidthTest extends TestCase
 {
+
+
+    /**
+     * Set static properties in the Config class to prevent tests influencing each other.
+     *
+     * @before
+     *
+     * @return void
+     */
+    protected function cleanConfig()
+    {
+        // Set to the property's default value to clear out potentially set values from other tests.
+        self::setStaticProperty('executablePaths', []);
+
+        // Set to a usable value to circumvent Config trying to find a phpcs.xml config file.
+        self::setStaticProperty('overriddenDefaults', ['standards' => ['PSR1']]);
+
+        // Set to values which prevent the test-runner user's `CodeSniffer.conf` file
+        // from being read and influencing the tests.
+        self::setStaticProperty('configData', []);
+        self::setStaticProperty('configDataFile', '');
+
+    }//end cleanConfig()
+
+
+    /**
+     * Clean up after each finished test.
+     *
+     * @after
+     *
+     * @return void
+     */
+    protected function resetConfig()
+    {
+        $_SERVER['argv'] = [];
+
+    }//end resetConfig()
+
+
+    /**
+     * Reset the static properties in the Config class to their true defaults to prevent this class
+     * from influencing other tests.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetConfigToDefaults()
+    {
+        self::setStaticProperty('overriddenDefaults', []);
+        self::setStaticProperty('executablePaths', []);
+        self::setStaticProperty('configData', null);
+        self::setStaticProperty('configDataFile', null);
+        $_SERVER['argv'] = [];
+
+    }//end resetConfigToDefaults()
 
 
     /**
@@ -31,7 +88,7 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
      */
     public function testReportWidthDefault()
     {
-        $config = new Config(['--standard=PSR1']);
+        $config = new Config();
 
         // Can't test the exact value as "auto" will resolve differently depending on the machine running the tests.
         $this->assertTrue(is_int($config->reportWidth), 'Report width is not an integer');
@@ -55,9 +112,9 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
             'show_warnings'    => '0',
         ];
 
-        $this->setStaticConfigProperty('configData', $phpCodeSnifferConfig);
+        $this->setStaticProperty('configData', $phpCodeSnifferConfig);
 
-        $config = new Config(['--standard=PSR1']);
+        $config = new Config();
 
         // Can't test the exact value as "auto" will resolve differently depending on the machine running the tests.
         $this->assertTrue(is_int($config->reportWidth), 'Report width is not an integer');
@@ -82,9 +139,9 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
             'report_width'     => '120',
         ];
 
-        $this->setStaticConfigProperty('configData', $phpCodeSnifferConfig);
+        $this->setStaticProperty('configData', $phpCodeSnifferConfig);
 
-        $config = new Config(['--standard=PSR1']);
+        $config = new Config();
         $this->assertSame(120, $config->reportWidth);
 
     }//end testReportWidthCanBeSetFromConfFile()
@@ -102,7 +159,6 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
     {
         $_SERVER['argv'] = [
             'phpcs',
-            '--standard=PSR1',
             '--report-width=100',
         ];
 
@@ -124,7 +180,6 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
     {
         $_SERVER['argv'] = [
             'phpcs',
-            '--standard=PSR1',
             '--report-width=100',
             '--report-width=200',
         ];
@@ -154,11 +209,10 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
             'report_width'     => '120',
         ];
 
-        $this->setStaticConfigProperty('configData', $phpCodeSnifferConfig);
+        $this->setStaticProperty('configData', $phpCodeSnifferConfig);
 
         $cliArgs = [
             'phpcs',
-            '--standard=PSR1',
             '--report-width=180',
         ];
 
@@ -177,7 +231,7 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
      */
     public function testReportWidthInputHandlingForAuto()
     {
-        $config = new Config(['--standard=PSR1']);
+        $config = new Config();
         $config->reportWidth = 'auto';
 
         // Can't test the exact value as "auto" will resolve differently depending on the machine running the tests.
@@ -200,7 +254,7 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
      */
     public function testReportWidthInputHandling($value, $expected)
     {
-        $config = new Config(['--standard=PSR1']);
+        $config = new Config();
         $config->reportWidth = $value;
 
         $this->assertSame($expected, $config->reportWidth);
@@ -255,6 +309,24 @@ final class ReportWidthTest extends AbstractRealConfigTestCase
         ];
 
     }//end dataReportWidthInputHandling()
+
+
+    /**
+     * Helper function to set a static property on the Config class.
+     *
+     * @param string $name  The name of the property to set.
+     * @param mixed  $value The value to set the property to.
+     *
+     * @return void
+     */
+    public static function setStaticProperty($name, $value)
+    {
+        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property->setAccessible(true);
+        $property->setValue(null, $value);
+        $property->setAccessible(false);
+
+    }//end setStaticProperty()
 
 
 }//end class

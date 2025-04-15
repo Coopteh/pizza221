@@ -92,7 +92,7 @@ final class RecurseScopeMapSwitchTokenScopeTest extends AbstractTokenizerTestCas
      *
      * @see testSwitchScope()
      *
-     * @return array<string, array<string, string|array<string, int|string>|null>>
+     * @return array<string, array<string, string|array<string, int|string>>>
      */
     public static function dataSwitchScope()
     {

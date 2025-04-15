@@ -80,8 +80,6 @@ final class SwitchDeclarationUnitTest extends AbstractSniffUnitTest
                 327 => 1,
                 329 => 1,
                 330 => 1,
-                339 => 2,
-                342 => 1,
             ];
 
         case 'SwitchDeclarationUnitTest.js':

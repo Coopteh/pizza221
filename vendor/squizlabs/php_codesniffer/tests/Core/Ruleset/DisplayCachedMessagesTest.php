@@ -136,7 +136,7 @@ final class DisplayCachedMessagesTest extends AbstractRulesetTestCase
      *
      * @see testNonBlockingErrorsGenerateOutput()
      *
-     * @return array<string, array<string, string|array<string, int>>>
+     * @return array<string, array<string, string|array<string>>>
      */
     public static function dataNonBlockingErrorsGenerateOutput()
     {

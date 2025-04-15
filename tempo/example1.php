@@ -1,9 +1,9 @@
 <?php
 
-function greet(string $name): void
+
+function greet(string $name): string
 {
-    echo "Hello, $name!";
+    return "Hello, $name!";
 }
 
-// Пример вызова функции
-greet("Nikita");
+echo greet('1');

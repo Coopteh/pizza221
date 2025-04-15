@@ -331,16 +331,3 @@ $foo = $foo ?
         }
     } :
     null;
-
-// Fix: goto should be recognized as terminating statement.
-switch ( $a ) {
-    case 1:
-        doSomething();
-        goto jumpOut;
-    default:
-        $other = $code;
-        goto jumpOut;
-}
-
-jumpOut:
-doSomething();

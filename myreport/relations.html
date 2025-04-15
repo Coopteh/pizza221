@@ -49,7 +49,7 @@
 <div class="page">
     <div class="content content-first">
         <div class="report-details">
-            Created at 2025-04-11 07:32:51        , with PHPMetrics v2.8.2 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
+            Created at 2025-04-11 08:08:43        , with PHPMetrics v2.8.2 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
         </div>
 
         
@@ -286,26 +286,12 @@
         "relations": []
     },
     {
-        "name": "\\App\\Services\\FileStorage",
+        "name": "\\App\\Services\\ProductFactory",
         "size": 3000,
         "relations": [
-            "\\App\\Services\\ILoadStorage",
-            "\\App\\Services\\ISaveStorage"
-        ]
-    },
-    {
-        "name": "\\App\\Models\\Product",
-        "size": 3000,
-        "relations": [
-            "\\App\\Services\\ILoadStorage"
-        ]
-    },
-    {
-        "name": "\\App\\Services\\ProductDBStorage",
-        "size": 3000,
-        "relations": [
-            "\\App\\Services\\DBStorage",
-            "\\App\\Services\\ILoadStorage"
+            "\\App\\Models\\Product",
+            "\\App\\Services\\FileStorage",
+            "\\App\\Services\\ProductDBStorage"
         ]
     },
     {
@@ -316,19 +302,17 @@
         ]
     },
     {
-        "name": "\\App\\Models\\Order",
+        "name": "\\App\\Services\\ValidateOrderData",
         "size": 3000,
-        "relations": [
-            "\\App\\Services\\ISaveStorage"
-        ]
+        "relations": []
     },
     {
-        "name": "\\App\\Services\\OrderDBStorage",
+        "name": "\\App\\Services\\OrderFactory",
         "size": 3000,
         "relations": [
-            "\\App\\Services\\DBStorage",
-            "\\App\\Services\\ISaveStorage",
-            "\\Exception"
+            "\\App\\Models\\Order",
+            "\\App\\Services\\FileStorage",
+            "\\App\\Services\\OrderDBStorage"
         ]
     },
     {
@@ -347,6 +331,11 @@
         "relations": []
     },
     {
+        "name": "\\App\\Models\\Product",
+        "size": 3000,
+        "relations": []
+    },
+    {
         "name": "\\App\\Views\\ProductTemplate",
         "size": 3000,
         "relations": [
@@ -354,37 +343,15 @@
         ]
     },
     {
-        "name": "\\App\\Services\\ISaveStorage",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "\\App\\Services\\ILoadStorage",
-        "size": 3000,
-        "relations": []
-    },
-    {
         "name": "\\App\\Router\\Router",
         "size": 3000,
         "relations": [
             "\\App\\Controllers\\AboutController",
-            "\\App\\Controllers\\ProductController",
-            "\\App\\Controllers\\BasketController",
             "\\App\\Controllers\\OrderController",
+            "\\App\\Controllers\\BasketController",
+            "\\App\\Controllers\\ProductController",
             "\\App\\Controllers\\HomeController"
         ]
-    },
-    {
-        "name": "\\App\\Services\\DatabaseStorage",
-        "size": 3000,
-        "relations": [
-            "\\App\\Services\\IStorage"
-        ]
-    },
-    {
-        "name": "\\App\\Services\\IStorage",
-        "size": 3000,
-        "relations": []
     },
     {
         "name": "\\App\\Services\\DBStorage",
@@ -397,7 +364,32 @@
         "relations": []
     },
     {
-        "name": "\\Exception",
+        "name": "\\App\\Services\\FileStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ILoadStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ISaveStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\OrderDBStorage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Models\\Order",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Services\\ProductDBStorage",
         "size": 3000,
         "relations": []
     },

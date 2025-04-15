@@ -249,7 +249,7 @@ class DeclareStatementSniff implements Sniff
                         $phpcsFile->fixer->replaceToken($i, '');
                     }
 
-                    $phpcsFile->fixer->addNewlineBefore($token);
+                    $phpcsFile->fixer->addNewLineBefore($token);
 
                     $phpcsFile->fixer->endChangeset();
                 }

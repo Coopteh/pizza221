@@ -1,26 +1,19 @@
 <?php 
-
 namespace App\Models;
 
-use App\Models\Order;
 use App\Configs\Config;
-use App\Services\ILoadStorage;
-use PhpParser\Node\Expr\Cast\Bool_;
-use App\Services\OrderDBStorage;
 
 class Product {
-    private ILoadStorage $dataStorage;
-    private string $nameResource;
-    
-    // Внедряем зависимость через конструктор
-    public function __construct(ILoadStorage $service, string $name)
-    {
-        $this->dataStorage = $service;
-        $this->nameResource = $name;
-    }
-
     public function loadData(): ?array {
-        return $this->dataStorage->loadData( $this->nameResource ); 
+        $nameFile= Config::FILE_PRODUCTS;
+        
+        $handle = fopen($nameFile, "r");
+        $data = fread($handle, filesize($nameFile)); 
+        fclose($handle);
+
+        $arr = json_decode($data, true); 
+        
+        return $arr; 
     }
 
     public function getBasketData(): array {
@@ -63,4 +56,23 @@ class Product {
         return $basketProducts;
     }
 
+    public function saveData($arr) {
+        $nameFile= Config::FILE_ORDERS;
+
+        $handle = fopen($nameFile, "r");
+        if (filesize($nameFile) > 0){ 
+            $data = fread($handle, filesize($nameFile)); 
+            $allRecords = json_decode($data, true); 
+        } else {
+            $allRecords = [];
+        }
+        fclose($handle);
+        
+        $allRecords[]= $arr;
+        $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        $handle = fopen($nameFile, "w");
+        fwrite($handle, $json);
+        fclose($handle);
+    }
 }

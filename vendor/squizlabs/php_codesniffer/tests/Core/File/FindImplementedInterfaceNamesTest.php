@@ -71,7 +71,7 @@ final class FindImplementedInterfaceNamesTest extends AbstractMethodUnitTest
      *
      * @see testFindImplementedInterfaceNames()
      *
-     * @return array<string, array<string, string|array<string>|false>>
+     * @return array<string, array<string, string|array<string>>>
      */
     public static function dataImplementedInterface()
     {

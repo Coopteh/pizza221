@@ -87,8 +87,7 @@ class ControlStructureSpacingSniff implements Sniff
 
         if ($tokens[$parenOpener]['line'] === $tokens[$parenCloser]['line']) {
             // Conditions are all on the same line, so follow PSR2.
-            $this->psr2ControlStructureSpacing->process($phpcsFile, $stackPtr);
-            return;
+            return $this->psr2ControlStructureSpacing->process($phpcsFile, $stackPtr);
         }
 
         $next = $phpcsFile->findNext(T_WHITESPACE, ($parenOpener + 1), $parenCloser, true);

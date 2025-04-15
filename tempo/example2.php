@@ -1,8 +1,12 @@
 <?php
 
-function divide($a, $b)
-{
+function divide(float $a, float $b): float
+{   
     return $a / $b;
 }
 
-echo divide(10, 3);
+try {
+    echo divide(10, 3);
+} catch (DivisionByZeroError $e) {
+    echo $e->getMessage();
+}

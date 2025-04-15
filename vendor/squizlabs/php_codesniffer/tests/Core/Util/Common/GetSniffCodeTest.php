@@ -24,7 +24,7 @@ final class GetSniffCodeTest extends TestCase
     /**
      * Test receiving an expected exception when the $sniffClass parameter is not passed a string value or is passed an empty string.
      *
-     * @param mixed $input NOT a fully qualified sniff class name.
+     * @param string $input NOT a fully qualified sniff class name.
      *
      * @dataProvider dataGetSniffCodeThrowsExceptionOnInvalidInput
      *
@@ -54,7 +54,7 @@ final class GetSniffCodeTest extends TestCase
      *
      * @see testGetSniffCodeThrowsExceptionOnInvalidInput()
      *
-     * @return array<string, array<mixed>>
+     * @return array<string, array<string>>
      */
     public static function dataGetSniffCodeThrowsExceptionOnInvalidInput()
     {

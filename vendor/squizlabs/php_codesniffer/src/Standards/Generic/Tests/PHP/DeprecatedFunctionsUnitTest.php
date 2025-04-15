@@ -40,10 +40,6 @@ final class DeprecatedFunctionsUnitTest extends AbstractSniffUnitTest
             $errors[4] = 1;
         }
 
-        if (PHP_VERSION_ID >= 80000) {
-            $errors[5] = 1;
-        }
-
         return $errors;
 
     }//end getErrorList()
