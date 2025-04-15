@@ -1,16 +1,19 @@
 <?php 
+
 namespace App\Models;
 
+use App\Models\Order;
 use App\Configs\Config;
-use App\Services\IStorage;
+use App\Services\ILoadStorage;
 use PhpParser\Node\Expr\Cast\Bool_;
+use App\Services\OrderDBStorage;
 
 class Product {
-    private IStorage $dataStorage;
+    private ILoadStorage $dataStorage;
     private string $nameResource;
     
     // Внедряем зависимость через конструктор
-    public function __construct(IStorage $service, string $name)
+    public function __construct(ILoadStorage $service, string $name)
     {
         $this->dataStorage = $service;
         $this->nameResource = $name;

@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 namespace App\Models;
 
 use App\Services\ISaveStorage;
@@ -15,6 +16,6 @@ class Order {
     }
 
     public function saveData($arr): bool {
-        return $this->dataStorage->saveData( $this->nameResource, $arr ); 
+        return $this->dataStorage->saveData($this->nameResource, $arr); 
     }
 }

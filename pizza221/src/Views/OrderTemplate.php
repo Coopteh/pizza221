@@ -67,8 +67,8 @@ class OrderTemplate extends BaseTemplate{
                     <input type="tel" class="form-control" id="phone" name="phone" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Mail:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                <label for="email" class="form-label">E-mail:</label>
+                <input type="email" name="email" id="email" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Создать заказ</button>
             </form>
