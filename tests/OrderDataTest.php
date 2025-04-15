@@ -50,10 +50,10 @@ class OrderDataTest extends TestCase
         $this->data['email'] = "invalid";
         $this->assertSame( false,
                            $this->obj->validate($this->data) );
-        $this->data['phone'] = "@missing.username";
+        $this->data['email'] = "@missing.username";
         $this->assertSame( false,
                             $this->obj->validate($this->data) );
-        $this->data['phone'] = "";
+        $this->data['email'] = "";
         $this->assertSame( false,
                             $this->obj->validate($this->data) );
     }
