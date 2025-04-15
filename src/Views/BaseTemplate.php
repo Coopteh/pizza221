@@ -37,7 +37,10 @@ class BaseTemplate
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/order">Заказ</a>
-                        </li>                        
+                        </li> 
+                        <li class="nav-item">
+                        <a class="nav-link" href="/pizza221/register">Регистрация</a>
+                        </li>                         
                     </ul>
                     </div>
                 </div>

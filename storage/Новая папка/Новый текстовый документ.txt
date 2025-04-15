@@ -1,0 +1,2 @@
+https://localhost/pizza221/assets/js/bootstrap.bundle.js
+https://localhost/pizza221/assets/css/bootstrap.min.cs
