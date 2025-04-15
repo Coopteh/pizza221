@@ -3,21 +3,28 @@
         "id": 1,
         "name": "Рембо",
         "image": "https://localhost/trenazherka/assets/images/rembo.png",
-        "description": "Абонимент на 1 месяц(30 дней)",
+        "description": "Абонемент на 1 месяц(30 дней)",
         "price": 3200
     },
     {
         "id": 2,
         "name": "Терминатор",
         "image": "https://localhost/trenazherka/assets/images/term.png",
-        "description": "Абонимент на 3 месяца(90 дней)",
+        "description": "Абонемент на 3 месяца(90 дней)",
         "price": 6000
     },
     {
         "id": 3,
         "name": "Отлет",
         "image": "https://localhost/trenazherka/assets/images/otlet.png",
-        "description": "Абонимент на 6 месяцев(180 дней)",
+        "description": "Абонемент на 6 месяцев(180 дней)",
         "price": 10000
+    },
+    {
+        "id": 4,
+        "name": "Посейдон",
+        "image": "https://localhost/trenazherka/assets/images/pos.png",
+        "description": "Абонемент в бассейн(30 дней)",
+        "price": 2500
     }
 ]

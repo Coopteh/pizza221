@@ -31,12 +31,14 @@ class BaseTemplate
                         <a class="nav-link active" aria-current="page" href="/trenazherka/">Главная</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/trenazherka/product">Каталог</a>
+                        <a class="nav-link" href="/trenazherka/products">Каталог</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/trenazherka/order">Заказ</a>
                         <li class="nav-item">
                         <a class="nav-link" href="/trenazherka/about">О нас</a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/trenazherka/register">Регистрация</a>
                         </li>
                     </ul>
                     </div>
