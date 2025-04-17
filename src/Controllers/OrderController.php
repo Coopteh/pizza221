@@ -23,7 +23,7 @@ class OrderController {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
+        
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST") {
             return $this->create();
@@ -49,11 +49,11 @@ class OrderController {
         $model = ProductFactory::createProduct();
     
         // Валидация данных
-        if (ValidateOrderData::validate($_POST)) {
+        if (!ValidateOrderData::validate($_POST)) {
             header("Location: /order");
             return "";
         }
-    
+
         // Подготовка данных заказа
         $arr = [
             'fio' => urldecode($_POST['fio']),
