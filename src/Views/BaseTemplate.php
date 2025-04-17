@@ -108,14 +108,15 @@ class BaseTemplate
                 .btn-custom:hover {
                 
                 }
-                .btn-outline-primary{
+                .btn-outline-primary {
                     background-color: rgb(208,157,176);
                     border-color: rgb(208,157,176);
                     color: #ffffff;
                     transition: all 0.3s ease-in-out;
                 }
                 .btn-outline-primary:hover {
-                
+                    background-color: rgb(215, 93, 138);
+                    border-color: rgb(215, 93, 138);
                 }
             </style>
             <script src="../../assets/css/bootstrap.bundle.js"></script>
