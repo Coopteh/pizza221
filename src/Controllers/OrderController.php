@@ -11,6 +11,10 @@ use App\Services\FileStorage;
 use App\Services\OrderDBStorage;
 use App\Services\ProductDBStorage;
 use App\Models\Order;
+use App\Services\OrderFactory;
+use App\Services\ProductFactory;
+use App\Services\ValidateOrderData;
+use App\Services\Mailer;
 
 class OrderController {
     public function get(): string {
@@ -22,13 +26,7 @@ class OrderController {
         // Инициализация переменной $model
         $model = null;
     
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        } elseif (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        }
+        $model = ProductFactory::createProduct();
     
         // Проверка, была ли инициализирована переменная $model
         if ($model === null) {
@@ -50,20 +48,13 @@ class OrderController {
         $arr['email'] = strip_tags($_POST['email']);
         $arr['created_at'] = date("d-m-Y H:i:s");	// добавим дату и время создания заказа
 
-        if (! $this->validate($arr)) {
+        if (! ValidateOrderData::validate($arr)) {
             // переадресация обратно на страницу заказа
-            header("Location: /strax/order");
+            header("Location: /pizza221/order");
             return "";
         }
         // список заказанных продуктов - берем список товаров из корзины
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $model = new Product($serviceStorage, Config::FILE_PRODUCTS);
-        }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new ProductDBStorage();
-            $model = new Product($serviceStorage, Config::TABLE_PRODUCTS);
-        }
+        $model = ProductFactory::createProduct();
 
         $products = $model->getBasketData();
         $arr['products'] = $products;
@@ -76,14 +67,8 @@ class OrderController {
         $arr['all_sum'] = $all_sum;
         
         //Сохраняем данные заказа
-        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
-            $serviceStorage = new FileStorage();
-            $orderModel = new Order($serviceStorage, Config::FILE_ORDERS);
-        }
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new OrderDBStorage();
-            $orderModel = new Order($serviceStorage, Config::TABLE_ORDERS);
-        }     
+        $orderModel = OrderFactory::createOrder();    
+
         // сохраняем данные
         $orderModel->saveData($arr);
     
@@ -101,39 +86,8 @@ class OrderController {
         return '';
     }
 
-    protected function validate(array $data): bool {
-        // Проверка ФИО
-        if (!isset($data['fio']) || preg_match('/\d/', $data['fio'])) {
-            $_SESSION['flash'] = "ФИО содержит недопустимые символы. Исправьте, пожалуйста.";
-            return false;
-        }
 
-        // Проверка адреса
-        if (!isset($data['address']) || strlen(trim($data['address'])) < 10 || strlen(trim($data['address'])) > 200) {
-            $_SESSION['flash'] = "Адрес указан неверно. Пожалуйста, уточните адрес доставки.";
-            return false;
-        }
 
-        // Проверка телефона
-        if (!isset($data['phone'])) {
-            $_SESSION['flash'] = "Телефон не указан. Укажите, пожалуйста, ваш контактный номер.";
-            return false;
-        }
-        
-        $cleanedPhone = preg_replace('/[^0-9]/', '', $data['phone']); // Очистка номера от лишних символов
-        if (strlen($cleanedPhone) != 11 || !in_array(substr($cleanedPhone, 0, 1), ['7', '8'])) {
-            $_SESSION['flash'] = "Номер телефона введен неправильно. Проверьте правильность ввода.";
-            return false;
-        }
-
-        // Проверка e-mail
-        if (!isset($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['flash'] = "E-mail указан неверно. Проверьте правильность указанного e-mail.";
-            return false;
-        }
-
-        return true;
-    }
     public function sendMail($email) {
         $mail = new PHPMailer();
         if (isset($email) && !empty($email)) {

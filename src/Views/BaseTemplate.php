@@ -11,8 +11,8 @@ class BaseTemplate
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
-            <link rel="stylesheet" href="https://localhost/strax/assets/css/bootstrap.min.css">
-            <script src="https://localhost/strax/assets/js/bootstrap.bundle.js"></script>
+            <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
+            <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
         </head>
         <body>
             <header>
@@ -37,6 +37,8 @@ class BaseTemplate
                         <a class="nav-link" href="/strax/order">Заказ</a>
                         <li class="nav-item">
                         <a class="nav-link" href="/strax/about">О нас</a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/strax/register">Регистрация</a>
                         </li>
                     </ul>
                     </div>
@@ -46,19 +48,19 @@ class BaseTemplate
 HTML;
 // Добавим flash сообщение
 if(!isset($_SESSION))
-    {
-        session_start();
-    }
-if (isset($_SESSION['flash'])) {
-    $template .= <<<HTML
-        <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
-            <div>{$_SESSION['flash']}</div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-            onclick="this.parentNode.style.display='none';"></button>
-        </div>
-    HTML;
-    unset($_SESSION['flash']);
+{
+    session_start();
 }
+        if (isset($_SESSION['flash'])) {
+            $template .= <<<HTML
+                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                    <div>{$_SESSION['flash']}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="this.parentNode.style.display='none';"></button>
+                </div>
+            HTML;
+            unset($_SESSION['flash']);
+        }
 
 $template .=  <<<HTML
 

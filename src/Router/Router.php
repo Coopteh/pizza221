@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace App\Router;
 
 use App\Controllers\AboutController;
@@ -6,6 +6,7 @@ use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 use App\Controllers\BasketController;
 use App\Controllers\OrderController;
+use App\Controllers\RegisterController;
 
 class Router {
     public function route(string $url): string {
@@ -19,7 +20,14 @@ class Router {
                 return $about->get();
             case "order":
                 $orderController = new OrderController();
-                return $orderController->get(); 
+                return $orderController->get();
+            case "register":
+                $registerController = new RegisterController();
+                return $registerController->get();
+            case "verify":
+                $registerController = new RegisterController();
+                $token = (isset($pieces[3])) ? $pieces[3] : null;
+                return $registerController->verify($token);
             case 'basket_clear':
                 $basketController = new BasketController();
                 $basketController->clear();
