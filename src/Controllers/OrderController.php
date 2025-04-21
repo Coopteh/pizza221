@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Services\OrderFactory;
 use App\Services\ProductFactory;
 use App\Services\ValidateOrderData;
+use App\Services\Mailer;
 
 class OrderController {
     public function get(): string {

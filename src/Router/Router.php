@@ -34,6 +34,12 @@ class Router {
             case "register":
                 $registerController = new RegisterController();
                 return $registerController->get();
+            case "verify":
+                if (isset($pieces[3])) { // Проверяем, передан ли токен
+                    $token = $pieces[3];
+                    $registerController = new RegisterController();
+                    return $registerController->verify($token);
+                }
             case "basket_clear":
                 $basketController = new BasketController();
                 $basketController->clear(); // Очищаем корзину
