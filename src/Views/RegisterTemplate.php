@@ -5,6 +5,7 @@ use App\Views\BaseTemplate;
 
 class RegisterTemplate extends BaseTemplate
 {
+    
     public static function getRegisterTemplate(): string
     {
         $template = parent::getTemplate();
@@ -121,6 +122,21 @@ class RegisterTemplate extends BaseTemplate
 HTML;
 
         $resultTemplate = sprintf($template, $title, $content);
+        return $resultTemplate;
+    }
+    public static function getVerifyTemplate(): string {
+        $template = parent::getTemplate();
+        $title= 'Подтверждение нового пользователя';
+        $content = <<<CORUSEL
+        <main class="row p-5 justify-content-center align-items-center">
+            <div class="col-5 bg-light border">
+                <h3 class="mb-5">Успешное завершение регистрации</h3>
+        CORUSEL;
+        $content .= "Ваш email успешно подтвержден!<br>
+        Теперь вы можете войти на сайт";
+        $content .= "</div></main>";
+
+        $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
     }
 }

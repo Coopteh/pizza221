@@ -12,7 +12,7 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         VALUES (:name, :email, :pass, :token)";
 
         $sth = $this->connection->prepare($sql);
-    
+
         $result= $sth->execute( [
             'name' => $data['username'],
             'email' => $data['email'],
@@ -23,4 +23,34 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         return $result;
     }
 
+    public function uniqueEmail(string $email): bool
+    {
+        $stmt = $this->connection->prepare(
+            "SELECT id FROM users WHERE email = ?"
+        );
+        $stmt->execute([$email]);
+        if ($stmt->rowCount() > 0) 
+            return false;
+        return true;
+    }
+
+    public function saveVerified($token): bool
+    {
+        $stmt = $this->connection->prepare(
+            "SELECT id FROM users WHERE token = ? 
+            AND is_verified = 0");
+        $stmt->execute([$token]);
+        if ($stmt->rowCount() > 0) {
+
+            $user = $stmt->fetch();
+            $update = $this->connection->prepare(
+                "UPDATE users SET is_verified = 1, 
+                token = '' 
+                WHERE id = ?");
+            $update->execute([$user['id']]);
+
+            return true;
+        }
+        return false;
+    }
 }

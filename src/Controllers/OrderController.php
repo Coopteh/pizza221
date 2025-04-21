@@ -8,6 +8,8 @@ use App\Services\ProductFactory;
 use App\Services\OrderFactory;
 use App\Services\ValidateOrderData;
 use App\Views\OrderTemplate;
+use App\Services\Mailer;
+use App\Services\UserDBStorage;
 
 class OrderController
 {

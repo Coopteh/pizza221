@@ -15,4 +15,6 @@ const TABLE_ORDERS="orders";
 
 // Режим хранения данных 
 const STORAGE_TYPE= self::TYPE_DB;
+
+const SITE_URL="https://localhost";
 }

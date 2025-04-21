@@ -202,8 +202,8 @@ class BaseTemplate
                     <div class="col-md-4 mb-4">
                         <h5 class="text-uppercase fw-bold">Контакты</h5>
                         <ul class="list-unstyled">
-                            <li><i class="fas fa-map-marker-alt me-2"></i><span class="text-light">Адрес: г. Кемерово, ул. Центральная, 123</span></li>
-                            <li><i class="fas fa-phone me-2"></i><span class="text-light">Телефон: +7 (999) 123-45-67</span></li>
+                            <li><i class="fas fa-map-marker-alt me-2"></i><span class="text-light">Адрес: г. Кемерово, ул. Тухочевского, 32</span></li>
+                            <li><i class="fas fa-phone me-2"></i><span class="text-light">Телефон: +7 (999) 777-99-71</span></li>
                             <li><i class="fas fa-envelope me-2"></i><span class="text-light">Email: info@pizzeria-is221.ru</span></li>
                         </ul>
                     </div>
