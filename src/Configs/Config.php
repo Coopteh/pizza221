@@ -4,7 +4,7 @@ namespace App\Configs;
 class Config
 {
     // настройки подключения
-    const MYSQL_DNS = 'mysql:dbname=is-221;host=localhost';
+    const MYSQL_DNS = 'mysql:dbname=is221;host=localhost';
     const MYSQL_USER = 'root';
     const MYSQL_PASSWORD = '';   
     const TABLE_PRODUCTS = "products";
@@ -17,4 +17,5 @@ class Config
     
     const FILE_PRODUCTS = "./storage/data.json"; // Путь к файлу для сохранения данных о товаре
     const FILE_ORDERS = "./storage/order.json"; // Путь к файлу для сохранения заказов
+    const SITE_URL="https://localhost/avtoservis";
 }

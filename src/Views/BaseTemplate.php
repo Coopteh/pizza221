@@ -37,6 +37,8 @@ class BaseTemplate
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/avtoservis/about">О нас</a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/avtoservis/register">Регистарция</a>
                         </li>
                     </ul>
                     </div>

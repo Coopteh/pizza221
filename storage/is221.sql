@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 08 2025 г., 06:04
+-- Время создания: Апр 21 2025 г., 09:20
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `is-221`
+-- База данных: `is221`
 --
 
 -- --------------------------------------------------------
@@ -77,6 +77,15 @@ INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `created`
 (2, 'Замена масла', 'Заменяем масло', 'https://localhost/avtoservis/assets/images/oil.png', 6000, '2025-04-07 12:45:45', '2025-04-08 10:34:15'),
 (3, 'Ремонт', 'Ремонтируем вашу машину', 'ttps://localhost/avtoservis/assets/images/remont.png', 4000, '2025-04-07 12:45:45', '2025-04-08 10:35:31');
 
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `is_verified` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 -- Индексы сохранённых таблиц
 --

@@ -7,6 +7,7 @@ use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 use App\Controllers\BasketController;
 use App\Controllers\OrderController;
+use App\Controllers\RegisterController;
 
 class Router {
     public function route(string $url): string {
@@ -30,6 +31,9 @@ class Router {
             case 'order':
                 $controller = new OrderController();
                 return $controller->get();
+            case "register":
+                $registerController = new RegisterController();
+                return $registerController->get();
             case "basket_clear":
                 $basketController = new BasketController();
                 $basketController->clear(); // Очищаем корзину

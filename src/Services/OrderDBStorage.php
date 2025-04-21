@@ -9,9 +9,9 @@ class OrderDBStorage extends DBStorage implements ISaveStorage
     public function saveData($nameFile, $arr): bool
     {
         // Сохранение заказа в таблице orders
-        $stmt = $this->connection->prepare("INSERT INTO " . Config::TABLE_ORDERS . " (fio, address, phone, email, all_sum) VALUES (:fio, :address, :phone, :email, :all_sum)");
+        $stmt = $this->connection->prepare("INSERT INTO " . Config::TABLE_ORDERS . " (username, address, phone, email, all_sum) VALUES (:username, :address, :phone, :email, :all_sum)");
         
-        $stmt->bindParam(':fio', $arr['fio']);
+        $stmt->bindParam(':username', $arr['username']);
         $stmt->bindParam(':address', $arr['address']);
         $stmt->bindParam(':phone', $arr['phone']);
         $stmt->bindParam(':email', $arr['email']);
