@@ -3,6 +3,8 @@ namespace App\Views;
 class BaseTemplate 
 {
     public static function getTemplate(): string { 
+        global $user_id, $username;
+
         $template = '';
         $template = <<<HTML
         <!DOCTYPE html>
@@ -41,11 +43,30 @@ class BaseTemplate
                         <a class="nav-link" href="/pizza221/register">Регистрация</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto"> <!-- Добавляем правую часть навигации -->
+                        <?php if ($user_id)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <?= htmlspecialchars($username) ?>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/pizza221/logout">Выход</a></li>
+                                </ul>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/pizza221/login">Вход</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
                     </div>
                 </div>
                 </nav>
-            </header>
-HTML;
+    HTML;
+        $template .= "</nav></header>";
+
 // Добавим flash сообщение
 if(!isset($_SESSION))
 {

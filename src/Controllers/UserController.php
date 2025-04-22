@@ -1,32 +1,45 @@
-<?php  
+<?php 
+namespace App\Controllers;
 
-namespace Src\Controllers;
-use PDO;
+use App\Views\UserTemplate;
+use App\Configs\Config;
+use App\Services\UserDBStorage;
 
 class UserController {
-    private $pdo;
+    public function get(): string {
+        $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == "POST")
+            return $this->login();
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+        return UserTemplate::getUserTemplate();
     }
+    
+    public function login():string {      
 
-    public function verify() {
-        if (!isset($_GET['token'])) {
-            echo "Токен подтверждения не предоставлен.";
-            return;
+        $arr = [];
+        $arr['username'] =  strip_tags($_POST['username']);
+        $arr['password'] = strip_tags($_POST['password']);
+
+        // проверка логина и пароля
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceDB = new UserDBStorage();
+            if (!$serviceDB->loginUser($arr['username'], $arr['password'])) {
+                $_SESSION['flash'] = "Ошибка ввода логина или пароля";
+                return UserTemplate::getUserTemplate();
+            }
         }
 
-        $token = $_GET['token'];
-        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE verification_token = ? AND is_verified = 0");
-        $stmt->execute([$token]);
-        $user = $stmt->fetch();
-
-        if ($user) {
-            $update = $this->pdo->prepare("UPDATE users SET is_verified = 1, verification_token = '' WHERE id = ?");
-            $update->execute([$user['id']]);
-            echo "Ваш email успешно подтвержден! Теперь вы можете войти.";
-        } else {
-            echo "Неверный токен подтверждения или email уже подтвержден.";
-        }
+        // переадресация на Главную
+	    header("Location: /pizza221/");
+        return "";
     }
+    public function logout() {
+        session_start();
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
+        session_destroy();
+        header("Location: /pizza221/");
+        exit;
+    }
+    
 }

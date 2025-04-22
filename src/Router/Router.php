@@ -8,6 +8,7 @@ use App\Controllers\ProductController;
 use App\Controllers\BasketController;
 use App\Controllers\OrderController;
 use App\Controllers\RegisterController;
+use App\Controllers\UserController;
 
 class Router {
     public function route(string $url): string {
@@ -31,6 +32,15 @@ class Router {
             case 'order':
                 $controller = new OrderController();
                 return $controller->get();
+            case "login":
+                $userController = new UserController();
+                return $userController->get();
+            case "logout":
+                unset($_SESSION['user_id']);
+                unset($_SESSION['username']);
+                session_destroy();
+                header("Location: /pizza221/");
+                return "";
             case "register":
                 $registerController = new RegisterController();
                 return $registerController->get();

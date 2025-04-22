@@ -19,7 +19,6 @@ class RegisterController {
     }
 
     public function verify($token): string {
-        session_start();
         if (!isset($token))
             $_SESSION['flash'] = "Ваш токен неверен";
 
