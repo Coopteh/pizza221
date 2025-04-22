@@ -27,7 +27,6 @@ class OrderController {
     }
 
     public function create():string {
-        session_start();
         
         $arr = [];
         $arr['fio'] =  strip_tags($_POST['fio']);
