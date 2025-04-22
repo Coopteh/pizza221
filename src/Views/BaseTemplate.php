@@ -5,7 +5,9 @@ class BaseTemplate
 {
     public static function getTemplate()
     {
-        $template = <<<HTML
+        global $user_id, $username;
+
+        $template = <<<LINE
         <!DOCTYPE html>
         <html lang="ru">
         <head>
@@ -106,7 +108,6 @@ class BaseTemplate
                     transition: all 0.3s ease-in-out;
                 }
                 .btn-custom:hover {
-                
                 }
                 .btn-outline-primary {
                     background-color: rgb(208,157,176);
@@ -156,7 +157,25 @@ class BaseTemplate
                                     </a>
                                 </li>
                             </ul>
-                            <!-- Регистрация в правом углу -->
+LINE;
+
+        if ($user_id > 0) {
+            $template .= <<<LINE
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {$username}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="http://localhost/profile"><i class="fas fa-user"></i>Профиль</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="http://localhost/logout"><i class="fas fa-sign-out-alt"></i>Выход</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+LINE;
+        } else {
+            $template .= <<<LINE
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item dropdown">
                                     <button class="btn btn-register dropdown-toggle" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -168,17 +187,17 @@ class BaseTemplate
                                     </ul>
                                 </li>
                             </ul>
+LINE;
+        }
+
+        $template .= <<<LINE
                         </div>
                     </div>
                 </nav>
             </header>
-        HTML;
+LINE;
 
         // Добавим flash сообщение
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         if (isset($_SESSION['flash'])) {
             $template .= <<<END
                 <div id="liveAlertBtn" class="container alert alert-custom alert-dismissible fade show" role="alert">
@@ -190,61 +209,57 @@ class BaseTemplate
             unset($_SESSION['flash']);
         }
 
-        $template .= <<<HTML
+        $template .= <<<LINE
             <main class="container mt-4">
                 %s
             </main>
-
-                    <footer class="mt-5 bg-dark text-white py-5">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <!-- Секция контактов -->
-                    <div class="col-md-4 mb-4">
-                        <h5 class="text-uppercase fw-bold">Контакты</h5>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-map-marker-alt me-2"></i><span class="text-light">Адрес: г. Кемерово, ул. Тухочевского, 32</span></li>
-                            <li><i class="fas fa-phone me-2"></i><span class="text-light">Телефон: +7 (999) 777-99-71</span></li>
-                            <li><i class="fas fa-envelope me-2"></i><span class="text-light">Email: info@pizzeria-is221.ru</span></li>
-                        </ul>
-                    </div>
-
-                    <!-- Секция социальных сетей -->
-                    <div class="col-md-4 mb-4 text-center">
-                        <h5 class="text-uppercase fw-bold">Мы в социальных сетях</h5>
-                        <div class="d-flex justify-content-center gap-3 mt-3">
-                            <a href="https://vk.com" target="_blank" class="text-white"><i class="fab fa-vk fa-2x"></i></a>
-                            <a href="https://instagram.com" target="_blank" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
-                            <a href="https://telegram.org" target="_blank" class="text-white"><i class="fab fa-telegram fa-2x"></i></a>
+            <footer class="mt-5 bg-dark text-white py-5">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <!-- Секция контактов -->
+                        <div class="col-md-4 mb-4">
+                            <h5 class="text-uppercase fw-bold">Контакты</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-map-marker-alt me-2"></i><span class="text-light">Адрес: г. Кемерово, ул. Тухочевского, 32</span></li>
+                                <li><i class="fas fa-phone me-2"></i><span class="text-light">Телефон: +7 (999) 777-99-71</span></li>
+                                <li><i class="fas fa-envelope me-2"></i><span class="text-light">Email: info@pizzeria-is221.ru</span></li>
+                            </ul>
+                        </div>
+                        <!-- Секция социальных сетей -->
+                        <div class="col-md-4 mb-4 text-center">
+                            <h5 class="text-uppercase fw-bold">Мы в социальных сетях</h5>
+                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                <a href="https://vk.com" target="_blank" class="text-white"><i class="fab fa-vk fa-2x"></i></a>
+                                <a href="https://instagram.com" target="_blank" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+                                <a href="https://telegram.org" target="_blank" class="text-white"><i class="fab fa-telegram fa-2x"></i></a>
+                            </div>
+                        </div>
+                        <!-- Секция видео с Rutube -->
+                        <div class="col-md-4 mb-4">
+                            <h5 class="text-uppercase fw-bold">Видео о нас</h5>
+                            <div class="ratio ratio-16x9">
+                                <iframe 
+                                    src="https://rutube.ru/play/embed/938c7ce98486d2b597640b4bbb236550?autoplay=1" 
+                                    allow="autoplay; fullscreen" 
+                                    allowfullscreen 
+                                    title="Видео с Rutube"
+                                    style="border: none;"
+                                ></iframe>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Секция видео с Rutube -->
-                    <div class="col-md-4 mb-4">
-                        <h5 class="text-uppercase fw-bold">Видео о нас</h5>
-                        <div class="ratio ratio-16x9">
-                            <iframe 
-                                src="https://rutube.ru/play/embed/938c7ce98486d2b597640b4bbb236550?autoplay=1" 
-                                allow="autoplay; fullscreen" 
-                                allowfullscreen 
-                                title="Видео с Rutube"
-                                style="border: none;"
-                            ></iframe>
+                    <!-- Нижняя часть футера -->
+                    <div class="row mt-4">
+                        <div class="col text-center">
+                            <p class="mb-0 small text-light">&copy; 2025 «Кемеровский кооперативный техникум» | Все права защищены</p>
+                            <p class="mb-0 small text-light">Разработано студентами группы ИС-221</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Нижняя часть футера -->
-                <div class="row mt-4">
-                    <div class="col text-center">
-                        <p class="mb-0 small text-light">&copy; 2025 «Кемеровский кооперативный техникум» | Все права защищены</p>
-                        <p class="mb-0 small text-light">Разработано студентами группы ИС-221</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+            </footer>
         </body>
         </html>
-        HTML;
+LINE;
 
         return $template;
     }

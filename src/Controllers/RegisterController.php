@@ -19,7 +19,7 @@ class RegisterController {
     }
 
     public function verify($token): string {
-        session_start();
+        
         if (!isset($token))
             $_SESSION['flash'] = "Ваш токен неверен";
 
@@ -38,7 +38,7 @@ class RegisterController {
     }
 
     public function create():string {      
-        session_start();
+        
         $arr = [];
         $arr['username'] =  strip_tags($_POST['username']);
         $arr['email'] = strip_tags($_POST['email']);

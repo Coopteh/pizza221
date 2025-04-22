@@ -126,17 +126,57 @@ HTML;
     }
     public static function getVerifyTemplate(): string {
         $template = parent::getTemplate();
-        $title= 'Подтверждение нового пользователя';
-        $content = <<<CORUSEL
-        <main class="row p-5 justify-content-center align-items-center">
-            <div class="col-5 bg-light border">
-                <h3 class="mb-5">Успешное завершение регистрации</h3>
-        CORUSEL;
-        $content .= "Ваш email успешно подтвержден!<br>
-        Теперь вы можете войти на сайт";
-        $content .= "</div></main>";
-
-        $resultTemplate =  sprintf($template, $title, $content);
+        $title = 'Подтверждение нового пользователя';
+        
+        // Подключаем Font Awesome для иконок
+        $fontAwesomeLink = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">';
+        
+        $content = <<<CONTENT
+        <main class="row p-5 justify-content-center align-items-start min-vh-100">
+            <div class="col-12 col-md-6 text-center bg-light border rounded shadow p-5 animated-card" style="margin-top: 5%;">
+                <i class="fas fa-check-circle fa-5x text-custom mb-4"></i>
+                <h3 class="mb-4">Успешное завершение регистрации</h3>
+                <p class="lead">Ваш email успешно подтвержден!</p>
+                <p class="text-muted">Теперь вы можете войти на сайт.</p>
+                <a href="/login" class="btn btn-custom mt-4 animate__animated animate__fadeInUp">Войти</a>
+            </div>
+        </main>
+    
+        <!-- Анимации через Animate.css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        
+        <style>
+            body {
+                background: linear-gradient(135deg, rgb(208, 157, 176), rgb(235, 200, 216));
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #333;
+            }
+            .text-custom {
+                color: rgb(208, 157, 176);
+            }
+            .btn-custom {
+                background-color: rgb(208, 157, 176);
+                border-color: rgb(208, 157, 176);
+                color: white;
+            }
+            .btn-custom:hover {
+                background-color: rgb(180, 130, 150);
+                border-color: rgb(180, 130, 150);
+            }
+            .animated-card {
+                animation: fadeIn 1s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+    CONTENT;
+    
+        // Добавляем Font Awesome в начало контента
+        $content = $fontAwesomeLink . $content;
+    
+        $resultTemplate = sprintf($template, $title, $content);
         return $resultTemplate;
     }
 }

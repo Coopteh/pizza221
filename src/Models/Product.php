@@ -1,10 +1,8 @@
 <?php 
 namespace App\Models;
 
-use App\Configs\Config;
 use App\Services\ILoadStorage;
-use PhpParser\Node\Expr\Cast\Bool_;
-use App\Services\ISaveStorage;
+
 class Product {
     private ILoadStorage $dataStorage;
     private string $nameResource;
@@ -21,11 +19,6 @@ class Product {
     }
 
     public function getBasketData(): array {
-        if(!isset($_SESSION))
-        {
-            session_start();
-        }
-
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
@@ -60,4 +53,17 @@ class Product {
         return $basketProducts;
     }
 
+        /* 
+        Подсчет общей суммы заказа (товаров в корзине)
+    */
+    public function getAllSum(?array $products): float {
+        $all_sum =0;
+        foreach ($products as $product) {
+            $price = $product['price'];
+		    $quantity = $product['quantity'];
+
+            $all_sum += $price * $quantity;
+	    }
+        return $all_sum;
+    }
 }
