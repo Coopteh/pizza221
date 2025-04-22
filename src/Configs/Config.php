@@ -17,4 +17,6 @@ class Config {
     
     const TABLE_PRODUCTS="products";
     const TABLE_ORDERS="orders";   
+
+    const SITE_URL="https://localhost/pizza221";
 }

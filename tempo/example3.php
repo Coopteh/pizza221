@@ -1,6 +1,6 @@
 <?php
 
-function calculateArea(float $width, float $height): float
+function calculateArea(int $width, int $height): int 
 {
     return $width * $height;
 }

@@ -1,35 +1,85 @@
-<?php
+<?php 
 namespace App\Services;
 
 use PDO;
-use App\Configs\Config;
 
 class UserDBStorage extends DBStorage implements ISaveStorage
 {
-    public function saveData($nameFile, $arr): bool
+    public function saveData(string $name, array $data): bool
     {
-        // Сохранение пользователя в таблице users
-        $stmt = $this->connection->prepare("INSERT INTO " . Config::TABLE_USERS . " (fio, address, phone, email, all_sum) VALUES (:fio, :address, :phone, :email, :all_sum)");
-        
-        $stmt->bindParam(':fio', $arr['fio']);
-        $stmt->bindParam(':address', $arr['address']);
-        $stmt->bindParam(':phone', $arr['phone']);
-        $stmt->bindParam(':email', $arr['email']);
-        $stmt->bindParam(':all_sum', $arr['all_sum']);
-        
-        if (!$stmt->execute()) {
-            throw new \Exception("Ошибка при сохранении пользователя: " . implode(", ", $stmt->errorInfo()));
-        }
-        
-        // Получаем ID последней вставленной записи
-        $userId = $this->connection->lastInsertId();
-        
+        $sql = "INSERT INTO `users`
+        (`username`, `email`, `password`, `token`) 
+        VALUES (:name, :email, :pass, :token)";
+
+        $sth = $this->connection->prepare($sql);
+
+        $result= $sth->execute( [
+            'name' => $data['username'],
+            'email' => $data['email'],
+            'pass' => $data['password'],
+            'token' => $data['token']
+        ] );
+
+        return $result;
+    }
+
+    public function uniqueEmail(string $email): bool
+    {
+        $stmt = $this->connection->prepare(
+            "SELECT id FROM users WHERE email = ?"
+        );
+        $stmt->execute([$email]);
+        if ($stmt->rowCount() > 0) 
+            return false;
         return true;
     }
 
-    public function loadData($nameFile): ?array
+    public function saveVerified($token): bool
     {
-        // Реализация загрузки данных (если необходимо)
-        return null; // Заглушка
+        $stmt = $this->connection->prepare(
+            "SELECT id FROM users WHERE token = ? 
+            AND is_verified = 0");
+        $stmt->execute([$token]);
+
+        if ($stmt->rowCount() > 0) {
+
+            $user = $stmt->fetch();
+            $update = $this->connection->prepare(
+                "UPDATE users SET is_verified = 1, 
+                token = '' 
+                WHERE id = ?");
+            $update->execute([$user['id']]);
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Аутентификация пользователя
+     */
+    public function loginUser($username, $password):bool {   
+
+        // Поиск пользователя
+        $stmt = $this->connection->prepare(
+            "SELECT id, username, password FROM users 
+            WHERE is_verified = 1 and
+            (username = ? OR email = ?)");
+        $stmt->execute([$username, $username]);
+        $user = $stmt->fetch();
+//var_dump($username);
+//var_dump($password);
+//exit();
+        // проверка записи
+        if ($user === false) 
+            return false;
+        if (!password_verify($password, $user['password']))
+            return false;
+        
+        // Установка переменных сессии
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        
+        return true;
     }
 }

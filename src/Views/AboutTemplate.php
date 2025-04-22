@@ -1,18 +1,21 @@
-<?php
+<?php 
 namespace App\Views;
 
-class AboutTemplate extends BaseTemplate {
-    public static function getTemplate() : string  {
+use App\Views\BaseTemplate;
+
+class AboutTemplate extends BaseTemplate
+{
+    public static function getTemplate(): string {
         $template = parent::getTemplate();
-        $title = 'О нас';
+        $title= 'О нас';
+        $content = <<<CORUSEL
+        <main class="row p-5">
+            <h1>О нас</h1>
+            <p>Студенты группы ИС-221 в рамках обучения в "Кузбасском кооперативном техникуме", по специальности "Специалист по информационным технологиям", создали мебельный сайт.</p>
+        </main>        
+        CORUSEL;
         
-        $content = '
-        <p>Кузбасский кооперативный техникум (ККТ) - это образовательное учреждение, которое предоставляет качественное профессиональное образование по различным специальностям.</p>
-        <p>Техникум расположен в городе Кемерово и имеет богатую историю развития.</p>
-        <p>На сайте <a href="http://coopteh.ru">coopteh.ru</a> вы можете найти подробную информацию о техникуме, его программах обучения и достижениях.</p>
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A8b08475f0a7976f4e982d65895d28c45d545c2898714778846640898f484162c&amp;source=constructor" width="600" height="450" frameborder="0"></iframe>
-        ';
-        $resultTemplate = sprintf($template, $title, $content);
+        $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
     }
 }

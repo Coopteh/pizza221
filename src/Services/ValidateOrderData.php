@@ -1,7 +1,4 @@
-<?php
-
-
-
+<?php 
 namespace App\Services;
 
 class ValidateOrderData {

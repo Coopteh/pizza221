@@ -1,9 +1,6 @@
 <?php
 
-
-function greet(string $name): string
+function greet($name)
 {
-    return "Hello, $name!";
+    echo "Hello, $name!";
 }
-
-echo greet('1');

@@ -6,5 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PHPMD\\' => array($vendorDir . '/phpmd/phpmd/src/main/php'),
     'Hal\\' => array($vendorDir . '/phpmetrics/phpmetrics/src'),
 );
