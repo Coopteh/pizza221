@@ -19,11 +19,6 @@ class Product {
     }
 
     public function getBasketData(): array {
-        if(!isset($_SESSION))
-        {
-            session_start();
-        }
-
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }

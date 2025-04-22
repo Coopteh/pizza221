@@ -3,6 +3,8 @@ namespace App\Views;
 class BaseTemplate 
 {
     public static function getTemplate(): string {
+        global $user_id, $username;
+
         $template = <<<LINE
         <!DOCTYPE html>
         <html lang="ru">
@@ -19,7 +21,7 @@ class BaseTemplate
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="https://localhost/pizza221/assets/images/logo.png" alt="Логотип компании" width="64" height="64">
-                        Шаурма и Шашлык ИС-221
+                        ПИЦЦЕРИЯ ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -37,22 +39,42 @@ class BaseTemplate
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/order">Заказ</a>
-                        </li> 
+                        </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/register">Регистрация</a>
-                        </li>                         
+                        </li>
                     </ul>
                     </div>
                 </div>
-                </nav>
-            </header>
         LINE;
 
+if ($user_id > 0) {
+        $template .= <<<LINE
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {$username}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/pizza221/logout">Выход</a></li>
+                        </ul>
+                    </li>
+                </ul>
+        LINE;
+} else {
+    $template .= <<<LINE
+        <a class="nav-link p-3" href="/pizza221/login">
+        Вход
+        </a>
+    LINE;    
+}
+        $template .= "</nav></header>";
+
         // Добавим flash сообщение
-        if(!isset($_SESSION))
-        {
-            session_start();
-        }
         if (isset($_SESSION['flash'])) {
             $template .= <<<END
                 <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
