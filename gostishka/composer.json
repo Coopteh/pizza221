@@ -1,0 +1,26 @@
+{
+    "name": "kkt/gostishka",
+    "description": "Пиццерия на PHP с использованием MVC",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Tempo\\": "tempo/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000",
+        "test": "./vendor/bin/phpunit ./tests --color"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.12",
+        "phpstan/phpstan": "^2.1",
+        "phpmd/phpmd": "^2.15",
+        "phpmetrics/phpmetrics": "^2.8",
+        "phpunit/phpunit": "^10.5"
+    }
+}
