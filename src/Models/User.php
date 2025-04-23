@@ -17,4 +17,5 @@ class User {
     public function saveData($arr): bool {
         return $this->dataStorage->saveData( $this->nameResource, $arr ); 
     }
+
 }

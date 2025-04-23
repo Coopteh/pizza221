@@ -22,9 +22,6 @@ class HomeTemplate extends BaseTemplate
                         <div class="carousel-item">
                         <img src="./assets/images/image3.png" class="d-block w-100 h-100" alt="...">
                         </div>
-                        <div class="carousel-item">
-                        <img src="./assets/images/image4.png" class="d-block w-100 h-100" alt="...">
-                        </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -39,9 +36,9 @@ class HomeTemplate extends BaseTemplate
         </section>
         <main class="row">
             <div class="p-5">
-                <p>Здесь вы можете оформить абонtмент.</p>
-                <p>Разные виды спорт-комплекса от зала до бассейна!<br><br></p>
-                <p> (*) Сайт разработан в рамках обучения в "Кемеровском кооперативном техникуме" по специальности "Специалист по информационным технологиям".</p>
+                <p>Здесь можно оформить абонемент в тренашерный зал Кемерово.</p>
+                <p>Широкий выбор спорт-комплекса, низкие цены, профессиональные тренеры!<br><br></p>
+                <p> (*) Сайт разработан в рамках обучения в "Кузбасском кооперативном техникуме" по специальности "Специалист по информационным технологиям".</p>
             </div>
         </main>        
         CORUSEL;
