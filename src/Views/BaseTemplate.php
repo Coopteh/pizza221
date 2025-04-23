@@ -21,7 +21,7 @@ class BaseTemplate
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="https://localhost/trenazherka/assets/images/logo.png" alt="Логотип компании" width="64" height="64">
-                        ПИЦЦЕРИЯ ИС-221
+                        Тренажерный зал "Олимп"
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
