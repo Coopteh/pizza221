@@ -1,9 +1,7 @@
 <?php 
 namespace App\Models;
 
-use App\Configs\Config;
 use App\Services\ILoadStorage;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 class Product {
     private ILoadStorage $dataStorage;
@@ -20,22 +18,13 @@ class Product {
         return $this->dataStorage->loadData( $this->nameResource ); 
     }
 
-    public function saveData($arr): bool {
-        return $this->dataStorage->saveData( $this->nameResource, $arr ); 
-    }
-
     public function getBasketData(): array {
-        if(!isset($_SESSION))
-        {
-            session_start();
-        }
-
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
         $products = $this->loadData();
         $basketProducts= [];
-
+//var_dump($_SESSION['basket']);
         foreach ($products as $product) {
             $id = $product['id'];
 
@@ -64,4 +53,17 @@ class Product {
         return $basketProducts;
     }
 
+        /* 
+        Подсчет общей суммы заказа (товаров в корзине)
+    */
+    public function getAllSum(?array $products): float {
+        $all_sum =0;
+        foreach ($products as $product) {
+            $price = $product['price'];
+		    $quantity = $product['quantity'];
+
+            $all_sum += $price * $quantity;
+	    }
+        return $all_sum;
+    }
 }

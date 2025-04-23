@@ -6,6 +6,7 @@ use App\Configs\Config;
 
 class DataBaseStorage 
 {
+    
     protected $connection;
 
     public function __construct() {

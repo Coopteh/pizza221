@@ -14,7 +14,7 @@ class Mailer {
             try {
                 $mail->SMTPDebug = 2;
                 $mail->CharSet = 'UTF-8';
-                $mail->SetFrom("v.milevskiy@coopteh.ru","Страхование");
+                $mail->SetFrom("v.milevskiy@coopteh.ru","PIZZA-221");
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->isSMTP();                                            //Send using SMTP
@@ -69,8 +69,8 @@ class Mailer {
 
 $verification_link = Config::SITE_URL . "/verify/" . $verification_token;
 
-                $mail->Subject = "Подтверждение регистрации с сайта: Страхование";
-                $mail->Body = "Информационное сообщение c сайта Страхование <br><br>
+                $mail->Subject = "Подтверждение регистрации с сайта: PIZZA-221";
+                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
                 ------------------------------------------<br><br>
                 Здравствуйте, $username!<br><br>
                 Пожалуйста, подтвердите ваш email, перейдя по ссылке:<br>

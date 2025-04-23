@@ -6,7 +6,7 @@ class BasketController
 {
     public function add(): void
     {
-        session_start();
+
         if (isset($_POST['id'])) {
             $product_id = $_POST['id'];
             if (!isset($_SESSION['basket'])) {
@@ -30,7 +30,6 @@ class BasketController
     */
     public function clear(): void
     {
-        session_start();
         $_SESSION['basket'] = [];
         $_SESSION['flash'] = "Корзина успешно очищена.";
     }

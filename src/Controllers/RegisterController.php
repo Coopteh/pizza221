@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Services\UserFactory;
 use App\Services\ValidateRegisterData;
 use App\Services\Mailer;
-use App\Config\Config;
+use App\Configs\Config;
 use App\Services\UserDBStorage;
 
 class RegisterController {
@@ -19,7 +19,6 @@ class RegisterController {
     }
 
     public function verify($token): string {
-        session_start();
         if (!isset($token))
             $_SESSION['flash'] = "Ваш токен неверен";
 
@@ -33,7 +32,7 @@ class RegisterController {
             }
         }
         // переадресация на Главную
-	    header("Location: /");
+	    header("Location: /strax/");
         return "";
     }
 
@@ -48,7 +47,7 @@ class RegisterController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateRegisterData::validate($arr)) {
             // переадресация обратно на страницу регистрации
-            header("Location: /register");
+            header("Location: /strax/register");
             return "";
         }
         
@@ -71,7 +70,7 @@ class RegisterController {
         $_SESSION['flash'] = "Спасибо за регистрацию! На ваш емайл отправлено письмо для подтверждения регистрации.";
         
         // переадресация на Главную
-	    header("Location: /");
+	    header("Location: /strax/");
 
         return "";
     }
