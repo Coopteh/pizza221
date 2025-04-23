@@ -131,7 +131,7 @@ HTML;
         // Подключаем Font Awesome для иконок
         $fontAwesomeLink = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">';
         
-        $content = <<<CONTENT
+        $content = <<<HTML
         <main class="row p-5 justify-content-center align-items-start min-vh-100">
             <div class="col-12 col-md-6 text-center bg-light border rounded shadow p-5 animated-card" style="margin-top: 5%;">
                 <i class="fas fa-check-circle fa-5x text-custom mb-4"></i>
@@ -171,7 +171,7 @@ HTML;
                 to { opacity: 1; transform: translateY(0); }
             }
         </style>
-    CONTENT;
+HTML;
     
         // Добавляем Font Awesome в начало контента
         $content = $fontAwesomeLink . $content;

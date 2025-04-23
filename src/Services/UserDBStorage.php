@@ -29,9 +29,7 @@ class UserDBStorage extends DBStorage implements ISaveStorage
             "SELECT id FROM users WHERE email = ?"
         );
         $stmt->execute([$email]);
-        if ($stmt->rowCount() > 0) 
-            return false;
-        return true;
+        return $stmt->rowCount() === 0;
     }
 
     public function saveVerified($token): bool
@@ -57,7 +55,6 @@ class UserDBStorage extends DBStorage implements ISaveStorage
      */
     public function loginUser($username, $password): bool
     {
-        // Поиск пользователя
         $stmt = $this->connection->prepare(
             "SELECT id, username, password FROM users 
             WHERE is_verified = 1 AND (username = ? OR email = ?)"
@@ -65,13 +62,10 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch();
 
-        // Проверка записи
-        if ($user === false) 
+        if ($user === false || !password_verify($password, $user['password'])) {
             return false;
-        if (!password_verify($password, $user['password']))
-            return false;
+        }
 
-        // Установка переменных сессии
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
@@ -84,30 +78,42 @@ class UserDBStorage extends DBStorage implements ISaveStorage
     public function getUserById(int $userId): array
     {
         $stmt = $this->connection->prepare(
-            "SELECT id, username, email, address, phone FROM users WHERE id = ?"
+            "SELECT id, username, email, address, phone, avatar FROM users WHERE id = ?"
         );
         $stmt->execute([$userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
-     * Обновление данных профиля пользователя
+     * Обновление данных профиля пользователя (с учётом аватара)
      */
     public function updateProfile(int $userId, array $data): bool
     {
-        $query = "UPDATE users 
-                  SET username = :username, 
-                      email = :email, 
-                      address = :address, 
-                      phone = :phone 
-                  WHERE id = :id";
+        $fields = [
+            'username = :username',
+            'email = :email',
+            'address = :address',
+            'phone = :phone'
+        ];
+        if (!empty($data['avatar'])) {
+            $fields[] = 'avatar = :avatar';
+        }
+
+        $query = "UPDATE users SET " . implode(', ', $fields) . " WHERE id = :id";
         $stmt = $this->connection->prepare($query);
-        return $stmt->execute([
+
+        $params = [
             ':username' => $data['username'],
             ':email' => $data['email'],
             ':address' => $data['address'] ?? null,
             ':phone' => $data['phone'] ?? null,
             ':id' => $userId
-        ]);
+        ];
+
+        if (!empty($data['avatar'])) {
+            $params[':avatar'] = $data['avatar'];
+        }
+
+        return $stmt->execute($params);
     }
 }

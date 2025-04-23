@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace App\Router;
 
 use App\Controllers\AboutController;
@@ -9,13 +8,29 @@ use App\Controllers\BasketController;
 use App\Controllers\OrderController;
 use App\Controllers\RegisterController;
 use App\Controllers\UserController;
+use App\Services\UserDBStorage;
 
 class Router {
     public function route(string $url): string {
+        // Инициализация глобальных переменных
+        global $user_id, $username, $avatar;
+
+        if (isset($_SESSION['user_id'])) {
+            $userStorage = new UserDBStorage();
+            $userData = $userStorage->getUserById((int)$_SESSION['user_id']);
+            $user_id = $_SESSION['user_id'];
+            $username = $userData['username'] ?? '';
+            $avatar = $userData['avatar'] ?? 'path/to/default/avatar.png'; // Дефолтный аватар
+        } else {
+            $user_id = 0;
+            $username = '';
+            $avatar = 'path/to/default/avatar.png';
+        }
+
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", $path);
-        //var_dump($pieces);
         $resource = $pieces[1];
+
         switch ($resource) {
             case "about":
                 $about = new AboutController();
@@ -58,7 +73,7 @@ class Router {
 
             case "profile":
                 $userController = new UserController();
-    
+
                 // Проверяем метод запроса
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Если POST-запрос, обновляем данные профиля
@@ -68,7 +83,7 @@ class Router {
                     return $userController->profile();
                 }
                 break;
-    
+
             default:
                 $home = new HomeController();
                 return $home->get();

@@ -1,13 +1,14 @@
 <?php
 namespace App\Views;
-
+use App\Controllers\BaseController;
 class BaseTemplate
 {
     public static function getTemplate()
     {
-        global $user_id, $username;
+        
+        global $user_id, $username, $avatar; // Добавляем переменную для аватара
 
-        $template = <<<LINE
+        $template = <<<HTML
         <!DOCTYPE html>
         <html lang="ru">
         <head>
@@ -21,7 +22,7 @@ class BaseTemplate
             <!-- Custom CSS -->
             <style>
                 body {
-                    font-family: 'Roboto', sans-serif;
+                    font-family: 'Roboto', sans-serif !important;
                     font-size: 16px;
                     line-height: 1.6;
                     background-color: #f8f9fa;
@@ -119,6 +120,27 @@ class BaseTemplate
                     background-color: rgb(215, 93, 138);
                     border-color: rgb(215, 93, 138);
                 }
+                .transition-arrow {
+                    transform: rotate(0deg);
+                }
+                .transition-arrow.open {
+                    transform: rotate(90deg);
+                }
+                @media (max-width: 768px) {
+                    .transition-arrow {
+                        display: none !important;
+                    }
+                }
+                a.dropdown-toggle::after {
+                    display: none !important;
+                }
+                .custom-input-group .input-group-text {
+                    padding: 0.75rem 1rem;
+                    background-color: transparent;
+                    border: none;
+                    border-right: 1px solid rgb(208, 157, 176); /* ← Это она! */
+                    color: rgb(208, 157, 176);
+                }
             </style>
             <script src="../../assets/css/bootstrap.bundle.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.x.x/dist/js/bootstrap.bundle.min.js"></script>
@@ -157,25 +179,69 @@ class BaseTemplate
                                     </a>
                                 </li>
                             </ul>
-LINE;
+HTML;
 
-        if ($user_id > 0) {
-            $template .= <<<LINE
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {$username}
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="http://localhost/profile"><i class="fas fa-user"></i>Профиль</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="http://localhost/logout"><i class="fas fa-sign-out-alt"></i>Выход</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-LINE;
-        } else {
-            $template .= <<<LINE
+if ($user_id > 0) {
+   
+ 
+    $template .= <<<HTML
+    <form action="/profile" method="POST" enctype="multipart/form-data" class="animate__animated animate__fadeInUp">
+        <ul class="navbar-nav ms-auto pe-1 me-5">
+            <li class="nav-item dropdown">
+            <a class="nav-link d-flex align-items-center dropdown-toggle p-2 px-3 bg-light shadow-sm"
+   href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+   aria-expanded="false"
+   style="border-radius: 30px; transition: all 0.3s ease; gap: 10px;">
+    <!-- Аватарка пользователя -->
+    <img src="{$avatar}" alt="Аватар пользователя" 
+     class="rounded-circle shadow avatar-preview"
+     style="width: 40px; height: 40px; border: 2px solid #fff; transition: transform 0.3s ease;">
+    <!-- Имя пользователя -->
+    <span class="d-none d-md-inline fw-semibold text-dark fs-6">{$username}</span>
+    <!-- Стрелочка -->
+    <i class="fas fa-chevron-right transition-arrow" id="dropdownArrow"
+       style="transition: transform 0.3s ease;"></i>
+</a>
+                <!-- Выпадающее меню -->
+                <ul class="dropdown-menu animate__animated animate__fadeIn dropdown-menu-start"
+                    style="border-radius: 16px; border: none; box-shadow: 0 8px 20px rgba(0,0,0,0.15); margin-top: 12px;">
+                    <!-- Профиль -->
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center py-2 px-3"
+                           href="http://localhost/profile"
+                           style="transition: background-color 0.3s ease; border-radius: 12px;">
+                            <div class="icon-wrapper bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+                                 style="width: 42px; height: 42px;">
+                                <i class="fas fa-user text-secondary" style="font-size: 1.2rem;"></i>
+                            </div>
+                            <div>
+                                <span class="fw-semibold">Профиль</span><br>
+                                <small class="text-muted">Настройки аккаунта</small>
+                            </div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider my-1"></li>
+                    <!-- Выход -->
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center py-2 px-3 text-danger"
+                           href="http://localhost/logout"
+                           style="transition: background-color 0.3s ease; border-radius: 12px;">
+                            <div class="icon-wrapper bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+                                 style="width: 42px; height: 42px;">
+                                <i class="fas fa-sign-out-alt" style="font-size: 1.2rem;"></i>
+                            </div>
+                            <div>
+                                <span class="fw-semibold">Выход</span><br>
+                                <small class="text-muted">Завершить сеанс</small>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+HTML;
+} else {
+            $template .= <<<HTML
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item dropdown">
                                     <button class="btn btn-register dropdown-toggle" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -187,29 +253,29 @@ LINE;
                                     </ul>
                                 </li>
                             </ul>
-LINE;
+HTML;
         }
 
-        $template .= <<<LINE
+        $template .= <<<HTML
                         </div>
                     </div>
                 </nav>
             </header>
-LINE;
+HTML;
 
         // Добавим flash сообщение
         if (isset($_SESSION['flash'])) {
-            $template .= <<<END
+            $template .= <<<HTML
                 <div id="liveAlertBtn" class="container alert alert-custom alert-dismissible fade show" role="alert">
                     <div>{$_SESSION['flash']}</div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
                     onclick="this.parentNode.style.display='none';"></button>
                 </div>
-            END;
+            HTML;
             unset($_SESSION['flash']);
         }
 
-        $template .= <<<LINE
+        $template .= <<<HTML
             <main class="container mt-4">
                 %s
             </main>
@@ -259,7 +325,19 @@ LINE;
             </footer>
         </body>
         </html>
-LINE;
+        <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdownToggle = document.getElementById('navbarDropdown');
+    const dropdownArrow = document.getElementById('dropdownArrow');
+    dropdownToggle.addEventListener('click', function () {
+        setTimeout(() => {
+            const isShown = dropdownToggle.getAttribute('aria-expanded') === 'true';
+            dropdownArrow.classList.toggle('open', isShown);
+        }, 10); // чуть подождать, пока Bootstrap обновит aria-expanded
+    });
+});
+</script>
+HTML;
 
         return $template;
     }

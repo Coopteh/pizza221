@@ -6,93 +6,96 @@ use App\Config\Config;
 use App\Services\UserDBStorage;
 
 class UserController {
-    private $userStorage;
+    private UserDBStorage $userStorage;
 
     public function __construct() {
-        // Инициализация хранилища пользователей
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        if (Config::STORAGE_TYPE === Config::TYPE_DB) {
             $this->userStorage = new UserDBStorage();
         }
     }
 
-    /**
-     * Метод для обработки запросов к странице входа
-     */
     public function get(): string {
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == "POST") {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
             return $this->login();
         }
 
         return UserTemplate::getUserTemplate();
     }
 
-    /**
-     * Метод для аутентификации пользователя
-     */
-    public function login(): string {      
-        $arr = [];
-        $arr['username'] = strip_tags($_POST['username']);
-        $arr['password'] = strip_tags($_POST['password']);
+    private function login(): string {
+        $username = strip_tags($_POST['username'] ?? '');
+        $password = strip_tags($_POST['password'] ?? '');
 
-        // Проверка логина и пароля
-        if (!$this->userStorage->loginUser($arr['username'], $arr['password'])) {
+        if (!$this->userStorage->loginUser($username, $password)) {
             $_SESSION['flash'] = "Ошибка ввода логина или пароля";
             return UserTemplate::getUserTemplate();
         }
 
-        // Переадресация на Главную
         header("Location: /");
-        return "";
+        exit();
     }
 
-    /**
-     * Метод для отображения страницы профиля
-     */
     public function profile(): string {
-      
         if (!isset($_SESSION['user_id'])) {
             $_SESSION['flash'] = "Необходимо войти в аккаунт.";
             header("Location: /login");
             exit();
         }
 
-        // Получение данных пользователя
-        $userId = $_SESSION['user_id'];
-        $userData = $this->userStorage->getUserById($userId);
+        $userData = $this->userStorage->getUserById((int)$_SESSION['user_id']);
 
-        // Отображение формы профиля
         return UserTemplate::getProfileForm($userData);
     }
 
-    /**
-     * Метод для обновления данных профиля
-     */
     public function updateProfile(): void {
-        session_start();
         if (!isset($_SESSION['user_id'])) {
             $_SESSION['flash'] = "Необходимо войти в аккаунт.";
             header("Location: /login");
             exit();
         }
 
-        // Получение данных из POST-запроса
-        $userId = $_SESSION['user_id'];
+        $userId = (int)$_SESSION['user_id'];
         $data = [
-            'username' => strip_tags($_POST['username']),
-            'email' => strip_tags($_POST['email']),
+            'username' => strip_tags($_POST['username'] ?? ''),
+            'email' => strip_tags($_POST['email'] ?? ''),
             'address' => strip_tags($_POST['address'] ?? ''),
-            'phone' => strip_tags($_POST['phone'] ?? ''),
+            'phone' => strip_tags($_POST['phone'] ?? '')
         ];
 
-        // Обновление данных в базе данных
+        if (
+            isset($_FILES['avatar']) &&
+            $_FILES['avatar']['error'] === UPLOAD_ERR_OK &&
+            is_uploaded_file($_FILES['avatar']['tmp_name'])
+        ) {
+            $fileTmpPath = $_FILES['avatar']['tmp_name'];
+            $fileExtension = strtolower(pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION));
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+            if (in_array($fileExtension, $allowedExtensions)) {
+                $newFileName = uniqid('avatar_', true) . '.' . $fileExtension;
+                $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/uploads/';
+                $destPath = $uploadDir . $newFileName;
+
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                if (move_uploaded_file($fileTmpPath, $destPath)) {
+                    $data['avatar'] = "/assets/uploads/" . $newFileName;
+                } else {
+                    $_SESSION['flash'] = "Ошибка при сохранении аватара.";
+                }
+            } else {
+                $_SESSION['flash'] = "Недопустимый формат файла. Разрешены: jpg, png, gif, webp.";
+            }
+        }
+
         if ($this->userStorage->updateProfile($userId, $data)) {
             $_SESSION['flash'] = "Профиль успешно обновлен!";
         } else {
             $_SESSION['flash'] = "Ошибка при обновлении профиля.";
         }
 
-        // Переадресация обратно на страницу профиля
         header("Location: /profile");
         exit();
     }
