@@ -12,7 +12,7 @@ class OrderFactory {
             $orderModel = new Order($serviceStorage, Config::FILE_ORDERS);
         }
         if (Config::STORAGE_TYPE == Config::TYPE_DB) {
-            $serviceStorage = new OrderDBStorage.php();
+            $serviceStorage = new OrderDBStorage();
             $orderModel = new Order($serviceStorage, Config::TABLE_ORDERS);
         }
         return $orderModel;

@@ -1,22 +1,20 @@
-<?php 
-namespace App\Configs;
+<?php
+namespace App\Config;
+class Config{
+const FILE_PRODUCTS=".\Storage\data.json";
+const FILE_ORDERS=".\storage\order.json";
+const TYPE_FILE="file";
+const TYPE_DB="db";
 
-class Config {
-    const FILE_PRODUCTS=".\storage\data.json";
-    const FILE_ORDERS=".\storage\order.json";
+// настройки подключения
+const MYSQL_DNS = 'mysql:dbname=pizzais;host=localhost; charset=utf8';
+const MYSQL_USER = 'root';
+const MYSQL_PASSWORD = '';
+const TABLE_PRODUCTS="products";
+const TABLE_ORDERS="orders";
 
-    const TYPE_FILE="file";
-    const TYPE_DB="db";
-    // Режим хранения данных (продукты и заказы)
-    const STORAGE_TYPE= self::TYPE_DB;
-        
-    // настройки подключения
-    const MYSQL_DNS = 'mysql:dbname=is221;host=localhost';
-    const MYSQL_USER = 'root';
-    const MYSQL_PASSWORD = '';
-    
-    const TABLE_PRODUCTS="products";
-    const TABLE_ORDERS="orders";
+// Режим хранения данных 
+const STORAGE_TYPE= self::TYPE_DB;
 
-    const SITE_URL="https://localhost/pizza221";
+const SITE_URL="https://localhost/strax";
 }

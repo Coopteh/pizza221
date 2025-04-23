@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Services\UserFactory;
 use App\Services\ValidateRegisterData;
 use App\Services\Mailer;
-use App\Configs\Config;
+use App\Config\Config;
 use App\Services\UserDBStorage;
 
 class RegisterController {
@@ -33,7 +33,7 @@ class RegisterController {
             }
         }
         // переадресация на Главную
-	    header("Location: /strax/");
+	    header("Location: /");
         return "";
     }
 
@@ -48,7 +48,7 @@ class RegisterController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateRegisterData::validate($arr)) {
             // переадресация обратно на страницу регистрации
-            header("Location: /strax/register");
+            header("Location: /register");
             return "";
         }
         
@@ -71,7 +71,7 @@ class RegisterController {
         $_SESSION['flash'] = "Спасибо за регистрацию! На ваш емайл отправлено письмо для подтверждения регистрации.";
         
         // переадресация на Главную
-	    header("Location: /strax/");
+	    header("Location: /");
 
         return "";
     }
