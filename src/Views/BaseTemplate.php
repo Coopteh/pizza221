@@ -5,6 +5,7 @@ namespace App\Views;
 class BaseTemplate 
 {
     public static function getTemplate(): string {
+        global $user_id, $username;
         $template = <<<LINE
         <!DOCTYPE html>
         <html lang="ru">
@@ -50,35 +51,53 @@ class BaseTemplate
             </header>
         LINE;
 
-        if(!isset($_SESSION))
-        {
-            session_start();
-        }
-        if (isset($_SESSION["flash"])) {
-            $template.=<<<LINE
-                <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
-                    <div>{$_SESSION['flash']}</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                    onclick="this.parentNode.style.display='none';"></button>
-                </div>
+        if ($user_id > 0) {
+            $template .= <<<LINE
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {$username}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/pizza221/logout">Выход</a></li>
+                            </ul>
+                        </li>
+                    </ul>
             LINE;
-            unset($_SESSION['flash']); 
-        }
-        $template.=<<<LINE
-        
-            <div class="container mt-5 mb-5">
-                %s
-            </div>
-
-            
-
-            <footer class="mt-5">
-                &copy; 2025 «Кемеровский кооперативный техникум»
-            </footer>
-        </body>
-        </html>
-        LINE;
-
-        return $template;
+    } else {
+        $template .= <<<LINE
+            <a class="nav-link p-3" href="/pizza221/login">
+            Вход
+            </a>
+        LINE;    
     }
-}
+            $template .= "</nav></header>";
+    
+            // Добавим flash сообщение
+            if (isset($_SESSION['flash'])) {
+                $template .= <<<END
+                    <div id="liveAlertBtn" class="alert alert-info alert-dismissible" role="alert">
+                        <div>{$_SESSION['flash']}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                        onclick="this.parentNode.style.display='none';"></button>
+                    </div>
+                END;
+                unset($_SESSION['flash']);
+            }
+    
+            $template.= <<<LINE
+                %s
+                <footer class="mt-3 p-3">
+                    © 2025 «Кемеровский кооперативный техникум»
+                <footer>
+            </body>
+            </html>
+            LINE;
+    
+            return $template;
+        }
+    }

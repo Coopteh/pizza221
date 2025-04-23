@@ -1,27 +1,24 @@
 <?php 
 namespace App\Models;
 
-use App\Configs\Config;
+use App\Services\ILoadStorage;
 
 class Product {
-    public function loadData(): ?array {
-        $nameFile= Config::FILE_PRODUCTS;
-        
-        $handle = fopen($nameFile, "r");
-        $data = fread($handle, filesize($nameFile)); 
-        fclose($handle);
+    private ILoadStorage $dataStorage;
+    private string $nameResource;
+    
+    // Внедряем зависимость через конструктор
+    public function __construct(ILoadStorage $service, string $name)
+    {
+        $this->dataStorage = $service;
+        $this->nameResource = $name;
+    }
 
-        $arr = json_decode($data, true); 
-        
-        return $arr; 
+    public function loadData(): ?array {
+        return $this->dataStorage->loadData( $this->nameResource ); 
     }
 
     public function getBasketData(): array {
-        if(!isset($_SESSION))
-        {
-            session_start();
-        }
-
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
@@ -56,23 +53,17 @@ class Product {
         return $basketProducts;
     }
 
-    public function saveData($arr) {
-        $nameFile= Config::FILE_ORDERS;
+        /* 
+        Подсчет общей суммы заказа (товаров в корзине)
+    */
+    public function getAllSum(?array $products): float {
+        $all_sum =0;
+        foreach ($products as $product) {
+            $price = $product['price'];
+		    $quantity = $product['quantity'];
 
-        $handle = fopen($nameFile, "r");
-        if (filesize($nameFile) > 0){ 
-            $data = fread($handle, filesize($nameFile)); 
-            $allRecords = json_decode($data, true); 
-        } else {
-            $allRecords = [];
-        }
-        fclose($handle);
-        
-        $allRecords[]= $arr;
-        $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        $handle = fopen($nameFile, "w");
-        fwrite($handle, $json);
-        fclose($handle);
+            $all_sum += $price * $quantity;
+	    }
+        return $all_sum;
     }
 }
