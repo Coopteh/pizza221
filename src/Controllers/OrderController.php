@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Configs\Config;
-use App\Services\ProductFactory;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\Models\Product;
@@ -13,9 +12,9 @@ use App\Services\OrderDBStorage;
 use App\Services\ProductDBStorage;
 use App\Models\Order;
 use App\Services\OrderFactory;
+use App\Services\ProductFactory;
 use App\Services\ValidateOrderData;
-
-
+use App\Services\Mailer;
 
 class OrderController {
     public function get(): string {
@@ -27,7 +26,7 @@ class OrderController {
         // Инициализация переменной $model
         $model = null;
     
-        $model=ProductFactory::createProduct();
+        $model = ProductFactory::createProduct();
     
         // Проверка, была ли инициализирована переменная $model
         if ($model === null) {
@@ -55,7 +54,7 @@ class OrderController {
             return "";
         }
         // список заказанных продуктов - берем список товаров из корзины
-        $model=ProductFactory::createProduct();
+        $model = ProductFactory::createProduct();
 
         $products = $model->getBasketData();
         $arr['products'] = $products;
@@ -68,12 +67,13 @@ class OrderController {
         $arr['all_sum'] = $all_sum;
         
         //Сохраняем данные заказа
-        $orderModel=OrderFactory::createOrder();
+        $orderModel = OrderFactory::createOrder();    
+
         // сохраняем данные
         $orderModel->saveData($arr);
     
         // отправка емайл
-        $this->sendMail($arr['email']);
+        Mailer::sendOrderMail( $arr['email'] );
         
         // Очищаем корзину
         $_SESSION['basket'] = [];
@@ -86,40 +86,4 @@ class OrderController {
         return '';
     }
 
-    
-    public function sendMail($email) {
-        $mail = new PHPMailer();
-        if (isset($email) && !empty($email)) {
-            try {
-                $mail->SMTPDebug = 2;
-                $mail->CharSet = 'UTF-8';
-                $mail->SetFrom("v.milevskiy@coopteh.ru", "Obyvnoi_magazin");
-                $mail->addAddress($email);
-                $mail->isHTML(true);
-                $mail->isSMTP();
-                $mail->Host       = 'ssl://smtp.mail.ru';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'v.milevskiy@coopteh.ru';
-                $mail->Password   = 'qRbdMaYL6mfuiqcGX38z';
-                $mail->Port       = 465;
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Subject = 'Заявка с сайта: Obyvnoi_magazin';
-                $mail->Body = "Информационное сообщение c сайта Obyvnoi_magazin <br><br>
-                ------------------------------------------<br><br>
-                Спасибо!<br><br>
-                Ваш заказ успешно создан и передан службе доставки.<br><br>
-                Сообщение сгенерировано автоматически.";
-                if ($mail->send()) {
-                    return true;
-                } else {
-                    throw new Exception('Ошибка с отправкой письма');
-                } 
-            } catch (Exception $error) {
-                $message = $error->getMessage();
-var_dump($message);
-exit();
-            }
-        }
-        return false;
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Configs\Config;
 use App\Models\Product;
+use App\Models\Order;
 
 class ProductFactory {
 
