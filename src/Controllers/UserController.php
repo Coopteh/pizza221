@@ -30,7 +30,7 @@ class UserController {
         }
 
         // переадресация на Главную
-	    header("Location: /pizza221/");
+	    header("Location: /kafeshka/");
         return "";
     }
 

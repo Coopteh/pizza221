@@ -87,7 +87,7 @@ class OrderTemplate extends BaseTemplate
                         &nbsp;
                     </div>
                     <div class="col-2 float-end">
-                        <form action="/pizza221/basket_clear" method="POST">
+                        <form action="/kafeshka/basket_clear" method="POST">
                             <button type="submit" class="btn btn-secondary mt-3">Очистить корзину
                         </form>
                     </div>
@@ -106,7 +106,7 @@ class OrderTemplate extends BaseTemplate
     public static function getFormUserInformation(): string {
         $html= <<<FORMA
                 <h3>Данные для доставки</h1>
-                <form action="/pizza221/order" method="POST">
+                <form action="/kafeshka/order" method="POST">
                     <div class="mb-3">
                         <label for="fioInput" class="form-label">Ваше имя (ФИО):</label>
                         <input type="text" name="fio" class="form-control" id="fioInput" required>

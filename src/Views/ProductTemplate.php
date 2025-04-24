@@ -21,7 +21,7 @@ class ProductTemplate extends BaseTemplate
                             <h2 class="card-title">{$rec['name']}</h2>
                             <p class="card-text">{$rec['description']}</p>
                             <h3>{$rec['price']} руб.</h3>
-                            <form class="mt-4" action="/pizza221/basket" method="POST">
+                            <form class="mt-4" action="/kafeshka/basket" method="POST">
                                 <input type="hidden" name="id" value="{$rec['id']}">
                                 <button type="submit" class="btn btn-primary">Добавить в корзину</button>
                             </form>
@@ -58,10 +58,10 @@ class ProductTemplate extends BaseTemplate
                 </div>
                 <div class="col-6">
                     <div class="block mt-3">
-                        <a href="/pizza221/products/{$item['id']}"><h2>{$item['name']}</h2></a>
+                        <a href="/kafeshka/products/{$item['id']}"><h2>{$item['name']}</h2></a>
                         <p>{$item['description']}</p>
                         <h3>{$item['price']} ₽</h3>
-                        <form class="mt-4" action="/pizza221/basket" method="POST">
+                        <form class="mt-4" action="/kafeshka/basket" method="POST">
                             <input type="hidden" name="id" value="{$item['id']}">
                             <button type="submit" class="btn btn-primary">Добавить в корзину</button>
                         </form>

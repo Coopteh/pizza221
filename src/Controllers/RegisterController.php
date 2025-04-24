@@ -32,7 +32,7 @@ class RegisterController {
             }
         }
         // переадресация на Главную
-	    header("Location: /pizza221/");
+	    header("Location: /kafeshka/");
         return "";
     }
 
@@ -46,7 +46,7 @@ class RegisterController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateRegisterData::validate($arr)) {
             // переадресация обратно на страницу регистрации
-            header("Location: /pizza221/register");
+            header("Location: /kafeshka/register");
             return "";
         }
         
@@ -69,7 +69,7 @@ class RegisterController {
         $_SESSION['flash'] = "Спасибо за регистрацию! На ваш емайл отправлено письмо для подтверждения регистрации.";
         
         // переадресация на Главную
-	    header("Location: /pizza221/");
+	    header("Location: /kafeshka/");
 
         return "";
     }

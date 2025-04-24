@@ -12,16 +12,16 @@ class BaseTemplate
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
-            <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
-            <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
+            <link rel="stylesheet" href="https://localhost/kafeshka/assets/css/bootstrap.min.css">
+            <script src="https://localhost/kafeshka/assets/js/bootstrap.bundle.js"></script>
         </head>
         <body>
             <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="https://localhost/pizza221/assets/images/logo.png" alt="Логотип компании" width="64" height="64">
-                        ПИЦЦЕРИЯ ИС-221
+                        <img src="https://localhost/kafeshka/assets/images/иконка.png" alt="Логотип компании" width="64" height="64">
+                        КАФЕ БЫСТРОГО ПИТАНИЯ ИС-221
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,19 +29,19 @@ class BaseTemplate
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/pizza221/">Главная</a>
+                        <a class="nav-link active" aria-current="page" href="/kafeshka/">Главная</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/pizza221/products">Каталог</a>
+                        <a class="nav-link" href="/kafeshka/products">Каталог</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/pizza221/about">О нас</a>
+                        <a class="nav-link" href="/kafeshka/about">О нас</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/pizza221/order">Заказ</a>
+                        <a class="nav-link" href="/kafeshka/order">Заказ</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/pizza221/register">Регистрация</a>
+                        <a class="nav-link" href="/kafeshka/register">Регистрация</a>
                         </li>
                     </ul>
                     </div>
@@ -56,18 +56,18 @@ if ($user_id > 0) {
                         {$username}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>
+                            <li><a class="dropdown-item" href="/kafeshka/profile">Профиль</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/pizza221/logout">Выход</a></li>
+                            <li><a class="dropdown-item" href="/kafeshka/logout">Выход</a></li>
                         </ul>
                     </li>
                 </ul>
         LINE;
 } else {
     $template .= <<<LINE
-        <a class="nav-link p-3" href="/pizza221/login">
+        <a class="nav-link p-3" href="/kafeshka/login">
         Вход
         </a>
     LINE;    

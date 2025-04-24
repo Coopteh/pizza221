@@ -28,7 +28,7 @@ class UserTemplate extends BaseTemplate
     */
     public static function getFormLogin(): string {
         $html= <<<FORMA
-                <form action="/pizza221/login" method="POST">
+                <form action="/kafeshka/login" method="POST">
                     <div class="mb-3">
                         <label for="nameInput" class="form-label">Логин (имя или емайл):</label>
                         <input type="text" name="username" class="form-control" id="nameInput" required>

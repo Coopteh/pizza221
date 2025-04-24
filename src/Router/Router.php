@@ -36,7 +36,7 @@ class Router {
                 unset($_SESSION['user_id']);
                 unset($_SESSION['username']);
                 session_destroy();
-                header("Location: /pizza221/");
+                header("Location: /kafeshka/");
                 return "";
             case 'basket_clear':
                 $basketController = new BasketController();

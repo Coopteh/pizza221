@@ -2,14 +2,14 @@
   {
     "id": 1,
     "name": "Пицца Маргарита",
-    "image": "https://localhost/pizza221/assets/images/image1.png",
+    "image": "https://localhost/kafeshka/assets/images/image1.png",
     "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы), декорирована веточкой петрушки!",
     "price": 550
   },
   {
     "id": 2,
     "name": "Пицца Пипперони",
-    "image": "https://localhost/pizza221/assets/images/image2.png",
+    "image": "https://localhost/kafeshka/assets/images/image2.png",
     "description": "Это знаменитая пицца с колбасой и сыром",
     "price": 650
   }
