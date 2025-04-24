@@ -12,8 +12,8 @@ class BaseTemplate
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
-            <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
-            <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
+            <link rel="stylesheet" href="https://localhost/strax/assets/css/bootstrap.min.css">
+            <script src="https://localhost/strax/assets/js/bootstrap.bundle.js"></script>
         </head>
         <body>
             <header>

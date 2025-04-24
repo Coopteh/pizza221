@@ -28,7 +28,7 @@ class UserController {
                 return UserTemplate::getUserTemplate();
             }
         }
-        $_SESSION['flash'] = "OK";
+
         // переадресация на Главную
 	    header("Location: /strax/");
         return "";
