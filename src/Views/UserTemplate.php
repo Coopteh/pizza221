@@ -27,9 +27,9 @@ class UserTemplate extends BaseTemplate
         Форма входа (логин, пароль)
     */
     public static function getFormLogin(): string {
-        $html= <<<FORMA
+        $html= <<<HTML
                 <form action="/trenazherka/login" method="POST">
-                    <div class="mb-3">
+                    <div class=" F mb-3">
                         <label for="nameInput" class="form-label">Логин (имя или емайл):</label>
                         <input type="text" name="username" class="form-control" id="nameInput" required>
                     </div>
@@ -39,7 +39,9 @@ class UserTemplate extends BaseTemplate
                     </div>
                     <button type="submit" class="btn btn-primary mb-3">Войти</button>
                 </form>
-        FORMA;
+               
+                
+        HTML;
         return $html;
     }
 }

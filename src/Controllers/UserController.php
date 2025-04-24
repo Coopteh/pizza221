@@ -6,7 +6,13 @@ use App\Configs\Config;
 use App\Services\UserDBStorage;
 
 class UserController {
-    public function get(): string {
+/*************  ✨ Windsurf Command ⭐  *************/
+    /**
+     * Renders the user page. If the request method is POST, then calls the login method.
+     * 
+     * @return string The rendered page.
+     */
+/*******  c1533d81-63d3-4b1f-bfa1-0c3a1669be58  *******/    public function get(): string {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
             return $this->login();

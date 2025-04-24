@@ -19,6 +19,7 @@ class RegisterController {
     }
 
     public function verify($token): string {
+        session_start();
         if (!isset($token))
             $_SESSION['flash'] = "Ваш токен неверен";
 
@@ -37,6 +38,7 @@ class RegisterController {
     }
 
     public function create():string {      
+        session_start();
         $arr = [];
         $arr['username'] =  strip_tags($_POST['username']);
         $arr['email'] = strip_tags($_POST['email']);
@@ -46,11 +48,11 @@ class RegisterController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateRegisterData::validate($arr)) {
             // переадресация обратно на страницу регистрации
-            header("Location: /trenazherka/register");
+            header("Location: /register");
             return "";
         }
         
-        $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT );
+        $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT);
         $verification_token = bin2hex(random_bytes(16));
 
         $arr['password'] = $hashed_password;
