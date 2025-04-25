@@ -52,9 +52,143 @@ class UserTemplate extends BaseTemplate
         $phone = htmlspecialchars($userData['phone'] ?? '');
         $avatar = htmlspecialchars($userData['avatar'] ?? '/assets/images/default-avatar.png'); // значение по умолчанию
         $content = <<<HTML
+        <style>
+            .custom-input-group {
+                position: relative;
+                display: flex;
+                align-items: center;
+                border: 2px solid rgb(161, 157, 208);
+                border-radius: 8px;
+                overflow: hidden;
+                transition: border-color 0.3s ease;
+            }
+    
+            .custom-input-group:focus-within {
+                border-color: rgb(161, 157, 208);
+            }
+    
+            .custom-input-group .input-group-text {
+                padding: 0.75rem 1rem;
+                background-color: transparent;
+                border: none;
+                color: rgb(161, 157, 208);
+            }
+    
+            .custom-input-group .form-control {
+                flex: 1;
+                border: none;
+                box-shadow: none;
+                outline: none;
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+                color: #333;
+            }
+    
+            .custom-input-group .form-control::placeholder {
+                color: #aaa;
+            }
+    
+            .btn-custom {
+                background-color: rgb(161, 157, 208);
+                color: #fff;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            }
+    
+            .btn-custom:hover {
+                background-color: rgb(161, 157, 208);
+            }
+    
+            .avatar-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+    
+            .avatar-preview-form {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                margin-bottom: 1rem;
+                transition: transform 0.3s ease;
+            }
+    
+            .avatar-preview-form:hover {
+                transform: scale(1.05);
+            }
+    
+            .upload-btn {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+                border-radius: 20px;
+                background-color: rgb(161, 157, 208);
+                color: white;
+                border: none;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+    
+            .upload-btn:hover {
+                background-color: rgb(161, 157, 208);
+            }
+    
+            input[type="file"] {
+                display: none;
+            }
+            .custom-input-group {
+              
+            display: flex;
+            align-items: center; /* Выравнивание по центру по вертикали */
+            border: 3px solid rgb(161, 157, 208);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            width: 100%;
+            height: 56px; /* Фиксированная высота */
+        }
+
+        .custom-input-group:focus-within {
+            border-color: rgb(161, 157, 208);
+        }
+
+        .custom-input-group .input-group-text {
+            display: flex;
+            align-items: center; /* Выравнивание иконки по центру */
+            justify-content: center;
+            padding: 0 1rem;
+            background-color: transparent;
+            color: rgb(161, 157, 208);
+            border-right: 3px solid rgb(161, 157, 208); /* Увеличенная разделительная линия */
+            height: 100%; /* Полная высота контейнера */
+            line-height: 1; /* Убираем лишние отступы */
+        }
+
+        .custom-input-group .form-control {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            padding: 0 1rem; /* Убираем лишние отступы */
+            font-size: 1rem;
+            flex: 1;
+            color: #333;
+            height: 100%; /* Полная высота контейнера */
+            line-height: 1.5; /* Улучшаем читаемость текста */
+            margin: 0; /* Убираем возможные отступы */
+        }
+
+        .custom-input-group .form-control::placeholder {
+            color: #aaa;
+        }
+
+
+
+        </style>
         <main class="row p-4 justify-content-center align-items-start">
             <div class="col-lg-6 col-md-8 bg-white border rounded shadow p-4 animate__animated animate__fadeIn">
-                <h3 class="text-center mb-4" style="color: rgb(157, 167, 208);">Редактирование профиля</h3>
+                <h3 class="text-center mb-4" style="color: rgb(161, 157, 208);">Редактирование профиля</h3>
     
                 <form action="/profile" method="POST" enctype="multipart/form-data" class="animate__animated animate__fadeInUp">
     
@@ -132,8 +266,9 @@ class UserTemplate extends BaseTemplate
             </div>
         </main>
         HTML;
-    // Возвращаем сгенерированный HTML-код
-    return $content;
+        // Вставляем содержимое в базовый шаблон
+        $resultTemplate = sprintf($template, $title, $content);
+        return $resultTemplate;
     }
 
 }

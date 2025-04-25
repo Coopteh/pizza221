@@ -13,19 +13,6 @@ use App\Services\UserDBStorage;
 
 class Router {
     public function route(string $url){
-                // Инициализация глобальных переменных
-                global $user_id, $username;
-
-                if (isset($_SESSION['user_id'])) {
-                    $userStorage = new UserDBStorage();
-                    $userData = $userStorage->getUserById((int)$_SESSION['user_id']);
-                    $user_id = $_SESSION['user_id'];
-                    $username = $userData['username'] ?? '';
-                } else {
-                    $user_id = 0;
-                    $username = '';
-                }
-
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", $path);
         $resource = $pieces[2];
