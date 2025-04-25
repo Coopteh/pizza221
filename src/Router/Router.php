@@ -9,9 +9,23 @@ use App\Controllers\BasketController;
 use App\Controllers\OrderController;
 use App\Controllers\RegisterController;
 use App\Controllers\UserController;
+use App\Services\UserDBStorage;
 
 class Router {
-    public function route(string $url): string {
+    public function route(string $url){
+                // Инициализация глобальных переменных
+                global $user_id, $username;
+
+                if (isset($_SESSION['user_id'])) {
+                    $userStorage = new UserDBStorage();
+                    $userData = $userStorage->getUserById((int)$_SESSION['user_id']);
+                    $user_id = $_SESSION['user_id'];
+                    $username = $userData['username'] ?? '';
+                } else {
+                    $user_id = 0;
+                    $username = '';
+                }
+
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", $path);
         $resource = $pieces[2];
@@ -56,6 +70,17 @@ class Router {
                 $prevUrl = $_SERVER['HTTP_REFERER']; // Возвращаемся на предыдущую страницу
                 header("Location: {$prevUrl}");
                 return ""; // Возвращаем пустую строку
+            case "profile":
+                $userController = new UserController();
+                // Проверяем метод запроса
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    // Если POST-запрос, обновляем данные профиля
+                    $userController->updateProfile();
+                } else {
+                    // Если GET-запрос, отображаем страницу профиля
+                    return $userController->profile();
+                }
+                break;
             default:
                 $home = new HomeController();
                 return $home->get();
