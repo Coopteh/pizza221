@@ -11,7 +11,7 @@ class Config {
     const STORAGE_TYPE= self::TYPE_DB;
         
     // настройки подключения
-    const MYSQL_DNS = 'mysql:dbname=is221;host=localhost';
+    const MYSQL_DNS = 'mysql:dbname=kafeshka;host=localhost';
     const MYSQL_USER = 'root';
     const MYSQL_PASSWORD = '';
     
