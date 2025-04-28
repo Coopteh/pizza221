@@ -1,60 +1,61 @@
-<?php
+<?php 
 namespace App\Services;
 
 use PDO;
-use App\Configs\Config;
 
 class OrderDBStorage extends DBStorage implements ISaveStorage
 {
-    public function saveData($nameFile, $arr): bool
+    public function saveData(string $name, array $data): bool
     {
-        // Сохранение заказа в таблице orders
-        $stmt = $this->connection->prepare("INSERT INTO " . Config::TABLE_ORDERS . " (username, address, phone, email, all_sum) VALUES (:username, :address, :phone, :email, :all_sum)");
-        
-        $stmt->bindParam(':username', $arr['username']);
-        $stmt->bindParam(':address', $arr['address']);
-        $stmt->bindParam(':phone', $arr['phone']);
-        $stmt->bindParam(':email', $arr['email']);
-        $stmt->bindParam(':all_sum', $arr['all_sum']);
-        
-        if (!$stmt->execute()) {
-            throw new \Exception("Ошибка при сохранении заказа: " . implode(", ", $stmt->errorInfo()));
-        }
-        
-        // Получаем ID последней вставленной записи
-        $orderId = $this->connection->lastInsertId();
-        
-        // Сохраняем позиции заказа
-        $this->saveItems($orderId, $arr['products']);
-        
-        return true;
+        $sql = "INSERT INTO `orders`
+        (`fio`, `address`, `phone`, `email`, `all_sum`) 
+        VALUES (:fio, :address, :phone, :email, :sum)";
+
+        $sth = $this->connection->prepare($sql);
+
+        $result= $sth->execute( [
+            'fio' => $data['fio'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'email' => $data['email'],
+            'sum' => $data['all_sum']
+        ] );
+
+        // получаем идентификатор добавленного заказа
+        $idOrder = $this->connection->lastInsertId();
+        // добавляем позиции заказа (заказанные товары)
+        $this->saveItems($idOrder, $data['products']);
+
+        return $result;
     }
 
-    public function saveItems($orderId, $products): void
+    /*
+    добавляет позиции заказа в таблицу order_item
+    */
+    public function saveItems(int $idOrder, array $products): bool 
     {
-        $stmt = $this->connection->prepare("INSERT INTO order_item (order_id, product_id, count_item, price_item, sum_item) VALUES (:order_id, :product_id, :count_item, :price_item, :sum_item)");
-
         foreach ($products as $product) {
-            $productId = $product['id']; // Предполагается, что в массиве есть id продукта
-            $quantity = $product['quantity'];
+            $id = $product['id'];
             $price = $product['price'];
+            $quantity = $product['quantity'];
             $sum = $price * $quantity;
+            // SQL запрос на вставку данных в таблицу  order_item
+            $sql = "INSERT INTO `order_item`
+            (`order_id`, `product_id`, `count_item`, 
+            `price_item`, `sum_item`) 
+            VALUES 
+            (:id_order, :id_product, :count, :price, :sum)";
 
-            $stmt->bindParam(':order_id', $orderId);
-            $stmt->bindParam(':product_id', $productId);
-            $stmt->bindParam(':count_item', $quantity);
-            $stmt->bindParam(':price_item', $price);
-            $stmt->bindParam(':sum_item', $sum);
+            $sth = $this->connection->prepare($sql);
 
-            if (!$stmt->execute()) {
-                throw new \Exception("Ошибка при сохранении позиции заказа: " . implode(", ", $stmt->errorInfo()));
-            }
+            $sth->execute( [
+                'id_order' => $idOrder,
+                'id_product' => $id,
+                'count' => $quantity,
+                'price' => $price,
+                'sum' => $sum
+            ] );
         }
-    }
-
-    public function loadData($nameFile): ?array
-    {
-        // Реализация загрузки данных (если необходимо)
-        return null; // Заглушка
+        return true;
     }
 }

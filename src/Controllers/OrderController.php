@@ -38,7 +38,7 @@ class OrderController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateOrderData::validate($arr)) {
             // переадресация обратно на страницу заказа
-            header("Location: /gostishka/order");
+            header("Location: /avtoservis/order");
             return "";
         }
 
@@ -69,7 +69,7 @@ class OrderController {
         $_SESSION['flash'] = "Спасибо! Ваш заказ успешно создан и передан службе доставки";
         
         // переадресация на Главную
-	    header("Location: /gostishka/");
+	    header("Location: /avtoservis/");
 
         return "";
     }

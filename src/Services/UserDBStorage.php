@@ -67,9 +67,10 @@ class UserDBStorage extends DBStorage implements ISaveStorage
             (username = ? OR email = ?)");
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch();
-//var_dump($username);
-//var_dump($password);
-//exit();
+// var_dump($username);
+// var_dump($password);
+// var_dump($user);
+// exit();
         // проверка записи
         if ($user === false) 
             return false;
@@ -82,4 +83,19 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         
         return true;
     }
+
+    /* Получает данные пользователя по его id */
+    public function getUserData(int $id_user): ?array {
+        $stmt = $this->connection->prepare(
+            "SELECT id, username, email, address, phone
+            FROM users WHERE id = ? ");
+        $stmt->execute([$id_user]);
+
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch();
+            return $user;
+        }
+        return null;
+    }
+
 }

@@ -6,6 +6,7 @@ use App\Configs\Config;
 use App\Services\UserDBStorage;
 
 class UserController {
+    /* Форма входа на сайт */
     public function get(): string {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
@@ -34,4 +35,28 @@ class UserController {
         return "";
     }
 
+    /* Форма профиля пользователя */
+    public function profile(): string {
+        global $user_id;
+
+        $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == "POST")
+            return $this->updateProfile();
+
+
+        $data = null;
+        // проверка логина и пароля
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceDB = new UserDBStorage();
+            $data = $serviceDB->getUserData($user_id);
+            if (! $data) {
+                $_SESSION['flash'] = "Ошибка получения данных пользователя";
+            }
+        }
+        return UserTemplate::getProfileTemplate($data);
+    }
+
+    public function updateProfile(): string {
+        return "";
+    }
 }

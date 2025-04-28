@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App\Router;
 
 use App\Controllers\AboutController;
@@ -14,24 +13,25 @@ class Router {
     public function route(string $url): string {
         $path = parse_url($url, PHP_URL_PATH);
         $pieces = explode("/", $path);
+        //var_dump($pieces);
         $resource = $pieces[2];
         switch ($resource) {
             case "about":
                 $about = new AboutController();
                 return $about->get();
-            case "products":
-                $products = new ProductController();
-                $id = isset($pieces[3]) ? intval($pieces[3]) : null; // Изменено на null
-                return $products->get($id);
-            case "basket":
-                $basketController = new BasketController();
-                $basketController->add();
-                $prevUrl = $_SERVER['HTTP_REFERER'];
-                header("Location: {$prevUrl}");
-                return "";
-            case 'order':
-                $controller = new OrderController();
-                return $controller->get();
+            case "order":
+                $orderController = new OrderController();
+                return $orderController->get();
+            case "register":
+                $registerController = new RegisterController();
+                return $registerController->get();
+            case "profile":
+                $userController = new UserController();
+                return $userController->profile();
+            case "verify":
+                $registerController = new RegisterController();
+                $token = (isset($pieces[3])) ? $pieces[3] : null;
+                return $registerController->verify($token);
             case "login":
                 $userController = new UserController();
                 return $userController->get();
@@ -41,21 +41,22 @@ class Router {
                 session_destroy();
                 header("Location: /avtoservis/");
                 return "";
-            case "register":
-                $registerController = new RegisterController();
-                return $registerController->get();
-            case "verify":
-                if (isset($pieces[3])) { // Проверяем, передан ли токен
-                    $token = $pieces[3];
-                    $registerController = new RegisterController();
-                    return $registerController->verify($token);
-                }
-            case "basket_clear":
+            case 'basket_clear':
                 $basketController = new BasketController();
-                $basketController->clear(); // Очищаем корзину
-                $prevUrl = $_SERVER['HTTP_REFERER']; // Возвращаемся на предыдущую страницу
+                $basketController->clear();
+                $prevUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: {$prevUrl}");
-                return ""; // Возвращаем пустую строку
+                return '';
+            case "products":
+                $productController = new ProductController();
+                $id = (isset($pieces[3])) ? intval($pieces[3]) : null;
+                return $productController->get($id);                
+            case "basket":
+                $basketController = new BasketController();
+                $basketController->add();
+                $prevUrl = $_SERVER['HTTP_REFERER'];
+                header("Location: {$prevUrl}");                    
+                return "";
             default:
                 $home = new HomeController();
                 return $home->get();
