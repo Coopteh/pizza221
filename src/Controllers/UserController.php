@@ -41,9 +41,8 @@ class UserController {
 
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
-            return $this->updateProfile();
-
-
+            return $this->updateProfile($data);
+        
         $data = null;
         // проверка логина и пароля
         if (Config::STORAGE_TYPE == Config::TYPE_DB) {
@@ -57,6 +56,21 @@ class UserController {
     }
 
     public function updateProfile(): string {
+        $arr = [];
+        $arr['address'] = strip_tags($_POST['address']);
+        $arr['phone'] = strip_tags($_POST['phone']);
+
+        // сохранение в БД
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            $serviceDB = new UserDBStorage();
+            if (!$serviceDB->updateProfile($arr)) {
+                $_SESSION['flash'] = "Ошибка сохранения данных";
+            }
+        }
+
+        $_SESSION['flash'] = "Данные профиля обновлены";
+        // переадресация на Главную
+	    header("Location: /pizza221/");
         return "";
     }
 }

@@ -2,11 +2,7 @@
 namespace App\Controllers;
 
 use App\Views\OrderTemplate;
-use App\Models\Product;
-use App\Models\Order;
-use App\Services\FileStorage;
-use App\Services\ProductDBStorage;
-use App\Services\OrderDBStorage;
+use App\Services\UserDBStorage;
 use App\Configs\Config;
 use App\Services\ProductFactory;
 use App\Services\OrderFactory;
@@ -15,15 +11,30 @@ use App\Services\Mailer;
 
 class OrderController {
     public function get(): string {
+        global $user_id;
+
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
             return $this->create();
 
+        // данные из корзины
         $model = ProductFactory::createProduct();
         $data = $model->getBasketData();
         $all_sum = $model->getAllSum($data);
         
-        return OrderTemplate::getOrderTemplate($data, $all_sum);
+        // данные из профиля
+        $dataProfile = null;
+        if ($user_id) {
+            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+                $serviceDB = new UserDBStorage();
+                $dataProfile = $serviceDB->getUserData($user_id);
+                if (! $dataProfile) {
+                    $_SESSION['flash'] = "Ошибка получения данных пользователя";
+                }
+            }
+        }
+
+        return OrderTemplate::getOrderTemplate($data, $all_sum, $dataProfile);
     }
 
     public function create():string {

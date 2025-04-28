@@ -97,4 +97,21 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         return null;
     }
 
+    public function updateProfile($data):bool {
+        global $user_id;
+        try {
+            $update = $this->connection->prepare(
+                "UPDATE users SET address= ?, phone= ? 
+                WHERE id = ?");
+
+            $update->execute([
+                $data['address'],
+                $data['phone'],
+                $user_id
+            ]);
+        } catch (\Exception $e) {
+            return false;
+        }
+        return true;
+    }
 }
