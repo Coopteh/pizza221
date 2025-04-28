@@ -15,19 +15,26 @@ class OrderController
 {
     public function get(): string
     {
-        if (session_status() === PHP_SESSION_NONE) {
-           
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+    
+    }
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            return $this->create();
-        }
+    // Получаем данные пользователя из сессии
+    $userData = [];
+    if (isset($_SESSION['user_id'])) {
+        $userStorage = new UserDBStorage();
+        $userData = $userStorage->getUserById((int)$_SESSION['user_id']);
+    }
 
-        $model = ProductFactory::createProduct();
-        $data = $model->getBasketData();
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        return $this->create();
+    }
 
-        $orderTemplate = new OrderTemplate();
-        return $orderTemplate->getOrderTemplate($data);
+    $model = ProductFactory::createProduct();
+    $data = $model->getBasketData();
+
+    $orderTemplate = new OrderTemplate();
+    return $orderTemplate->getOrderTemplate($data, $userData);
     }
 
     public function create(): string

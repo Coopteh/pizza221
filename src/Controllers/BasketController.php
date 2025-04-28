@@ -20,8 +20,8 @@ class BasketController
                 'quantity' => 1
                 ];
             }
-            //var_dump($_SESSION);
-            //exit();
+            //var_dump();
+           // exit();
             $_SESSION['flash'] = "Товар успешно добавлен в корзину!";
         }
     }
