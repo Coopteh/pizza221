@@ -14,7 +14,7 @@ class ProductTemplate extends BaseTemplate {
                <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4 mt-3">
-                        <img src="{$data['image']}" class="img-fluid rounded-start" alt="Изображение обуви">
+                        <img src="{$data['image']}" class="img-fluid rounded-start" alt="Изображение авто">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
