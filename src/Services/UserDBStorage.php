@@ -67,7 +67,7 @@ class UserDBStorage extends DBStorage implements ISaveStorage
             (username = ? OR email = ?)");
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch();
-//var_dump($username);
+var_dump($user);
 //var_dump($password);
 //exit();
         // проверка записи
@@ -82,4 +82,49 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         
         return true;
     }
+    /**
+     * Получение данных пользователя по ID
+     */
+    public function getUserById(int $userId): array
+    {
+        $stmt = $this->connection->prepare(
+            "SELECT id, username, email, address, phone, avatar FROM users WHERE id = ?"
+        );
+        $stmt->execute([$userId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Обновление данных профиля пользователя (с учётом аватара)
+     */
+    public function updateProfile(int $userId, array $data): bool
+    {
+        $fields = [
+            'username = :username',
+            'email = :email',
+            'address = :address',
+            'phone = :phone'
+        ];
+        if (!empty($data['avatar'])) {
+            $fields[] = 'avatar = :avatar';
+        }
+
+        $query = "UPDATE users SET " . implode(', ', $fields) . " WHERE id = :id";
+        $stmt = $this->connection->prepare($query);
+
+        $params = [
+            ':username' => $data['username'],
+            ':email' => $data['email'],
+            ':address' => $data['address'] ?? null,
+            ':phone' => $data['phone'] ?? null,
+            ':id' => $userId
+        ];
+
+        if (!empty($data['avatar'])) {
+            $params[':avatar'] = $data['avatar'];
+        }
+
+        return $stmt->execute($params);
+    }
+
 }
