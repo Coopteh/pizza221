@@ -220,6 +220,20 @@ if ($user_id > 0) {
                             </div>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center py-2 px-3"
+                           href="http://localhost/history"
+                           style="transition: background-color 0.3s ease; border-radius: 12px;">
+                            <div class="icon-wrapper bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+                                 style="width: 42px; height: 42px;">
+                                <i class="fas fa-shopping-cart text-secondary" style="font-size: 1.2rem;"></i>
+                            </div>
+                            <div>
+                                <span class="fw-semibold">Заказы</span><br>
+                                <small class="text-muted">История заказов</small>
+                            </div>
+                        </a>
+                    </li>
                     <li><hr class="dropdown-divider my-1"></li>
                     <!-- Выход -->
                     <li>

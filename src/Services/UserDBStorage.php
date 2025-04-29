@@ -116,4 +116,21 @@ class UserDBStorage extends DBStorage implements ISaveStorage
 
         return $stmt->execute($params);
     }
+    public function getDataHistory(int $userId): ?array {
+        try {
+            $stmt = $this->connection->prepare(
+                "SELECT id, created, all_sum, status FROM orders WHERE user_id = ? ORDER BY created DESC"
+            );
+            $stmt->execute([$userId]);
+            
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return !empty($orders) ? $orders : null;
+        } catch (\Exception $e) {
+            // Можно добавить логгирование ошибки
+            error_log("Ошибка при получении истории заказов: " . $e->getMessage());
+            return null;
+        }
+    }
 }
+

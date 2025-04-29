@@ -100,4 +100,21 @@ class UserController {
         header("Location: /profile");
         exit();
     }
+    public function getOrdersHistory(): string {
+        global $user_id;
+
+        $data = null;
+
+        if (Config::STORAGE_TYPE === Config::TYPE_DB) {
+            $serviceDB = new UserDBStorage();
+            $data = $serviceDB->getDataHistory($user_id);
+            if (!$data) {
+                $_SESSION['flash'] = "Не удалось получить заказы.";
+            }
+        }
+
+        return UserTemplate::getHistoryTemplate($data);
+        
+    }
+
 }

@@ -45,6 +45,9 @@ class Router {
                 $registerController = new RegisterController();
                 $token = (isset($pieces[2])) ? $pieces[2] : null;
                 return $registerController->verify($token);
+            case "history":
+                $userController = new UserController();
+                return $userController->getOrdersHistory();
             case "login":
                 $userController = new UserController();
                 return $userController->get();
