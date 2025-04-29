@@ -141,6 +141,11 @@ class BaseTemplate
                     border-right: 1px solid rgb(208, 157, 176); /* ← Это она! */
                     color: rgb(208, 157, 176);
                 }
+                .status-icon-block {
+                    background-color: rgba(0, 123, 255, 0.05);
+                    border-top: 1px solid rgba(0, 0, 0, 0.05);
+                    border-radius: 0 0 1rem 1rem;
+                }
             </style>
             <script src="../../assets/css/bootstrap.bundle.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.x.x/dist/js/bootstrap.bundle.min.js"></script>

@@ -295,40 +295,78 @@ class UserTemplate extends BaseTemplate
 
     public static function getHistoryTemplate(?array $data): string {
         $template = parent::getTemplate();
-        $title= 'История  заказов';
-        $content = <<<CORUSEL
-        <main class="row p-5 justify-content-center align-items-center">
-            <div class="col-8 bg-light border">
-                <h3 class="mb-5">История заказов</h3>
-        CORUSEL;
-        $content .= <<<TABLE
-            <table class="table table-striped">
-            <tr>    
-                <th>Номер заказа</th>
-                <th>Дата</th>
-                <th>Сумма</th>
-                <th>Статус</th>
-            </tr>
-        TABLE;
-
-        foreach($data as $row) {
-            $orderDate = date("d-m-Y h:m", strtotime($row['created']));
-            $nameStatus = Config::getStatusName( $row['status'] );
-            $colorStyle = Config::getStatusColor( $row['status'] );
-            $content .= <<<TABLE
-            <tr>    
-                <td>Заказ #{$row['id']}</td>
-                <td>{$orderDate}</td>
-                <td>{$row['all_sum']} ₽</td>
-                <td class="{$colorStyle}">{$nameStatus}</td>
-            </tr>
-            TABLE;
+        $title = 'История заказов';
+    
+        $content = <<<HTML
+        <main class="container my-5">
+            <h2 class="mb-5 text-center fw-bold"><i class="fas fa-shopping-bag text-primary me-2"></i>История заказов</h2>
+        HTML;
+    
+        if (empty($data)) {
+            $content .= '
+                <div class="text-center py-5 bg-light rounded-4 shadow-sm">
+                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Заказов пока нет.</h5>
+                </div>';
+        } else {
+            $content .= '<div class="row g-4">';
+            foreach ($data as $row) {
+                $orderDate = date("d F Y, H:i", strtotime($row['created']));
+                $nameStatus = Config::getStatusName($row['status']);
+                $colorStyle = Config::getStatusColor($row['status']);
+    
+                // Иконка по статусу
+                $iconClass = match ($row['status']) {
+                    1 => 'fa-clock text-warning',
+                    2 => 'fa-check-circle text-success',
+                    3 => 'fa-truck text-info',
+                    4 => 'fa-times-circle text-danger',
+                    default => 'fa-question-circle text-secondary'
+                };
+    
+                $badgeClass = match ($row['status']) {
+                    1 => 'bg-warning-subtle text-warning-emphasis',
+                    2 => 'bg-success-subtle text-success-emphasis',
+                    3 => 'bg-info-subtle text-info-emphasis',
+                    4 => 'bg-danger-subtle text-danger-emphasis',
+                    default => 'bg-secondary-subtle text-secondary-emphasis'
+                };
+    
+                $content .= <<<HTML
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 hover-lift transition-all-300">
+                        <div class="card-body d-flex flex-column p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0 fw-semibold">Заказ #{$row['id']}</h5>
+                                <span class="badge {$badgeClass} rounded-pill px-3 py-2">
+                                    <i class="fas {$iconClass} me-1"></i>{$nameStatus}
+                                </span>
+                            </div>
+    
+                            <ul class="list-unstyled small text-muted mt-3">
+                                <li class="mb-2 d-flex align-items-center">
+                                    <i class="far fa-calendar-alt me-2"></i>
+                                    <span>{$orderDate}</span>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <i class="fas fa-ruble-sign me-2"></i>
+                                    <strong class="text-dark">{$row['all_sum']} ₽</strong>
+                                </li>
+                            </ul>
+                            
+                            <a href="/order/{$row['id']}" class="btn btn-outline-primary btn-sm mt-4 w-100 rounded-pill py-2">
+                                Посмотреть детали
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                HTML;
+            }
+            $content .= '</div>'; // .row
         }
-        
-        $content .= '</table>';
-        $content .= "</div></main>";
-
-        $resultTemplate =  sprintf($template, $title, $content);
-        return $resultTemplate;
+    
+        $content .= '</main>';
+    
+        return sprintf($template, $title, $content);
     }
 }
