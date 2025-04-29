@@ -28,6 +28,9 @@ class Router {
             case "profile":
                 $userController = new UserController();
                 return $userController->profile();
+            case "history":
+                $userController = new UserController();
+                return $userController->getOrdersHistory();
             case "verify":
                 $registerController = new RegisterController();
                 $token = (isset($pieces[3])) ? $pieces[3] : null;

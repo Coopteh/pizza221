@@ -19,4 +19,32 @@ class Config {
     const TABLE_ORDERS="orders";
 
     const SITE_URL="https://localhost/pizza221";
+
+    public const CODE_STATUS = [
+        "без статуса",
+        "в работе",
+        "доставляется",
+        "завершен"
+      ];
+    public const CODE_STATUS_COLOR = [
+        "text-danger",
+        "text-primary",
+        "text-info",
+        "text-success"
+      ];
+    
+      public static function getStatusName(int $code): string {
+        if (isset(self::CODE_STATUS[$code])) {
+          return self::CODE_STATUS[$code];
+        } else {
+          throw new \InvalidArgumentException("Invalid status code: " . $code);
+        }
+      }
+      public static function getStatusColor(int $code): string {
+        if (isset(self::CODE_STATUS_COLOR[$code])) {
+          return self::CODE_STATUS_COLOR[$code];
+        } else {
+          throw new \InvalidArgumentException("Invalid status code: " . $code);
+        }
+      }
 }
