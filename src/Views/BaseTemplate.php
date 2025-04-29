@@ -40,9 +40,15 @@ class BaseTemplate
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/order">Заказ</a>
                         </li>
+        LINE;
+if ($user_id == 0) {                        
+        $template .= <<<LINE
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/register">Регистрация</a>
                         </li>
+        LINE;
+}
+        $template .= <<<LINE
                     </ul>
                     </div>
                 </div>
@@ -57,6 +63,7 @@ if ($user_id > 0) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>
+                            <li><a class="dropdown-item" href="/pizza221/history">История заказов</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
