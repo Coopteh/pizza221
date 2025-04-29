@@ -41,7 +41,7 @@ class UserController {
 
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
-            return $this->updateProfile($data);
+            return $this->updateProfile();;
         
         $data = null;
         // проверка логина и пароля
@@ -73,4 +73,19 @@ class UserController {
 	    header("Location: /pizza221/");
         return "";
     }
+    public function getOrdersHistory(): string {
+        global $user_id;
+            
+        $data = null;
+        // проверка данных по заказам для юзера
+        if ($user_id > 0)
+            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+                $serviceDB = new UserDBStorage();
+                $data = $serviceDB->getDataHistory($user_id);
+                if (! $data) {
+                    $_SESSION['flash'] = "Ошибка получения данных пользователя";
+                }
+            }
+            return UserTemplate::getHistoryTemplate($data);   
+        }
 }

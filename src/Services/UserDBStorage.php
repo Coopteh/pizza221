@@ -7,6 +7,8 @@ class UserDBStorage extends DBStorage implements ISaveStorage
 {
     public function saveData(string $name, array $data): bool
     {
+        global $user_id;
+
         $sql = "INSERT INTO `users`
         (`username`, `email`, `password`, `token`) 
         VALUES (:name, :email, :pass, :token)";
@@ -113,5 +115,17 @@ class UserDBStorage extends DBStorage implements ISaveStorage
             return false;
         }
         return true;
+    }
+    public function getDataHistory(int $idUser): ?array {
+        $stmt = $this->connection->prepare(
+            "SELECT id, created, all_sum, status
+            FROM orders WHERE user_id = :userId ");
+        $stmt->execute(["userId" => $idUser]);
+
+        if ($stmt->rowCount() > 0) {
+            $orders = $stmt->fetchAll();
+            return $orders;
+        }
+        return null;    
     }
 }

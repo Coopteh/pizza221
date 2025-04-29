@@ -2,11 +2,12 @@
 namespace App\Views;
 
 use App\Views\BaseTemplate;
+use App\Configs\Config;
 
 class UserTemplate extends BaseTemplate
 {
     /*
-        Формирование страница "Регистрация"
+        Формирование страницы "Регистрация"
     */
     public static function getUserTemplate(): string {
         $template = parent::getTemplate();
@@ -88,7 +89,7 @@ class UserTemplate extends BaseTemplate
                          <span class="input-group-text">
                              <i class="fas fa-user text-muted"></i>
                          </span>
-                         <input type="text" name="username" class="form-control" placeholder="Логин (имя или емайл)" required>
+                         <input type="text" name="username" class="form-control" placeholder="Логин (имя или email)" required>
                      </div>
 
                      <!-- Пароль -->
@@ -113,21 +114,22 @@ class UserTemplate extends BaseTemplate
         $resultTemplate = sprintf($template, $title, $content);
         return $resultTemplate;
     }
+    
 
     /*
-        Формирование страница "Профиль"
+        Формирование страницы "Профиль"
     */
     public static function getProfileTemplate(?array $data): string {
         $template = parent::getTemplate();
         $title= 'Профиль пользователя';
         
-        // Prepare user data
+        // Подготовка данных пользователя
         $fio = htmlspecialchars($data[1] ?? "");
         $email = htmlspecialchars($data[2] ?? "");
         $address = htmlspecialchars($data[3] ?? "");
         $phone = htmlspecialchars($data[4] ?? "");
 
-        // Profile form content
+        // Содержимое формы профиля
         $content = <<<CORUSEL
         <style>
             /* Основные цвета - серые, элегантные */
@@ -235,5 +237,47 @@ class UserTemplate extends BaseTemplate
        $resultTemplate = sprintf($template, $title, $content);
        return $resultTemplate;
 
+    }
+
+    /*
+        Формирование страницы "История заказов"
+    */
+    public static function getHistoryTemplate(?array $data): string {
+        $template = parent::getTemplate();
+        $title= 'История  заказов';
+        $content = <<<CORUSEL
+        <main class="row p-5 justify-content-center align-items-center">
+            <div class="col-8 bg-light border">
+                <h3 class="mb-5">История заказов</h3>
+        CORUSEL;
+        $content .= <<<TABLE
+            <table class="table table-striped">
+            <tr>    
+                <th>Номер заказа</th>
+                <th>Дата</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+            </tr>
+        TABLE;
+        if ($data)
+        foreach($data as $row) {
+            $orderDate = date("d-m-Y h:m", strtotime($row['created']));
+            $nameStatus = Config::getStatusName( $row['status'] );
+            $colorStyle = Config::getStatusColor( $row['status'] );
+            $content .= <<<TABLE
+            <tr>    
+                <td>Заказ #{$row['id']}</td>
+                <td>{$orderDate}</td>
+                <td>{$row['all_sum']} ₽</td>
+                <td class="{$colorStyle}">{$nameStatus}</td>
+            </tr>
+            TABLE;
+        }
+        
+        $content .= '</table>';
+        $content .= "</div></main>";
+
+        $resultTemplate =  sprintf($template, $title, $content);
+        return $resultTemplate;
     }
 }
