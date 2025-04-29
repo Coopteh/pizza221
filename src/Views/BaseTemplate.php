@@ -52,6 +52,8 @@ class BaseTemplate
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>
                                     <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/pizza221/history">История заказаов</a></li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="/pizza221/logout">Выход</a></li>
                                 </ul>
                             </li>

@@ -12,6 +12,7 @@ class UserController {
             $this->userStorage = new UserDBStorage();
         }
     }
+    /* Форма входа на сайт */
     public function get(): string {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == "POST")
@@ -107,7 +108,11 @@ class UserController {
             $_SESSION['flash'] = "Ошибка при обновлении профиля.";
         }
 
-        header("Location: /profile");
+        header("Location: /pizza221/profile");
         exit();
+    }
+    public function getOrdersHistory() {
+        $data = $this->userStorage->getDataHistory();
+        return UserTemplate::getHistoryTemplate($data);
     }
 }

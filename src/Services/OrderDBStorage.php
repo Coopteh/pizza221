@@ -7,15 +7,18 @@ use App\Configs\Config;
 class OrderDBStorage extends DBStorage implements ISaveStorage
 {
     public function saveData($nameFile, $arr): bool
-    {
+    { 
+        global $user_id;
         // Сохранение заказа в таблице orders
-        $stmt = $this->connection->prepare("INSERT INTO " . Config::TABLE_ORDERS . " (fio, address, phone, email, all_sum) VALUES (:fio, :address, :phone, :email, :all_sum)");
+        $stmt = $this->connection->prepare("INSERT INTO " . Config::TABLE_ORDERS . " (fio, address, phone, email, all_sum, user_id, status) VALUES (:fio, :address, :phone, :email, :all_sum, :user_id, 1)");
         
         $stmt->bindParam(':fio', $arr['fio']);
         $stmt->bindParam(':address', $arr['address']);
         $stmt->bindParam(':phone', $arr['phone']);
         $stmt->bindParam(':email', $arr['email']);
         $stmt->bindParam(':all_sum', $arr['all_sum']);
+        $stmt->bindParam(':user_id', $user_id);
+
         
         if (!$stmt->execute()) {
             throw new \Exception("Ошибка при сохранении заказа: " . implode(", ", $stmt->errorInfo()));

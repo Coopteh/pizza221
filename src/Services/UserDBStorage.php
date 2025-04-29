@@ -126,5 +126,16 @@ var_dump($user);
 
         return $stmt->execute($params);
     }
+    public function getDataHistory(): array {
+        if (!isset($_SESSION['user_id'])) {
+            return []; // Если пользователь не авторизован, возвращаем пустой массив
+        }
 
+        $userId = $_SESSION['user_id'];
+        $stmt = $this->connection->prepare("SELECT * FROM orders WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Возвращаем массив всех заказов
+    }
 }

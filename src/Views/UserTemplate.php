@@ -2,6 +2,7 @@
 namespace App\Views;
 
 use App\Views\BaseTemplate;
+use App\Configs\Config;
 
 class UserTemplate extends BaseTemplate
 {
@@ -41,6 +42,44 @@ class UserTemplate extends BaseTemplate
                 </form>
         FORMA;
         return $html;
+    }
+    public static function getHistoryTemplate(?array $data): string {
+        $template = parent::getTemplate();
+        $title = 'История заказов';
+        $content = <<<HTML
+        <main class="row p-5 justify-content-center align-items-center">
+            <div class="col-8 bg-light border">
+                <h3 class="mb-5">История заказов</h3>
+        HTML;
+    
+        $content .= <<<TABLE
+            <table class="table table-striped">
+            <tr>    
+                <th>Номер заказа</th>
+                <th>Дата</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+            </tr>
+        TABLE;
+    
+        foreach($data as $row) {
+            $orderDate = date("d-m-Y H:i", strtotime($row['created']));
+            $nameStatus = Config::getStatusName($row['status']);
+            $colorStyle = Config::getStatusColor($row['status']); // Предполагается, что вы добавили этот метод
+            $content .= <<<TABLE
+            <tr>    
+                <td>Заказ #{$row['id']}</td>
+                <td>{$orderDate}</td>
+                <td>{$row['all_sum']} ₽</td>
+                <td class="{$colorStyle}">{$nameStatus}</td>
+            </tr>
+            TABLE;
+        }
+        
+        $content .= '</table>';
+        $content .= "</div></main>";
+    
+        return sprintf($template, $title, $content);
     }
     public static function getProfileForm (array $userData = []): string {
         $template = parent::getTemplate();
@@ -236,7 +275,7 @@ class UserTemplate extends BaseTemplate
                     <!-- Кнопка -->
                     <div class="d-grid mt-4">
                         <button type="submit" class="btn btn-custom">
-                            <i class="fas fa-save me-2"></i> Сохранить изменения
+                            <i class="fas fa-save me-2" action="/pizza221/profile"></i> Сохранить изменения
                         </button>
                     </div>
                 </form>

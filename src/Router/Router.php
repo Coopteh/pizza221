@@ -42,6 +42,9 @@ class Router {
                 session_destroy();
                 header("Location: /pizza221/");
                 return "";
+            case "history":
+                $userController = new UserController();
+                return $userController->getOrdersHistory();
             case "register":
                 $registerController = new RegisterController();
                 return $registerController->get();
