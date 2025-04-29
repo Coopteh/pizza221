@@ -12,53 +12,14 @@ class RegisterTemplate extends BaseTemplate
         $template = parent::getTemplate();
         $title= 'Регистрация нового пользователя';
         $content = <<<CORUSEL
-        <style>
-            :root {
-                --bg-color: #e9ecef; /* Светло-серый фон */
-                --card-bg: #ffffff; /* Белый фон карточки */
-                --text-color: #495057; /* Темно-серый текст */
-                --border-color: #ced4da; /* Серый цвет границ */
-                --primary-color: #6c757d; /* Серый цвет кнопки */
-            }
-
-            body {
-                background-color: var(--bg-color);
-            }
-
-            .registration-card {
-                background-color: var(--card-bg);
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                padding: 2rem;
-            }
-
-            .form-label {
-                color: var(--text-color);
-            }
-
-            .form-control {
-                border: 1px solid var(--border-color);
-            }
-
-            .btn-primary {
-                background-color: var(--primary-color);
-                border: none;
-                color: white;
-                transition: opacity 0.3s ease; /* Плавный переход для opacity */
-            }
-
-            .btn-primary:hover {
-                opacity: 0.7; /* Полупрозрачность при наведении */
-            }
-        </style>
         <main class="row p-5 justify-content-center align-items-center">
-            <div class="col-5 registration-card">
-                <h3 class="mb-5 text-center">Регистрация пользователя</h3>
+            <div class="col-5 bg-light border rounded shadow-lg" style="background-color: #f8f9fa;">
+                <h3 class="mb-4 text-center text-dark">Регистрация пользователя</h3>
         CORUSEL;
         $content .= self::getFormRegister();
         $content .= "</div></main>";
 
-        $resultTemplate = sprintf($template, $title, $content);
+        $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
     }
 
@@ -67,14 +28,14 @@ class RegisterTemplate extends BaseTemplate
         $title= 'Подтверждение нового пользователя';
         $content = <<<CORUSEL
         <main class="row p-5 justify-content-center align-items-center">
-            <div class="col-5 bg-light border">
-                <h3 class="mb-5">Успешное завершение регистрации</h3>
+            <div class="col-5 bg-light border rounded shadow-lg" style="background-color: #f8f9fa;">
+                <h3 class="mb-4 text-center text-dark">Успешное завершение регистрации</h3>
         CORUSEL;
         $content .= "Ваш email успешно подтвержден!<br>
-                     Теперь вы можете войти на сайт";
+        Теперь вы можете войти на сайт";
         $content .= "</div></main>";
 
-        $resultTemplate = sprintf($template, $title, $content);
+        $resultTemplate =  sprintf($template, $title, $content);
         return $resultTemplate;
     }
 
@@ -84,24 +45,24 @@ class RegisterTemplate extends BaseTemplate
     */
     public static function getFormRegister(): string {
         $html= <<<FORMA
-                <form action="/pizza221/register" method="POST">
+                <form action="/pizza221/register" method="POST" class="p-4">
                     <div class="mb-3">
-                        <label for="nameInput" class="form-label">Имя пользователя:</label>
-                        <input type="text" name="username" class="form-control" id="nameInput" required>
+                        <label for="nameInput" class="form-label text-dark">Имя пользователя:</label>
+                        <input type="text" name="username" class="form-control" id="nameInput" required style="border: 1px solid #ced4da; background-color: #e9ecef;">
                     </div>
                     <div class="mb-3">
-                        <label for="emailInput" class="form-label">Емайл:</label>
-                        <input type="email" name="email" class="form-control" id="emailInput" required>
+                        <label for="emailInput" class="form-label text-dark">Емайл:</label>
+                        <input type="email" name="email" class="form-control" id="emailInput" required style="border: 1px solid #ced4da; background-color: #e9ecef;">
                     </div>
                     <div class="mb-3">
-                        <label for="passwordInput" class="form-label">Пароль:</label>
-                        <input type="password" name="password" class="form-control" id="passwordInput" required>
+                        <label for="passwordInput" class="form-label text-dark">Пароль:</label>
+                        <input type="password" name="password" class="form-control" id="passwordInput" required style="border: 1px solid #ced4da; background-color: #e9ecef;">
                     </div>
                     <div class="mb-3">
-                        <label for="confirm_passwordInput" class="form-label">Подтверждение пароля:</label>
-                        <input type="password" name="confirm_password" class="form-control" id="confirm_passwordInput" required>
+                        <label for="confirm_passwordInput" class="form-label text-dark">Подтверждение пароля:</label>
+                        <input type="password" name="confirm_password" class="form-control" id="confirm_passwordInput" required style="border: 1px solid #ced4da; background-color: #e9ecef;">
                     </div>      
-                    <button type="submit" class="btn btn-primary mb-3 w-100">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-dark w-100 mb-3">Зарегистрироваться</button>
                 </form>
         FORMA;
         return $html;

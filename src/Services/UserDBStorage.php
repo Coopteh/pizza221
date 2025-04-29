@@ -67,7 +67,7 @@ class UserDBStorage extends DBStorage implements ISaveStorage
             (username = ? OR email = ?)");
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch();
-var_dump($user);
+//var_dump($username);
 //var_dump($password);
 //exit();
         // проверка записи
@@ -82,49 +82,36 @@ var_dump($user);
         
         return true;
     }
-    /**
-     * Получение данных пользователя по ID
-     */
-    public function getUserById(int $userId): array
-    {
+
+    /* Получает данные пользователя по его id */
+    public function getUserData(int $id_user): ?array {
         $stmt = $this->connection->prepare(
-            "SELECT id, username, email, address, phone, avatar FROM users WHERE id = ?"
-        );
-        $stmt->execute([$userId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+            "SELECT id, username, email, address, phone
+            FROM users WHERE id = ? ");
+        $stmt->execute([$id_user]);
+
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch();
+            return $user;
+        }
+        return null;
     }
 
-    /**
-     * Обновление данных профиля пользователя (с учётом аватара)
-     */
-    public function updateProfile(int $userId, array $data): bool
-    {
-        $fields = [
-            'username = :username',
-            'email = :email',
-            'address = :address',
-            'phone = :phone'
-        ];
-        if (!empty($data['avatar'])) {
-            $fields[] = 'avatar = :avatar';
+    public function updateProfile($data):bool {
+        global $user_id;
+        try {
+            $update = $this->connection->prepare(
+                "UPDATE users SET address= ?, phone= ? 
+                WHERE id = ?");
+
+            $update->execute([
+                $data['address'],
+                $data['phone'],
+                $user_id
+            ]);
+        } catch (\Exception $e) {
+            return false;
         }
-
-        $query = "UPDATE users SET " . implode(', ', $fields) . " WHERE id = :id";
-        $stmt = $this->connection->prepare($query);
-
-        $params = [
-            ':username' => $data['username'],
-            ':email' => $data['email'],
-            ':address' => $data['address'] ?? null,
-            ':phone' => $data['phone'] ?? null,
-            ':id' => $userId
-        ];
-
-        if (!empty($data['avatar'])) {
-            $params[':avatar'] = $data['avatar'];
-        }
-
-        return $stmt->execute($params);
+        return true;
     }
-
 }

@@ -25,7 +25,7 @@ class Mailer {
                 $mail->Port       = 465;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                 $mail->Subject = 'Заявка с сайта: PIZZA-221';
-                $mail->Body = "Информационное сообщение c сайта Мебель-221 <br><br>
+                $mail->Body = "Информационное сообщение c сайта PIZZA-221 <br><br>
                 ------------------------------------------<br><br>
                 Спасибо!<br><br>
                 Ваш заказ успешно создан и передан службе доставки.<br><br>

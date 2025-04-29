@@ -1,9 +1,6 @@
 <?php 
-
 namespace App\Services;
 
-use App\Services\DBStorage;
-use App\Services\ILoadStorage;
 use PDO;
 
 class ProductDBStorage extends DBStorage implements ILoadStorage
