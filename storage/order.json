@@ -1,106 +1,93 @@
 [
     {
-        "fio": "Иван",
-        "address": "Кемерово",
-        "phone": "+1",
-        "created_at": "25-03-2025 04:37:46",
+        "fio": "Бычков Роман Херасимович",
+        "address": "Ленина 75 а",
+        "phone": "89505807529",
+        "created_at": "25-03-2025 06:15:06",
         "products": [
             {
                 "id": 1,
-                "name": "Пицца Маргарита",
+                "name": "еда",
                 "quantity": 1,
-                "price": 550,
-                "sum": 550
+                "price": 500,
+                "sum": 500
             }
         ],
-        "all_sum": 550
+        "all_sum": 500
     },
     {
-        "fio": "Anna",
-        "address": "Москва",
-        "phone": "+2",
-        "created_at": "25-03-2025 04:38:18",
+        "fio": "Бычков Роман Херасимович",
+        "address": "Ленина 75 а",
+        "phone": "89505807529",
+        "created_at": "29-03-2025 10:49:31",
         "products": [
             {
                 "id": 1,
-                "name": "Пицца Маргарита",
+                "name": "еда",
                 "quantity": 1,
-                "price": 550,
-                "sum": 550
+                "price": 500,
+                "sum": 500
             }
         ],
-        "all_sum": 550
+        "all_sum": 500
     },
     {
-        "fio": "Владислав Анатольевич Милевский",
-        "address": "г. Кемерово, ул. Тухачевского, 32",
-        "phone": "+8 999 9000 0000",
-        "created_at": "25-03-2025 04:47:00",
+        "fio": "Бычков Роман Херасимович",
+        "address": "Ленина 75 а",
+        "phone": "89505807529",
+        "created_at": "31-03-2025 08:05:07",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Бычков Роман Херасимович",
+        "address": "Кузнецкий 122",
+        "phone": "89505807529",
+        "created_at": "31-03-2025 08:12:50",
+        "email": null,
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Бычков Роман Херасимович",
+        "address": "Кузнецкий 122",
+        "phone": "89505807529",
+        "created_at": "31-03-2025 08:14:09",
+        "email": null,
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Бычков Роман Херасимович",
+        "address": "Кузнецкий 122",
+        "phone": "89505807529",
+        "created_at": "31-03-2025 08:15:56",
+        "email": "ruspodakna@gufum.com",
+        "products": [],
+        "all_sum": 0
+    },
+    {
+        "fio": "Бычков Роман Херасимович",
+        "address": "Кузнецкий 122",
+        "phone": "89505807529",
+        "email": "yospupirte@gufum.com",
+        "created_at": "31-03-2025 10:46:14",
         "products": [
             {
                 "id": 1,
-                "name": "Пицца Маргарита",
+                "name": "еда",
                 "quantity": 1,
-                "price": 550,
-                "sum": 550
+                "price": 500,
+                "sum": 500
             },
             {
                 "id": 2,
-                "name": "Пицца Пипперони",
+                "name": "хавай",
                 "quantity": 1,
-                "price": 650,
-                "sum": 650
+                "price": 400,
+                "sum": 400
             }
         ],
-        "all_sum": 1200
-    },
-    {
-        "fio": "Jhon",
-        "address": "New Jork",
-        "phone": "+7 001004065544",
-        "created_at": "25-03-2025 04:49:09",
-        "products": [
-            {
-                "id": 1,
-                "name": "Пицца Маргарита",
-                "quantity": 1,
-                "price": 550,
-                "sum": 550
-            }
-        ],
-        "all_sum": 550
-    },
-    {
-        "fio": "gfgd",
-        "address": "gdgd",
-        "phone": "gdgd4532",
-        "created_at": "29-03-2025 11:13:25",
-        "products": [
-            {
-                "id": 1,
-                "name": "Пицца Маргарита",
-                "quantity": 2,
-                "price": 550,
-                "sum": 1100
-            }
-        ],
-        "all_sum": 1100
-    },
-    {
-        "fio": "Оськин Артем Денисович",
-        "address": "рангшыуаозшыоашщцшуощзшко 4312",
-        "phone": "89516188895",
-        "email": "v.milevskiy@coopteh.ru",
-        "created_at": "29-03-2025 11:27:15",
-        "products": [
-            {
-                "id": 2,
-                "name": "Пицца Пипперони",
-                "quantity": 1,
-                "price": 650,
-                "sum": 650
-            }
-        ],
-        "all_sum": 650
+        "all_sum": 900
     }
 ]

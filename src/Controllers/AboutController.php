@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Controllers;
 
 use App\Views\AboutTemplate;
