@@ -127,7 +127,7 @@ class OrderTemplate extends BaseTemplate
                         <label for="emailInput" class="form-label">Емайл:</label>
                         <input type="email" name="email" class="form-control" id="emailInput" value="{$email}">
                     </div>                    
-                    <button type="submit" class="btn btn-primary">Создать заказ</button>
+                    <button type="submit" class="btn btn-primary">Оставить заявку</button>
                 </form>
         FORMA;
         return $html;

@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Страхование автотранспорта",
-    "image": "assets/images/image4.png",
+    "image": "assets/images/avto.png",
     "description": "Страхование от 5000 рублей",
     "price": 5000
   },

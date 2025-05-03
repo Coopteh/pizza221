@@ -38,7 +38,7 @@ class BaseTemplate
                         <a class="nav-link" href="/strax/about">О нас</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/strax/order">Заказ</a>
+                        <a class="nav-link" href="/strax/order">Заявки</a>
                         </li>
         LINE;
 if ($user_id == 0) {                        
@@ -63,7 +63,7 @@ if ($user_id > 0) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/strax/profile">Профиль</a></li>
-                            <li><a class="dropdown-item" href="/strax/history">История заказов</a></li>
+                            <li><a class="dropdown-item" href="/strax/history">История заявок</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

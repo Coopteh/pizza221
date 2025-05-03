@@ -23,7 +23,7 @@ class ProductTemplate extends BaseTemplate {
                             <p class="card-text"><strong class="text-body-primary">{$data['price']} руб.</strong></p>
                             <form class="mt-4" action="/strax/basket" method="POST">
                                 <input type="hidden" name="id" value="{$data['id']}">
-                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                                <button type="submit" class="btn btn-primary">Отправить заявку</button>
                             </form>
                         </div>
                         <div>
@@ -60,7 +60,7 @@ class ProductTemplate extends BaseTemplate {
                     <h6 class="card-price">{$item['price']} ₽</h6>
                     <form class="mt-4" action="/strax/basket" method="POST">
                             <input type="hidden" name="id" value="{$item['id']}">
-                            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                            <button type="submit" class="btn btn-primary">Оставить заявку</button>
                         </form>
                 </div>
             </div>
