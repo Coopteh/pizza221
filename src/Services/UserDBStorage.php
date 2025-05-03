@@ -114,4 +114,18 @@ class UserDBStorage extends DataBaseStorage implements ISaveStorage
         }
         return true;
     }
+
+    public function getDataHistory(int $idUser): ?array {
+
+        $stmt = $this->connection->prepare(
+            "SELECT id, created, all_sum, status
+            FROM orders WHERE user_id = :userId ");
+        $stmt->execute(["userId" => $idUser]);
+
+        if ($stmt->rowCount() > 0) {
+            $orders = $stmt->fetchAll();
+            return $orders;
+        }
+        return null;
+    }
 }

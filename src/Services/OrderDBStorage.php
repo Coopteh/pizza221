@@ -1,47 +1,64 @@
-<?php
+<?php 
 namespace App\Services;
 
 use PDO;
-use PDOException;
 
-class OrderDBStorage implements ISaveStorage
+class OrderDBStorage extends DataBaseStorage implements ISaveStorage
 {
-    private PDO $pdo;
-
-    public function __construct()
-    {
-        try {
-            $this->pdo = new PDO(
-                'mysql:host=localhost;dbname=is221;charset=utf8mb4',
-                'root',
-                '',
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                ]
-            );
-        } catch (PDOException $e) {
-            throw new \RuntimeException('Ошибка подключения к базе данных: ' . $e->getMessage());
-        }
-    }
-
     public function saveData(string $name, array $data): bool
     {
-        try {
-            $stmt = $this->pdo->prepare(
-                "INSERT INTO $name (product_id, quantity, price, created_at) 
-                 VALUES (:product_id, :quantity, :price, NOW())"
-            );
-            
-            return $stmt->execute([
-                ':product_id' => $data['product_id'],
-                ':quantity' => $data['quantity'],
-                ':price' => $data['price']
-            ]);
-            
-        } catch (PDOException $e) {
-            error_log('Ошибка сохранения заказа: ' . $e->getMessage());
-            return false;
+        global $user_id;
+
+        $sql = "INSERT INTO `orders`
+        (`fio`, `address`, `phone`, `email`, `all_sum`, `user_id`, `status`) 
+        VALUES (:fio, :address, :phone, :email, :sum, :idUser, 1)";
+
+        $sth = $this->connection->prepare($sql);
+
+        $result= $sth->execute( [
+            'fio' => $data['fio'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'email' => $data['email'],
+            'sum' => $data['all_sum'],
+            'idUser' => $user_id
+        ] );
+
+        // получаем идентификатор добавленного заказа
+        $idOrder = $this->connection->lastInsertId();
+        // добавляем позиции заказа (заказанные товары)
+        $this->saveItems($idOrder, $data['products']);
+
+        return $result;
+    }
+
+    /*
+    добавляет позиции заказа в таблицу order_item
+    */
+    public function saveItems(int $idOrder, array $products): bool 
+    {
+        foreach ($products as $product) {
+            $id = $product['id'];
+            $price = $product['price'];
+            $quantity = $product['quantity'];
+            $sum = $price * $quantity;
+            // SQL запрос на вставку данных в таблицу  order_item
+            $sql = "INSERT INTO `order_item`
+            (`order_id`, `product_id`, `count_item`, 
+            `price_item`, `sum_item`) 
+            VALUES 
+            (:id_order, :id_product, :count, :price, :sum)";
+
+            $sth = $this->connection->prepare($sql);
+
+            $sth->execute( [
+                'id_order' => $idOrder,
+                'id_product' => $id,
+                'count' => $quantity,
+                'price' => $price,
+                'sum' => $sum
+            ] );
         }
+        return true;
     }
 }

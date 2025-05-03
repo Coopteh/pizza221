@@ -21,7 +21,7 @@ class BaseTemplate
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="https://localhost/strax/assets/images/logo.png" alt="Логотип компании" width="64" height="64">
-                    Страхование
+                        Страхование
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,9 +40,15 @@ class BaseTemplate
                         <li class="nav-item">
                         <a class="nav-link" href="/strax/order">Заказ</a>
                         </li>
+        LINE;
+if ($user_id == 0) {                        
+        $template .= <<<LINE
                         <li class="nav-item">
                         <a class="nav-link" href="/strax/register">Регистрация</a>
                         </li>
+        LINE;
+}
+        $template .= <<<LINE
                     </ul>
                     </div>
                 </div>
@@ -57,6 +63,7 @@ if ($user_id > 0) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/strax/profile">Профиль</a></li>
+                            <li><a class="dropdown-item" href="/strax/history">История заказов</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

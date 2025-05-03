@@ -73,4 +73,21 @@ class UserController {
 	    header("Location: /strax/");
         return "";
     }
+
+    public function getOrdersHistory(): string {
+        global $user_id;
+        
+        $data = null;
+        // получение данных по заказам для юзера
+        if ($user_id > 0)
+            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+                $serviceDB = new UserDBStorage();
+                $data = $serviceDB->getDataHistory($user_id);
+                if (! $data) {
+                    $_SESSION['flash'] = "Ошибка получения данных пользователя";
+                }
+            }
+
+        return UserTemplate::getHistoryTemplate($data);
+    }
 }

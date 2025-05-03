@@ -2,6 +2,7 @@
 namespace App\Views;
 
 use App\Views\BaseTemplate;
+use App\Configs\Config;
 
 class UserTemplate extends BaseTemplate
 {
@@ -93,5 +94,48 @@ class UserTemplate extends BaseTemplate
                 </form>
         FORMA;
         return $html;
+    }
+
+    /*
+        Формирование страница "История заказов"
+    */
+    public static function getHistoryTemplate(?array $data): string {
+        $template = parent::getTemplate();
+        $title= 'История  заказов';
+        $content = <<<CORUSEL
+        <main class="row p-5 justify-content-center align-items-center">
+            <div class="col-8 bg-light border">
+                <h3 class="mb-5">История заказов</h3>
+        CORUSEL;
+        $content .= <<<TABLE
+            <table class="table table-striped">
+            <tr>    
+                <th>Номер заказа</th>
+                <th>Дата</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+            </tr>
+        TABLE;
+
+        if (isset($data)) {
+            foreach($data as $row) {
+                $orderDate = date("d-m-Y h:m", strtotime($row['created']));
+                $nameStatus = Config::getStatusName( $row['status'] );
+                $colorStyle = Config::getStatusColor( $row['status'] );
+                $content .= <<<TABLE
+                <tr>    
+                    <td>Заказ #{$row['id']}</td>
+                    <td>{$orderDate}</td>
+                    <td>{$row['all_sum']} ₽</td>
+                    <td class="{$colorStyle}">{$nameStatus}</td>
+                </tr>
+                TABLE;
+            }
+        }
+        $content .= '</table>';
+        $content .= "</div></main>";
+
+        $resultTemplate =  sprintf($template, $title, $content);
+        return $resultTemplate;
     }
 }

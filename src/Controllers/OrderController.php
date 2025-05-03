@@ -49,7 +49,7 @@ class OrderController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateOrderData::validate($arr)) {
             // переадресация обратно на страницу заказа
-            header("Location: /pizza221/order");
+            header("Location: /strax/order");
             return "";
         }
 
