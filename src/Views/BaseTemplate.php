@@ -3,6 +3,7 @@ namespace App\Views;
 class BaseTemplate 
 {
     public static function getTemplate(): string {
+        global $user_id, $username;
         $template = <<<HTML
         <!DOCTYPE html>
         <html lang="ru">
@@ -41,15 +42,54 @@ class BaseTemplate
                         <li class="nav-item">
                         <a class="nav-link" href="/pizza221/order">Заказ</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="/pizza221/register">Регистрация</a>
+                        
+                   
+                      
+                    
                         </li>
+                        <li class="nav-item dropdown">
+                                    <button class="btn btn-register dropdown-toggle" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user-plus"></i>Регистрация
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="registerDropdown">
+                                        <li><a class="dropdown-item" href="http://localhost/pizza221/register"><i class="fas fa-sign-in-alt"></i>Зарегистрироваться</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost/pizza221/login"><i class="fas fa-user"></i>Войти</a></li>
+                                    </ul>
+                                </li>
+
+
+                                <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {$username}
+                            </a>
+                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> 
+                                <!--<li><a class="dropdown-item" href="/pizza221/profile">Профиль</a></li>-->
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/pizza221/logout">Выход</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                                
                     </ul>
                     </div>
                 </div>
                 </nav>
+
+
+                
             </header>
         HTML;
+
+
+            $template .= "</nav></header>";
 
         // Добавим flash сообщение
         if(!isset($_SESSION))

@@ -20,11 +20,11 @@ class RegisterController {
 
     public function verify($token): string {
         session_start();
-        if (!isset($token))
+            if (!isset($token))
             $_SESSION['flash'] = "Ваш токен неверен";
 
         // Запись верификации (is_verified=1) для указанного токена
-        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
             $serviceDB = new UserDBStorage();
             if ($serviceDB->saveVerified($token)) {
                 return RegisterTemplate::getVerifyTemplate();
