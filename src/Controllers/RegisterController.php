@@ -19,12 +19,11 @@ class RegisterController {
     }
 
     public function verify($token): string {
-        session_start();
-            if (!isset($token))
+        if (!isset($token))
             $_SESSION['flash'] = "Ваш токен неверен";
 
         // Запись верификации (is_verified=1) для указанного токена
-            if (Config::STORAGE_TYPE == Config::TYPE_DB) {
+        if (Config::STORAGE_TYPE == Config::TYPE_DB) {
             $serviceDB = new UserDBStorage();
             if ($serviceDB->saveVerified($token)) {
                 return RegisterTemplate::getVerifyTemplate();
@@ -37,8 +36,8 @@ class RegisterController {
         return "";
     }
 
+
     public function create():string {      
-        session_start();
         $arr = [];
         $arr['username'] =  strip_tags($_POST['username']);
         $arr['email'] = strip_tags($_POST['email']);
@@ -52,7 +51,7 @@ class RegisterController {
             return "";
         }
         
-        $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT);
+        $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT );
         $verification_token = bin2hex(random_bytes(16));
 
         $arr['password'] = $hashed_password;
@@ -74,6 +73,13 @@ class RegisterController {
 	    header("Location: /pizza221/");
 
         return "";
+
+        
+        
+
     }
+
+
+    
 
 }

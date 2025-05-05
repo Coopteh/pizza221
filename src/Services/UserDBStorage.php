@@ -54,8 +54,12 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         }
         return false;
     }
+
+    /**
+     * Аутентификация пользователя
+     */
     public function loginUser($username, $password):bool {   
- 
+
         // Поиск пользователя
         $stmt = $this->connection->prepare(
             "SELECT id, username, password FROM users 
@@ -78,4 +82,51 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         
         return true;
     }
+
+    /* Получает данные пользователя по его id */
+    public function getUserData(int $id_user): ?array {
+        $stmt = $this->connection->prepare(
+            "SELECT id, username, email, address, phone
+            FROM users WHERE id = ? ");
+        $stmt->execute([$id_user]);
+
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch();
+            return $user;
+        }
+        return null;
+    }
+
+    public function updateProfile($data):bool {
+        global $user_id;
+        try {
+            $update = $this->connection->prepare(
+                "UPDATE users SET address= ?, phone= ? 
+                WHERE id = ?");
+
+            $update->execute([
+                $data['address'],
+                $data['phone'],
+                $user_id
+            ]);
+        } catch (\Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getDataHistory(int $idUser): ?array {
+
+        $stmt = $this->connection->prepare(
+            "SELECT id, created, all_sum, status
+            FROM orders WHERE user_id = :userId ");
+        $stmt->execute(["userId" => $idUser]);
+
+        if ($stmt->rowCount() > 0) {
+            $orders = $stmt->fetchAll();
+            return $orders;
+        }
+        return null;
+    }
+    
 }
