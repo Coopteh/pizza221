@@ -32,11 +32,12 @@ class RegisterController {
             }
         }
         // переадресация на Главную
-	    header("Location: /avtoservis/");
+	    header("Location: /avtoservris/");
         return "";
     }
 
     public function create():string {      
+        session_start();
         $arr = [];
         $arr['username'] =  strip_tags($_POST['username']);
         $arr['email'] = strip_tags($_POST['email']);
@@ -46,11 +47,11 @@ class RegisterController {
         // Валидация (проверка) переданных из формы значений
         if (! ValidateRegisterData::validate($arr)) {
             // переадресация обратно на страницу регистрации
-            header("Location: /avtoservis/register");
+            header("Location: /avtoservris/register");
             return "";
         }
         
-        $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT );
+        $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT);
         $verification_token = bin2hex(random_bytes(16));
 
         $arr['password'] = $hashed_password;
@@ -69,7 +70,7 @@ class RegisterController {
         $_SESSION['flash'] = "Спасибо за регистрацию! На ваш емайл отправлено письмо для подтверждения регистрации.";
         
         // переадресация на Главную
-	    header("Location: /avtoservis/");
+	    header("Location: /avtoservris/");
 
         return "";
     }

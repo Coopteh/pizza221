@@ -33,4 +33,27 @@ class BasketController
         $_SESSION['basket'] = [];
         $_SESSION['flash'] = "Корзина успешно очищена.";
     }
+    public function getTotal() {
+        $total = 0;
+        foreach ($_SESSION['basket'] as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+        
+        // Применяем скидку если есть
+        if (isset($_SESSION['discount'])) {
+            $discountText = $_SESSION['discount'];
+            if (strpos($discountText, '%') !== false) {
+                $percent = (float)str_replace('% скидки', '', $discountText);
+                $total *= (1 - $percent/100);
+            } elseif ($discountText === "Бесплатная доставка") {
+                $total -= 500; // Пример стоимости доставки
+            }
+        }
+        
+        return $total;
+    }
+    public function showDiscountButton(): string{
+        return '<button id="show-wheel">Получить скидку!</button>';
+    }
+    
 }

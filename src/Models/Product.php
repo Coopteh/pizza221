@@ -7,15 +7,13 @@ class Product {
     private ILoadStorage $dataStorage;
     private string $nameResource;
     
-    // Внедряем зависимость через конструктор
-    public function __construct(ILoadStorage $service, string $name)
-    {
+    public function __construct(ILoadStorage $service, string $name) {
         $this->dataStorage = $service;
         $this->nameResource = $name;
     }
 
     public function loadData(): ?array {
-        return $this->dataStorage->loadData( $this->nameResource ); 
+        return $this->dataStorage->loadData($this->nameResource); 
     }
 
     public function getBasketData(): array {
@@ -23,47 +21,37 @@ class Product {
             $_SESSION['basket'] = [];
         }
         $products = $this->loadData();
-        $basketProducts= [];
-//var_dump($_SESSION['basket']);
+        $basketProducts = [];
+
         foreach ($products as $product) {
             $id = $product['id'];
 
             if (array_key_exists($id, $_SESSION['basket'])) {
-                // количество товара берем то что указано в корзине
                 $quantity = $_SESSION['basket'][$id]['quantity'];
-
-                // остальные характеристики берем из массива всех товаров
                 $name = $product['name'];
-                $price= $product['price'];
+                $price = $product['price'];
+                $sum = $price * $quantity;
 
-                // сумму вычислим 
-                $sum  = $price * $quantity;
-
-                // добавим в новый массив
-                $basketProducts[] = array( 
+                $basketProducts[] = [
                     'id' => $id, 
                     'name' => $name, 
                     'quantity' => $quantity,
                     'price' => $price,
                     'sum' => $sum,
-                );
+                ];
             }
         }
 
         return $basketProducts;
     }
 
-        /* 
-        Подсчет общей суммы заказа (товаров в корзине)
-    */
     public function getAllSum(?array $products): float {
-        $all_sum =0;
+        $all_sum = 0;
         foreach ($products as $product) {
             $price = $product['price'];
-		    $quantity = $product['quantity'];
-
+            $quantity = $product['quantity'];
             $all_sum += $price * $quantity;
-	    }
+        }
         return $all_sum;
     }
 }

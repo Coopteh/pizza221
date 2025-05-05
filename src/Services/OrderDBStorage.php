@@ -58,4 +58,9 @@ class OrderDBStorage extends DBStorage implements ISaveStorage
         }
         return true;
     }
+    public function createOrder($orderData, $userId) {
+        $orderData['user_id'] = $userId; // Привязка к пользователю
+        $orderData['status'] = 1; // Статус "в работе"
+        // Ваш код для вставки заказа в базу данных
+    }   
 }
