@@ -4,8 +4,6 @@ namespace App\Services;
 class ValidateOrderData {
     public static function validate(array $data): bool {
 
-        return true;
-        
         // Проверка ФИО
         if (!isset($data['fio'])) {
             $_SESSION['flash'] = "Незаполнено поле ФИО.";
