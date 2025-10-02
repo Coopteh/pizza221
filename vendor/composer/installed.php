@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'kkt/pizza221',
-        'pretty_version' => 'dev-409/06/bfg',
-        'version' => 'dev-409/06/bfg',
-        'reference' => '0e295b87ab669c8beffc7b80c0b4032b8418b544',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '2eed46fdd00550467fc24993653c7409a6056760',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -23,9 +23,9 @@
             ),
         ),
         'kkt/pizza221' => array(
-            'pretty_version' => 'dev-409/06/bfg',
-            'version' => 'dev-409/06/bfg',
-            'reference' => '0e295b87ab669c8beffc7b80c0b4032b8418b544',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '2eed46fdd00550467fc24993653c7409a6056760',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
