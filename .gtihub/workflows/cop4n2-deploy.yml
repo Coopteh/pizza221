@@ -1,9 +1,9 @@
-name: PHP_CI_cop4n2
+name: PHP_CI_copm4n2
 
 on:
   push:
     branches:
-      - cop4n2
+      - copm4n2
 
 jobs:
   build:
