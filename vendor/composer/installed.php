@@ -3,7 +3,7 @@
         'name' => 'kkt/pizza221',
         'pretty_version' => 'dev-batman',
         'version' => 'dev-batman',
-        'reference' => '81f4947a020d038ffe9658ad959286ced8bc7b46',
+        'reference' => '71e306995727a64119062d95dde3e44b97eae6e9',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -43,7 +43,7 @@
         'kkt/pizza221' => array(
             'pretty_version' => 'dev-batman',
             'version' => 'dev-batman',
-            'reference' => '81f4947a020d038ffe9658ad959286ced8bc7b46',
+            'reference' => '71e306995727a64119062d95dde3e44b97eae6e9',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
