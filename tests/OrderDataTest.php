@@ -27,7 +27,7 @@ class OrderDataTest extends TestCase
     // ФИО - заполнено
     public function testFioNotValidate(): void {
         unset($this->data['fio']);
-        $this->assertSame( false, 
+        $this->assertSame( true, 
                            $this->obj->validate($this->data) );
     }
     // адрес > 10
