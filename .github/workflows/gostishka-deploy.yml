@@ -1,0 +1,25 @@
+name: PHP_CI_gostishka
+
+on:
+  push:
+    branches:
+      - gostishka
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run PHPUnit tests
+        run: ./vendor/bin/phpunit tests
