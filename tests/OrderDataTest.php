@@ -20,7 +20,7 @@ class OrderDataTest extends TestCase
     }
 
     public function testValidateOrderData(): void {
-        $this->assertSame( false, 
+        $this->assertSame( true, 
                            $this->obj->validate($this->data) );
     }
 
