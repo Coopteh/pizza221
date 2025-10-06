@@ -1,1 +1,1 @@
-{"version":2,"defects":[],"times":{"OrderDataTest::testValidateOrderData":0.628,"OrderDataTest::testFioNotValidate":0,"OrderDataTest::testAddressNotValidate":0,"OrderDataTest::testPhoneNotValidate":0,"OrderDataTest::testEmailNotValidate":0}}
+{"version":2,"defects":{"OrderDataTest::testValidateOrderData":7},"times":{"OrderDataTest::testValidateOrderData":0.018,"OrderDataTest::testFioNotValidate":0.002,"OrderDataTest::testAddressNotValidate":0,"OrderDataTest::testPhoneNotValidate":0,"OrderDataTest::testEmailNotValidate":0}}
