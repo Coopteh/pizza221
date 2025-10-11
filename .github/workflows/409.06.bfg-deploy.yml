@@ -1,9 +1,9 @@
-name: PHP_CI_<409/06/bfg>
+name: PHP_CI_409/06/bfg
 
 on:
   push:
     branches:
-      - <409/06/bfg>
+      - 409/06/bfg
 
 jobs:
   build:
